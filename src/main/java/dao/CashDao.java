@@ -23,8 +23,8 @@ public class CashDao {
 		{
 			HashMap<String, Object> m = new HashMap<String, Object>();
 			//m.put
-			m.put("cashDate",rs.getInt(year) );
-			m.put("cashPrice",rs.getInt(month) );
+			m.put("cashNo",rs.getInt("cashNo") );
+			m.put("cashDate",rs.getString("cashDate") );
 			list.add(m);
 		}
 		return list;
