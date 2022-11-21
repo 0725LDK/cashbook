@@ -3,6 +3,7 @@ package vo;
 public class Cash {
 	private int cashNo;
 	private int categoryNo;//왜래키(FK) -> inner join -> Map 타입
+	private String cashDate;
 	private long cashPrice;
 	private String cashMemo;
 	private String updatedate;
@@ -18,6 +19,12 @@ public class Cash {
 	}
 	public void setCategoryNo(int categoryNo) {
 		this.categoryNo = categoryNo;
+	}
+	public String getCashDate() {
+		return cashDate;
+	}
+	public void setCashDate(String cashDate) {
+		this.cashDate = cashDate;
 	}
 	public long getCashPrice() {
 		return cashPrice;
@@ -43,5 +50,6 @@ public class Cash {
 	public void setCreatedate(String createdate) {
 		this.createdate = createdate;
 	}
+
 	
 }
