@@ -8,7 +8,7 @@
 	int month = 0;
 	
 	//연과 월을 구하는 알고리즘
-	if(request.getParameter("year") == null || request.getParameter("momth") == null)
+	if(request.getParameter("year") == null || request.getParameter("month") == null)
 	{
 		Calendar today  = Calendar.getInstance(); //오늘 날짜
 		year = today.get(Calendar.YEAR);
@@ -31,33 +31,34 @@
 		}
 	}
 	
-	//출력하고자 하는 연, 월의 1일 요일(일요일 1 월요일 2 화요일 3 ... 토요일 7)
-	Calendar targetDate = Calendar.getInstance();	
+	// 출력하고자 하는 년,월과 월의 1일의 요일(일 1, 월 2, 화 3, ... 토 7)
+	Calendar targetDate = Calendar.getInstance();
 	targetDate.set(Calendar.YEAR, year);
 	targetDate.set(Calendar.MONTH, month);
 	targetDate.set(Calendar.DATE, 1);
-	//firstDay는 1일의 요일
-	int firstDay = targetDate.get(Calendar.DAY_OF_WEEK);//요일
-	//마지막 날짜
-	int lastDate = targetDate.getActualMaximum(Calendar.DATE);
+	// firstDay는 1일의 요일
+	int firstDay = targetDate.get(Calendar.DAY_OF_WEEK); // 요일(일 1, 월 2, 화 3, ... 토 7)
+	// begin blank개수는 firstDay - 1
 	
-	//begin blank는 firstDay -1
+	// 마지막날짜
+	int lastDate = targetDate.getActualMaximum(Calendar.DATE); // 
+	
+	// 달력 출력테이블의 시작 공백셀(td)과 마지막 공백셀(td)의 개수
 	int beginBlank = firstDay - 1;
-	int endBlank = 0;// beginBlank+lastDate+endBlank 7로 나누어 떨어진다
-	if(beginBlank + lastDate % 7 != 0)
-	{
-		endBlank = 7 - (beginBlank + lastDate % 7);
+	int endBlank = 0; // beginBlank + lastDate + endBlank --> 7로 나누어 떨어진다 --> totalTd
+	if((beginBlank + lastDate) % 7 != 0) {
+		endBlank = 7 - ((beginBlank + lastDate) % 7);
 	}
 	
-	//전체 td의 갯수 : 7로 나누어 떨어져야한다.
+	// 전체 td의 개수 : 7로 나누어 떨어져야 한다
 	int totalTd = beginBlank + lastDate + endBlank;
 	
-	//model 호출 : 일별 cash 목록
+	
+	// Model 호출 : 일별 cash 목록
 	CashDao cashDao = new CashDao();
 	ArrayList<HashMap<String, Object>> list = cashDao.selectCashListByMonth(year, month+1);
-
-	//view : 달력 출력 + 일별 cash 목록
-
+	
+	// View : 달력출력 + 일별 cash 목록 출력
 %>
 <!DOCTYPE html>
 <html>
@@ -68,62 +69,66 @@
 <body>
 	<div>
 		<!-- 로그인 정보(세션 loginMember 변수) 출력 -->
-		<h1>마이 페이지</h1>
 	</div>
 	
 	<div>
-		<%=year%>년 &nbsp;<%=month+1%> 월
+		<a href="<%=request.getContextPath()%>/cash/cashList.jsp?year=<%=year%>&month=<%=month-1%>">&#8701;이전달</a>
+		<%=year%>년 <%=month+1%> 월
+		<a href="<%=request.getContextPath()%>/cash/cashList.jsp?year=<%=year%>&month=<%=month+1%>">다음달&#8702;</a>
 	</div>
-	
 	<div>
-		<table border="1">
+		<!-- 달력 -->
+		<table border="1" width="90%">
 			<tr>
-				<th>일</th>
-				<th>월</th>
-				<th>화</th>
-				<th>수</th>
-				<th>목</th>
-				<th>금</th>
-				<th>토</th>
+				<th>일</th><th>월</th><th>화</th><th>수</th><th>목</th><th>금</th><th>토</th>
 			</tr>
-			<%
-				for(int i=1; i<=totalTd; i++)
-				{
-			%>		
-					<td>
-						<%
-							int date = i-beginBlank; 
-							if(date>0 && date<=lastDate)
-							{
-						%>
-								<%=date%>
-						<%
+			
+			<tr>
+				<%
+					for(int i=1; i<=totalTd; i++) {
+				%>
+						<td>
+				<%
+							int date = i-beginBlank;
+							if(date > 0 && date <= lastDate) {
+				%>
+								<div>
+									<a href="<%=request.getContextPath()%>/cashDateList.jsp?year=<%=year%>&month=<%=month+1%>&date=<%=date%>">
+										<%=date%>
+									</a>
+								</div>
+								<div>
+									<%
+										for(HashMap<String, Object> m : list) {
+											String cashDate = (String)(m.get("cashDate"));
+											if(Integer.parseInt(cashDate.substring(8)) == date) {
+									%>
+												[<%=(String)(m.get("categoryKind"))%>]
+												<%=(String)(m.get("categoryName"))%>
+												&nbsp;
+												<%=(Long)(m.get("cashPrice"))%>원
+												<br>
+									<%
+											
+											}
+										}
+									%>
+								</div>
+				<%				
 							}
+				%>
+						</td>
+				<%
 						
-						%>
-					</td>				
-			<%	
-					if(i%7==0 && i!= totalTd)
-					{
-					%>
-						<tr></tr><!-- td7개 만들고 테이블 줄바꿈 -->
-					<%
+						if(i%7 == 0 && i != totalTd) {
+				%>
+							</tr><tr> <!-- td7개 만들고 테이블 줄바꿈 -->
+				<%			
+						}
 					}
-				}
-			%>
+				%>
+			</tr>
 		</table>
-	</div>
-	
-	<div>
-		<%
-			for(HashMap<String, Object> m : list)
-			{
-		%>		
-				<!-- 과제 -->
-				<%=(Integer)(m.get("cashNo")) %>	
-		<%		
-			}
-		%>
 	</div>
 </body>
 </html>
