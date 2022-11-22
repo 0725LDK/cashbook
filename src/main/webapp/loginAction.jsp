@@ -3,40 +3,11 @@
 <%@ page import="dao.*" %>
 
 <%
-
-
-	/* request.setCharacterEncoding("utf-8");
-	String driver = "org.mariadb.jdbc.Driver";
-	String dbUrl = "jdbc:mariadb://localhost:3306/cashbook";
-	String dbUser = "root";
-	String dbPw = "java1234";
-	
-	Class.forName(driver); // 외부 드라이브 로딩
-	Connection conn = DriverManager.getConnection(dbUrl, dbUser, dbPw); // db 연결
-	
-	String memberId = request.getParameter("memberId");
-	String memberPw= request.getParameter("memberPw");
-	
-	String sql = "SELECT member_id memberId, member_pw memberPw FROM member WHERE member_id =? AND member_pw =PASSWORD(?)";
-	PreparedStatement stmt = conn.prepareStatement(sql);
-	stmt.setString(1, memberId);
-	stmt.setString(2, memberPw);
-	ResultSet rs = stmt.executeQuery();
-	if(rs.next())
-	{
-		response.sendRedirect(request.getContextPath()+"/cash/cashList.jsp");
-		System.out.println("성공");
-	}
-	else
-	{
-		response.sendRedirect(request.getContextPath()+"/loginForm.jsp");
-		System.out.println("실패");
-	} */
-	
-	
+	request.setCharacterEncoding("UTF-8");
 	//C
 	Member paramMember = new Member();//모델 호출시 매개값
-	
+	paramMember.setMemberId(request.getParameter("memberId"));
+	paramMember.setMemberPw(request.getParameter("memberPw"));
 	
 	//분리된 M(모델)을 호출
 	

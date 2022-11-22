@@ -36,7 +36,7 @@ public class MemberDao
 		{
 			resultMember = new Member();
 			resultMember.setMemberId(rs.getString("memberId"));
-			resultMember.setMemberPw(rs.getString("memberPw"));
+			resultMember.setMemberName(rs.getString("memberName"));
 		}
 		
 		rs.close();

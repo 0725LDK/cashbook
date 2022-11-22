@@ -1,33 +1,41 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page import="java.util.*" %>
-<%@ page import="dao.*" %>
+<%@ page import = "java.util.*"%>
+<%@ page import = "dao.*" %>
+<%@ page import = "vo.*" %>
 <%
-	//controller : session, request
-	//request 년 + 월
+	// Controller : seesion, request
+	 if(session.getAttribute("loginMember")==null)
+	{
+		response.sendRedirect(request.getContextPath()+"/loginForm.jsp");
+		return;
+	} 
+	// session에 저장된 멤버(현재 로그인)
+	Member loginMember = (Member)session.getAttribute("loginMember");
+	
+	// request 년 + 월
 	int year = 0;
 	int month = 0;
 	
-	//연과 월을 구하는 알고리즘
-	if(request.getParameter("year") == null || request.getParameter("month") == null)
+	if((request.getParameter("year") == null) || request.getParameter("month") == null) 
 	{
-		Calendar today  = Calendar.getInstance(); //오늘 날짜
+		Calendar today = Calendar.getInstance(); // 오늘날짜
 		year = today.get(Calendar.YEAR);
-		month = today.get(Calendar.MONTH); //월 -1 이됨  0은 1월  11은 12월 
-	}
-	else
+		month = today.get(Calendar.MONTH);
+	} 
+	else 
 	{
 		year = Integer.parseInt(request.getParameter("year"));
 		month = Integer.parseInt(request.getParameter("month"));
-		//month -> -1 , month ->12일 경우
-		if(month == -1)
+		// month -> -1, month -> 12 일경우
+		if(month == -1) 
 		{
 			month = 11;
 			year -= 1;
 		}
-		if(month == 12)
+		if(month == 12) 
 		{
 			month = 0;
-			year +=1;
+			year += 1;
 		}
 	}
 	
@@ -56,7 +64,7 @@
 	
 	// Model 호출 : 일별 cash 목록
 	CashDao cashDao = new CashDao();
-	ArrayList<HashMap<String, Object>> list = cashDao.selectCashListByMonth(year, month+1);
+	ArrayList<HashMap<String, Object>> list = cashDao.selectCashListByMonth(loginMember.getMemberId(), year, month+1);
 	
 	// View : 달력출력 + 일별 cash 목록 출력
 %>
@@ -69,16 +77,20 @@
 <body>
 	<div>
 		<!-- 로그인 정보(세션 loginMember 변수) 출력 -->
+		사용자 : <%=loginMember.getMemberName() %>
 	</div>
+	<br>
 	
 	<div>
 		<a href="<%=request.getContextPath()%>/cash/cashList.jsp?year=<%=year%>&month=<%=month-1%>">&#8701;이전달</a>
 		<%=year%>년 <%=month+1%> 월
 		<a href="<%=request.getContextPath()%>/cash/cashList.jsp?year=<%=year%>&month=<%=month+1%>">다음달&#8702;</a>
 	</div>
+	<br>
+	
 	<div>
 		<!-- 달력 -->
-		<table border="1" width="90%">
+		<table border="1">
 			<tr>
 				<th>일</th><th>월</th><th>화</th><th>수</th><th>목</th><th>금</th><th>토</th>
 			</tr>
@@ -93,7 +105,7 @@
 							if(date > 0 && date <= lastDate) {
 				%>
 								<div>
-									<a href="<%=request.getContextPath()%>/cashDateList.jsp?year=<%=year%>&month=<%=month+1%>&date=<%=date%>">
+									<a href="<%=request.getContextPath()%>/cash/cashDateList.jsp?year=<%=year%>&month=<%=month+1%>&date=<%=date%>">
 										<%=date%>
 									</a>
 								</div>
@@ -129,6 +141,9 @@
 				%>
 			</tr>
 		</table>
+	</div>
+	<div>
+		<a href="<%=request.getContextPath()%>/logOut.jsp">로그아웃</a>
 	</div>
 </body>
 </html>
