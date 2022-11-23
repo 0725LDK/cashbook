@@ -58,7 +58,64 @@ public class MemberDao
 		Class.forName(driver); // 외부 드라이브 로딩
 		Connection conn = DriverManager.getConnection(dbUrl, dbUser, dbPw); // db 연결
 		*/
+		DBUtil dbUtil = new DBUtil(); //DBUtil 클래스의 객체 dbUtil 만들고
+		Connection conn = dbUtil.getConnection();//객체 dbUtil의 getConnection 메소드를 호출해서 Connection conn에 저장
+		
+		String sql = "INSERT INTO member(member_id, member_pw, member_name, updatedate, createdate) VALUES ( ?,PASSWORD(?),?,now(),now())";
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		stmt.setString(1, paramMember.getMemberId());
+		stmt.setString(2, paramMember.getMemberPw());
+		stmt.setString(3, paramMember.getMemberName());
+		int row = stmt.executeUpdate();
+		if(row ==1)
+		{
+			System.out.println("회원가입 성공");
+			stmt.close();
+			conn.close();
+			resultRow = 1;
+			return resultRow;
+		}
+		System.out.println("회원가입 실패");
+		stmt.close();
+		conn.close();
 		
 		return resultRow;
 	}
+	
+	//회원정보 수정
+		public int updateMember(Member paramMember) throws Exception
+		{
+			int resultRow = 0;
+			
+			/*String driver = "org.mariadb.jdbc.Driver";
+			String dbUrl = "jdbc:mariadb://localhost:3306/cashbook";
+			String dbUser = "root";
+			String dbPw = "java1234";
+			
+			Class.forName(driver); // 외부 드라이브 로딩
+			Connection conn = DriverManager.getConnection(dbUrl, dbUser, dbPw); // db 연결
+			*/
+			DBUtil dbUtil = new DBUtil(); //DBUtil 클래스의 객체 dbUtil 만들고
+			Connection conn = dbUtil.getConnection();//객체 dbUtil의 getConnection 메소드를 호출해서 Connection conn에 저장
+			
+			String sql = "UPDATE MEMBER SET member_name = ? WHERE member_id= ? AND member_pw = PASSWORD(?);";
+			PreparedStatement stmt = conn.prepareStatement(sql);
+			stmt.setString(1, paramMember.getMemberName());
+			stmt.setString(2, paramMember.getMemberId());
+			stmt.setString(3, paramMember.getMemberPw());
+			int row = stmt.executeUpdate();
+			if(row ==1)
+			{
+				System.out.println("회원정보 수정 성공");
+				stmt.close();
+				conn.close();
+				resultRow = 1;
+				return resultRow;
+			}
+			System.out.println("회원정보 수정 실패");
+			stmt.close();
+			conn.close();
+			
+			return resultRow;
+		}
 }

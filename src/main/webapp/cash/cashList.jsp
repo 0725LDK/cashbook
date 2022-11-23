@@ -4,7 +4,8 @@
 <%@ page import = "vo.*" %>
 <%
 	// Controller : seesion, request
-	 if(session.getAttribute("loginMember")==null)
+	request.setCharacterEncoding("utf-8");
+	if(session.getAttribute("loginMember")==null)
 	{
 		response.sendRedirect(request.getContextPath()+"/loginForm.jsp");
 		return;
@@ -16,6 +17,7 @@
 	int year = 0;
 	int month = 0;
 	
+	//날짜 없이 넘어 올 경우
 	if((request.getParameter("year") == null) || request.getParameter("month") == null) 
 	{
 		Calendar today = Calendar.getInstance(); // 오늘날짜
@@ -77,7 +79,18 @@
 <body>
 	<div>
 		<!-- 로그인 정보(세션 loginMember 변수) 출력 -->
-		사용자 : <%=loginMember.getMemberName() %>
+		사용자 ID: <%=loginMember.getMemberId() %><br>
+		사용자 이름: <%=loginMember.getMemberName() %><br>
+		<a href="<%=request.getContextPath()%>/updateMemberForm.jsp?memberId=<%=loginMember.getMemberId()%>&memberName=<%=loginMember.getMemberName() %>">회원정보 수정</a>
+		<%
+			if(request.getParameter("msg") != null)
+			{
+		%>
+				<span><%=request.getParameter("msg") %></span>
+		<%	
+			}
+		
+		%>
 	</div>
 	<br>
 	
@@ -88,8 +101,8 @@
 	</div>
 	<br>
 	
+	<!-- 달력 -->
 	<div>
-		<!-- 달력 -->
 		<table border="1">
 			<tr>
 				<th>일</th><th>월</th><th>화</th><th>수</th><th>목</th><th>금</th><th>토</th>
@@ -142,6 +155,7 @@
 			</tr>
 		</table>
 	</div>
+	
 	<div>
 		<a href="<%=request.getContextPath()%>/logOut.jsp">로그아웃</a>
 	</div>

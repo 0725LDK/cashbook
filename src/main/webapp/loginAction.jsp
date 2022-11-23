@@ -1,9 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="vo.*" %>
 <%@ page import="dao.*" %>
+<%@ page import="java.net.*" %>
 
 <%
 	request.setCharacterEncoding("UTF-8");
+	//빈칸 방지
+	String msg = null;
+	if(request.getParameter("memberId")==null || request.getParameter("memberId").equals("")
+		|| request.getParameter("memberPw")==null || request.getParameter("memberPw").equals(""))
+	{
+		msg = URLEncoder.encode("항목을 입력하세요.","utf-8");
+		response.sendRedirect(request.getContextPath()+"/loginForm.jsp?msg="+msg);
+		return;
+	}
 	//C
 	Member paramMember = new Member();//모델 호출시 매개값
 	paramMember.setMemberId(request.getParameter("memberId"));

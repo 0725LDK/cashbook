@@ -22,6 +22,8 @@
 	
 	CashDao cashDao = new CashDao(); 
 	ArrayList<HashMap<String, Object>> list = cashDao.selectCashListByMonth(loginMemberId, year, month);
+	
+	
 %>
 <!DOCTYPE html>
 <html>
@@ -45,13 +47,15 @@
 		</tr>
 		
 		<%
+			//해당일의 가계부 목록 출력
 			for(HashMap<String, Object> m : list)
 			{
 				String cashDate = (String)(m.get("cashDate"));
 				if(Integer.parseInt(cashDate.substring(0, 4)) == year && Integer.parseInt(cashDate.substring(5, 7)) == month && Integer.parseInt(cashDate.substring(8)) == date)
 				{
+					System.out.println((Integer)(m.get("cashNo")));
 		%>
-
+					
 					<tr>
 						<td><%=(String)m.get("categoryKind")%>&nbsp;</td>
 						<td><%=(String)m.get("categoryName")%>&nbsp;</td>
@@ -60,25 +64,28 @@
 						<td><%=(String)m.get("updateDate")%>&nbsp;</td>
 						<td><%=(String)m.get("createDate")%>&nbsp;</td>
 						<td>
-							<a href="<%=request.getContextPath()%>/cash/updateCashForm.jsp">수정&nbsp;</a>
-							<a href="<%=request.getContextPath()%>/cash/deleteCashForm.jsp">삭제</a>
+							<a href="<%=request.getContextPath()%>/cash/updateCashForm.jsp?year=<%=year%>&month=<%=month%>&date=<%=date%>&cashNo=<%=m.get("cashNo")%>">수정&nbsp;</a>
+							<a href="<%=request.getContextPath()%>/cash/deleteCashAction.jsp?year=<%=year%>&month=<%=month%>&date=<%=date%>&cashNo=<%=m.get("cashNo")%>&memberId=<%=loginMemberId%>">삭제</a></td>
 						</td>
 					<tr>
 		<%
 				}
 			}
 		%>
-		</table>
-	<a href="<%=request.getContextPath()%>/cash/cashList.jsp">돌아가기</a>
+	</table>
 	
+	<a href="<%=request.getContextPath()%>/cash/cashList.jsp">돌아가기</a>
 	
 	<!-- cash 입력폼 -->
 	<form action="<%=request.getContextPath()%>/cash/insertCashAction.jsp" method="post">
 		<input type="hidden" name="memberId" value="<%=loginMember.getMemberId()%>">
+		<input type="hidden" name="year" value="<%=year%>">
+		<input type="hidden" name="month" value="<%=month%>">
+		<input type="hidden" name="date" value="<%=date%>">
 		<table>
 			<tr>
 				<td>categoryNo</td>
-				<td>
+				<td><!-- 카테고리 넘버 출력 -->
 					<select name="categoryNo">
 						<%
 							for(Category c : categoryList)
@@ -92,14 +99,21 @@
 					</select>
 				</td>
 			</tr>
-			
+
 			<tr>
 				<td>cashDate</td>
 				<td>
-					<input type="text" name="cashDate" value="<%=year %> - <%=month %> - <%=date %>" readonly="readonly">
+					<input type="text" name="cashDate" value="<%=year %>-<%=month %>-<%=date %>" readonly="readonly">
 				</td>
 			</tr>
 			
+			<tr>
+				<td>cashPrice</td>
+				<td>
+					<input type="text" name="cashPrice">
+				</td>
+			</tr>
+
 			<tr>
 				<td>cashMemo</td>
 				<td>
@@ -110,6 +124,22 @@
 		</table>
 	<button type="submit">입력</button>
 	</form>
+	
+	<%
+		if(request.getParameter("msg1") != null)
+		{
+	%>
+			<span style="color:red"><%=request.getParameter("msg1") %></span>
+			<span><%=request.getParameter("msg") %></span>
+	<%	
+		}
+		else if(request.getParameter("msg1") == null && request.getParameter("msg") != null )
+		{
+	%>
+			<span><%=request.getParameter("msg") %></span>
+	<%		
+		}
+	%>
 	
 </body>
 </html>

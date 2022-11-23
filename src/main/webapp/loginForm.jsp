@@ -29,6 +29,17 @@
 		</table>
 		<button type="submit">로그인</button>
 	</form>
-
+	<div>
+		<a href="<%=request.getContextPath()%>/insertMemberForm.jsp">회원가입</a>
+	</div>
+	<%
+		if(request.getParameter("msg") != null)
+		{
+	%>
+			<span><%=request.getParameter("msg") %></span>
+	<%	
+		}
+	
+	%>
 </body>
 </html>
