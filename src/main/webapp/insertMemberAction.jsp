@@ -6,7 +6,17 @@
 <%@ page import="vo.*" %>
 
 <%
+	//Controller
 	request.setCharacterEncoding("utf-8");
+	String memberId = request.getParameter("memberId");
+	String memberPw = request.getParameter("memberPw");
+	String memberName = request.getParameter("memberName");
+
+	Member member = new Member();
+	member.setMemberId(memberId);
+	member.setMemberPw(memberPw);
+	member.setMemberName(memberName);
+	
 	String msg = null;
 	//빈칸 방지
 	if(request.getParameter("memberId")==null ||request.getParameter("memberId").equals("") 
@@ -25,20 +35,24 @@
 		response.sendRedirect(request.getContextPath()+"/insertMemberForm.jsp?msg="+msg);
 		return;
 	}
-	//객체 생성하고 필드값 설정
-	Member insertMember = new Member();
-	insertMember.setMemberId(request.getParameter("memberId"));
-	insertMember.setMemberPw(request.getParameter("memberPw"));
-	insertMember.setMemberName(request.getParameter("memberName"));
 	
-	MemberDao MemberDao = new MemberDao();
-	if(MemberDao.insertMember(insertMember) == 1)
+	//Model 호출
+	//아이디 중복 체크
+	String targetUrl = "/insertMemberForm.jsp";
+	MemberDao memberDao = new MemberDao();
+	if(memberDao.selectMemberIdCk(memberId))
 	{
-		msg = URLEncoder.encode("회원가입에 성공했습니다. 로그인 해주세요", "utf-8");
-		String targetUrl = "/loginForm.jsp";
+		msg = URLEncoder.encode("아이디가 중복되었습니다.", "utf-8");
 		response.sendRedirect(request.getContextPath()+targetUrl + "?msg="+msg);
 		return;
 	}
+	
+	//회원가입
+	int row = memberDao.insertMember(member);
+	System.out.println(row + "<---insertMemberAction.jsp row");
+	targetUrl = "/loginForm.jsp";
+	msg = URLEncoder.encode("회원가입에 성공했습니다. 로그인하세요.", "utf-8");
+	response.sendRedirect(request.getContextPath()+targetUrl + "?msg="+msg);
 
 %>
 <!DOCTYPE html>

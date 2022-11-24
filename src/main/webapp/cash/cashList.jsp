@@ -69,6 +69,8 @@
 	ArrayList<HashMap<String, Object>> list = cashDao.selectCashListByMonth(loginMember.getMemberId(), year, month+1);
 	
 	// View : 달력출력 + 일별 cash 목록 출력
+	
+	System.out.println(loginMember.getMemberLevel()+"<== 캐쉬리스트 멤버 레벨");
 %>
 <!DOCTYPE html>
 <html>
@@ -81,7 +83,19 @@
 		<!-- 로그인 정보(세션 loginMember 변수) 출력 -->
 		사용자 ID: <%=loginMember.getMemberId() %><br>
 		사용자 이름: <%=loginMember.getMemberName() %><br>
+		
+		<%
+			if(loginMember.getMemberLevel()>0)
+			{
+		%>
+				<a href="<%=request.getContextPath()%>/admin/adminMain.jsp">관리자 페이지</a>
+		<%
+			}
+				
+		
+		%>
 		<a href="<%=request.getContextPath()%>/updateMemberForm.jsp?memberId=<%=loginMember.getMemberId()%>&memberName=<%=loginMember.getMemberName() %>">회원정보 수정</a>
+		<a href="<%=request.getContextPath()%>/deleteMemberForm.jsp?memberId=<%=loginMember.getMemberId()%>%>">회원정보 삭제</a>
 		<%
 			if(request.getParameter("msg") != null)
 			{
