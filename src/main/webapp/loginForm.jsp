@@ -12,7 +12,8 @@
 	}
 
 	//페이징을 위한 변수 설정
-	int currentPage = 1;//현재페이지
+	int firstPage = 1;//1페이지 고정값
+	int currentPage = 1;//현재페이지 반영값
 	if(request.getParameter("currentPage")!=null)
 	{
 		currentPage = Integer.parseInt(request.getParameter("currentPage"));
@@ -81,7 +82,7 @@
 			else 
 			{
 		%>
-				<a href="<%=request.getContextPath()%>/loginForm.jsp?currentPage=<%= currentPage%>">처음으로</a>
+				<a href="<%=request.getContextPath()%>/loginForm.jsp?currentPage=<%= firstPage%>">처음으로</a>
 				<a href="<%=request.getContextPath()%>/loginForm.jsp?currentPage=<%= currentPage-1%>"">이전</a>
 		<%
 			}

@@ -88,7 +88,7 @@
 			if(loginMember.getMemberLevel()>0)
 			{
 		%>
-				<a href="<%=request.getContextPath()%>/admin/adminMain.jsp">관리자 페이지</a>
+				<a href="<%=request.getContextPath()%>/admin/adminMain.jsp?loginMember=<%=loginMember%>">관리자 페이지</a>
 		<%
 			}
 				

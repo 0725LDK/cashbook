@@ -3,12 +3,11 @@
 <%
 	//Controller
 	Member loginMember = (Member)session.getAttribute("loginMember");
-	System.out.println(loginMember +"<=== adminMain loginMember 넘어오는 값");
 	if(loginMember == null || loginMember.getMemberLevel()<1)
 	{
 		response.sendRedirect(request.getContextPath()+"/loginForm.jsp");
 		return;
-	} 
+	}
 	
 	//Model
 
@@ -30,7 +29,7 @@
 		<li><a href="<%=request.getContextPath()%>/cash/cashList.jsp">돌아가기</a></li>
 	</ul>
 	<div>
-		<!-- adminMain contents-->
+		<!-- memberList contents-->
 	
 	</div>
 </body>
