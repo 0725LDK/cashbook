@@ -2,9 +2,18 @@
 <%@ page import="dao.*" %>
 <%@ page import="vo.*" %>
 <%@ page import="java.util.*" %>
+<%@ page import="java.net.*" %>
 
 <%
 	request.setCharacterEncoding("utf-8");
+	String msg = null;
+	if(request.getParameter("noticeMemo") == null || request.getParameter("noticeMemo").equals(""))
+	{
+		msg = URLEncoder.encode("항목을 입력하세요","utf-8");
+		response.sendRedirect(request.getContextPath()+"/admin/noticeUpdateForm.jsp?msg="+msg+"&noticeNo="+request.getParameter("noticeNo"));
+		return;
+	}
+
 	Notice notice = new Notice();
 	notice.setNoticeNo(Integer.parseInt(request.getParameter("noticeNo")));
 	int noticeNo = notice.getNoticeNo();
@@ -16,7 +25,7 @@
 	
 	if(row == 1)
 	{
-		System.out.println(row + "noticeUpdateAction 삭제성공");
+		System.out.println(row + "noticeUpdateAction 업데이트성공");
 	}
 	
 	response.sendRedirect(request.getContextPath()+"/admin/noticeList.jsp?noticeNo="+noticeNo+"&noticeMemo="+noticeMemo);

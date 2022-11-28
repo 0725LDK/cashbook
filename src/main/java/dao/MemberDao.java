@@ -11,9 +11,30 @@ import util.DBUtil;
 public class MemberDao 
 {	
 	//관리자 : 멤버 레벨수정
-	public int updateMemberLevel(Member member)
+	public int updateMemberLevel(Member member) throws Exception
 	{
-		return 0;
+		int resultRow = 0;
+		
+		DBUtil dbUtil = new DBUtil();
+		Connection conn = dbUtil.getConnection();
+		
+		String sql = "UPDATE MEMBER SET member_level = ? WHERE member_id= ? ";
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		stmt.setInt(1, member.getMemberLevel());
+		stmt.setString(2, member.getMemberId());
+		int row = stmt.executeUpdate();
+		if(row ==1)
+		{
+			System.out.println("회원레벨 수정 성공");
+			resultRow = 1;
+		}
+		else
+		{
+			System.out.println("회원정보 수정 실패");
+		}
+
+		dbUtil.close(null, stmt, conn);
+		return resultRow;
 	}
 	
 	//관리자 : 멤버수
@@ -39,7 +60,27 @@ public class MemberDao
 	//회원 강퇴
 	public int deleteMemberByAdmin(Member member) throws Exception
 	{
-		return 0;
+		int resultRow = 0;
+		
+		DBUtil dbUtil = new DBUtil();
+		Connection conn = dbUtil.getConnection();
+		
+		String sql = "DELETE FROM member WHERE member_id = ? ";
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		stmt.setString(1, member.getMemberId());
+		int row = stmt.executeUpdate();
+		if(row ==1)
+		{
+			System.out.println("회원강퇴 성공");
+			resultRow = 1;
+		}
+		else
+		{
+			System.out.println("회원강퇴 실패");
+		}
+
+		dbUtil.close(null, stmt, conn);
+		return resultRow;
 	}
 	
 	//관리자 멤버 리스트 띄우기

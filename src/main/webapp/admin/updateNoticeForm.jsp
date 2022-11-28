@@ -2,7 +2,17 @@
 <%@ page import="dao.*" %>
 <%@ page import="vo.*" %>
 
-<%
+<%	
+	//Controller
+	request.setCharacterEncoding("utf-8");
+	Member loginMember = (Member)session.getAttribute("loginMember");
+	if(loginMember == null || loginMember.getMemberLevel()<1)
+	{
+		response.sendRedirect(request.getContextPath()+"/loginForm.jsp");
+		return;
+	}
+
+
 	Notice notice = new Notice();
 	notice.setNoticeNo(Integer.parseInt(request.getParameter("noticeNo")));
 	int noticeNo = notice.getNoticeNo();
@@ -18,7 +28,8 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<form action="<%=request.getContextPath()%>/admin/noticeUpdateAction.jsp" method="post">
+	<h1>공지 수정 페이지</h1>
+	<form action="<%=request.getContextPath()%>/admin/updateNoticeAction.jsp" method="post">
 		<table>
 			<tr>
 				<td>공지번호</td>
@@ -31,5 +42,13 @@
 		</table>
 		<button type="submit">수정하기</button>
 	</form>
+		<%
+			if(request.getParameter("msg") != null)
+			{
+		%>
+				<span><%=request.getParameter("msg") %></span>
+		<%		
+			}
+		%>
 </body>
 </html>

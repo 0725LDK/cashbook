@@ -1,9 +1,11 @@
+<%@page import="java.net.URLEncoder"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="vo.*" %>
 <%@ page import="dao.*" %>
 <%@ page import="java.util.*" %>
 <%
 	//Controller
+	request.setCharacterEncoding("utf-8");
 	Member loginMember = (Member)session.getAttribute("loginMember");
 	if(loginMember == null || loginMember.getMemberLevel()<1)
 	{
@@ -54,6 +56,14 @@
 			<textarea rows="3" cols="30" name="noticeMemo"></textarea>
 			<button type="submit">입력</button>		
 		</form>
+		<%
+			if(request.getParameter("msg") != null)
+			{
+		%>
+				<span><%=request.getParameter("msg") %></span>
+		<%		
+			}
+		%>
 		
 		<table>
 			<tr>
@@ -66,12 +76,13 @@
 			<%
 				for(Notice n : list)
 				{
+					String noticeMemo = URLEncoder.encode(n.getNoticeMemo(),"utf-8");//한글로된 noticeMemo 넘기기 위해
 			%>
 					<tr>
 						<td><%=n.getNoticeMemo() %></td>
 						<td><%=n.getCreatedate() %></td>
-						<td><a href="<%=request.getContextPath()%>/admin/noticeUpdateForm.jsp?noticeNo=<%=n.getNoticeNo()%>&noticeMemo=<%=n.getNoticeMemo()%>">수정</a></td>
-						<td><a href="<%=request.getContextPath()%>/admin/noticeDelete.jsp?noticeNo=<%=n.getNoticeNo()%>">삭제</a></td>
+						<td><a href="<%=request.getContextPath()%>/admin/updateNoticeForm.jsp?noticeNo=<%=n.getNoticeNo()%>&noticeMemo=<%=noticeMemo%>">수정</a></td>
+						<td><a href="<%=request.getContextPath()%>/admin/deleteNotice.jsp?noticeNo=<%=n.getNoticeNo()%>">삭제</a></td>
 					</tr>
 			<%
 				}

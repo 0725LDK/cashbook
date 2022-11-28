@@ -1,4 +1,3 @@
-<%@page import="javax.sql.rowset.RowSetProvider"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="vo.*" %>
 <%@ page import="dao.*" %>
@@ -76,14 +75,17 @@
 					<td><%=m.getCreatedate() %></td>
 					
 					<td>
-						<select name="memberLevel">
-							<option value="0">0</option>
-							<option value="1">1</option>
-						</select>
-						<a href="<%=request.getContextPath()%>/admin/updateMemberAction.jsp">레벨 수정</a>
+						<form action="<%=request.getContextPath()%>/admin/updateMemberAction.jsp" method="post">
+							<input type="hidden" name="memberId" value="<%=m.getMemberId()%>">
+							<select name="memberLevel">
+								<option value="0">0</option>
+								<option value="1">1</option>
+							</select>
+						<button type="submit">레벨 수정</button>
+						</form>
 					</td>
 					
-					<td><a href="<%=request.getContextPath()%>/admin/deleteMemberAction.jsp">강제 탈퇴</a></td>
+					<td><a href="<%=request.getContextPath()%>/admin/deleteMemberAction.jsp?memberId=<%=m.getMemberId()%>">강제 탈퇴</a></td>
 				</tr>
 		<%
 			}
@@ -127,5 +129,14 @@
 			%>
 		</div>
 	</div>
+	
+		<%
+			if(request.getParameter("msg") != null)
+			{
+		%>
+				<span><%=request.getParameter("msg") %></span>
+		<%		
+			}
+		%>
 </body>
 </html>
