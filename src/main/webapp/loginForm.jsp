@@ -85,7 +85,7 @@
 			{
 		%>
 				<a href="<%=request.getContextPath()%>/loginForm.jsp?currentPage=<%= firstPage%>">처음으로</a>
-				<a href="<%=request.getContextPath()%>/loginForm.jsp?currentPage=<%= currentPage-1%>"">이전</a>
+				<a href="<%=request.getContextPath()%>/loginForm.jsp?currentPage=<%= currentPage-1%>">이전</a>
 		<%
 			}
 		%>
@@ -103,7 +103,7 @@
 			else
 			{
 		%>
-				<a href="<%=request.getContextPath()%>/loginForm.jsp?currentPage=<%= currentPage+1%>"">다음</a>
+				<a href="<%=request.getContextPath()%>/loginForm.jsp?currentPage=<%= currentPage+1%>">다음</a>
 				<a href="<%=request.getContextPath()%>/loginForm.jsp?currentPage=<%= lastPage%>">마지막으로</a>
 		<%
 			}
