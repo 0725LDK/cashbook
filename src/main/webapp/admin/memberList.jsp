@@ -25,7 +25,8 @@
 	ArrayList<Member> list = memberDao.selecetMemberListByPage(beginRow, rowPerPage);
 	int count = memberDao.selectMemberCount();
 	int lastPage = count/rowPerPage;
-	if(lastPage%rowPerPage != 0)
+	System.out.println(lastPage+"<---라스트 페이지");
+	if(count%rowPerPage != 0)
 	{
 		lastPage= lastPage+1;
 	}
@@ -42,12 +43,9 @@
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 <body>
-	<ul>
-		<li><a href="<%=request.getContextPath()%>/admin/noticeList.jsp">공지관리</a></li>
-		<li><a href="<%=request.getContextPath()%>/admin/categoryList.jsp">카테고리관리</a></li>
-		<li><a href="<%=request.getContextPath()%>/admin/memberList.jsp">멤버관리(목록,레벨수정,강제탈퇴)</a></li>
-		<li><a href="<%=request.getContextPath()%>/cash/cashList.jsp">돌아가기</a></li>
-	</ul>
+	<div>
+		<jsp:include page="/inc/head.jsp"></jsp:include>
+	</div>
 	<div>
 		<!-- memberList contents-->
 		<h1>멤버 목록</h1>
@@ -93,7 +91,7 @@
 			}
 		%>
 		</table>
-				<div>
+		<div>
 			<%
 				if(currentPage == 1)
 				{
