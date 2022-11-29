@@ -39,7 +39,7 @@ public class CommentDao {
 	public int updateComment (Comment comment) throws Exception
 	{
 		int resultRow = 0;
-		String sql = "UPDATE comment SET comment_memo = ? update WHERE comment_no= ? ";
+		String sql = "UPDATE comment SET comment_memo = ? WHERE comment_no= ? ";
 		Connection conn = null;
 		PreparedStatement stmt = null;
 		
