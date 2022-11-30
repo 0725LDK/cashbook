@@ -45,97 +45,151 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>loginForm</title>
-	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet">
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"></script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Focus - Bootstrap Admin Dashboard </title>
+    <!-- Favicon icon -->
+    <link rel="icon" type="<%=request.getContextPath()%>/resource/image/png" sizes="16x16" href="<%=request.getContextPath()%>/resource/images/favicon.png">
+    <link href="<%=request.getContextPath() %>/resource/css/style.css" rel="stylesheet">
 </head>
-<body>
+
+<body class="h-100">
 	<!-- 공지(5개)목록 페이징 -->
-	<table>
-		<tr>
-			<td>공지내용</td>
-			<td>날짜</td>
-		</tr>
+	<div class="authincation h-100">
+        <div class="container-fluid h-100">
+            <div class="row justify-content-center h-100 align-items-center">
+                <div class="col-md-6">
+                    <div class="authincation-content">
+                        <div class="row no-gutters">
+                            <div class="col-xl-12">
+                                <div class="auth-form">	
+                                	<h4 class="text-center mb-4">공지사항</h4>			
+										<table id="example" class="display text-center mb-4" style="min-width: 845px">
+											<thead class="text-center mb-4">
+												<tr>
+													<th>공지내용</th>
+													<th>날짜</th>
+												</tr>
+											</thead>
+											<tbody class="text-center mb-4">
+												<%
+													for(Notice n : list)
+													{
+												%>		
+														<tr>
+															<td><%=n.getNoticeMemo() %></td>
+															<td><%=n.getCreatedate() %></td>
+														</tr>	
+												<%	
+													}
+												%>
+											</tbody>
+											<tfoot class="text-center mb-4">
+												<!-- 페이지 넘기기 버튼 -->
+												<tr>
+													<td colspan="2"> &nbsp; </td>
+												</tr>
+												<tr>
+													<td colspan="2">
+														<div>
+															<%
+																if(currentPage == 1)
+																{
+															%>
+																	<span>처음으로</span>
+																	<span>이전</span>
+															<%
+																}
+																else 
+																{
+															%>
+																	<a href="<%=request.getContextPath()%>/loginForm.jsp?currentPage=<%= firstPage%>">처음으로</a>
+																	<a href="<%=request.getContextPath()%>/loginForm.jsp?currentPage=<%= currentPage-1%>">이전</a>
+															<%
+																}
+															%>
+															
+															<span>[ <%=currentPage %> ]</span>
+															
+															<%
+																if(currentPage == lastPage)
+																{
+															%>
+																	<span>다음</span>
+																	<span>마지막으로</span>
+															<%		
+																}
+																else
+																{
+															%>
+																	<a href="<%=request.getContextPath()%>/loginForm.jsp?currentPage=<%= currentPage+1%>">다음</a>
+																	<a href="<%=request.getContextPath()%>/loginForm.jsp?currentPage=<%= lastPage%>">마지막으로</a>
+															<%
+																}
+															%>
+															</div>
+													</td>
+												</tr>
+											</tfoot>
+										</table>	
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 		
-		<%
-			for(Notice n : list)
-			{
-		%>		
-				<tr>
-					<td><%=n.getNoticeMemo() %></td>
-					<td><%=n.getCreatedate() %></td>
-				</tr>	
-		<%	
-			}
-		%>
-	</table>
-	
-	<!-- 페이지 넘기기 버튼 -->
-	<div>
-		<%
-			if(currentPage == 1)
-			{
-		%>
-				<span>처음으로</span>
-				<span>이전</span>
-		<%
-			}
-			else 
-			{
-		%>
-				<a href="<%=request.getContextPath()%>/loginForm.jsp?currentPage=<%= firstPage%>">처음으로</a>
-				<a href="<%=request.getContextPath()%>/loginForm.jsp?currentPage=<%= currentPage-1%>">이전</a>
-		<%
-			}
-		%>
-		
-		<span>[ <%=currentPage %> ]</span>
-		
-		<%
-			if(currentPage == lastPage)
-			{
-		%>
-				<span>다음</span>
-				<span>마지막으로</span>
-		<%		
-			}
-			else
-			{
-		%>
-				<a href="<%=request.getContextPath()%>/loginForm.jsp?currentPage=<%= currentPage+1%>">다음</a>
-				<a href="<%=request.getContextPath()%>/loginForm.jsp?currentPage=<%= lastPage%>">마지막으로</a>
-		<%
-			}
-		%>
-	</div>
+		<br><br><br>
+
 	
 	<!-- 로그인 폼 -->
-	<form action="<%=request.getContextPath()%>/loginAction.jsp" method="post">
-		<h1>로그인</h1>
-		<table>
-			<tr>
-				<td>ID:</td>
-				<td><input type="text" name="memberId"></td>
-			</tr>
-			<tr>
-				<td>PW:</td>
-				<td><input type="password" name="memberPw"></td>
-			</tr>
-		</table>
-		<button type="submit">로그인</button>
-	</form>
-	<div>
-		<a href="<%=request.getContextPath()%>/insertMemberForm.jsp">회원가입</a>
-	</div>
-	<%
-		if(request.getParameter("msg") != null)
-		{
-	%>
-			<span><%=request.getParameter("msg") %></span>
-	<%	
-		}
-	
-	%>
+	<div class="authincation h-100">
+        <div class="container-fluid h-100">
+            <div class="row justify-content-center h-100 align-items-center">
+                <div class="col-md-6">
+                    <div class="authincation-content">
+                        <div class="row no-gutters">
+                            <div class="col-xl-12">
+                                <div class="auth-form">
+                                    <h4 class="text-center mb-4">Sign in</h4>
+									<form action="<%=request.getContextPath()%>/loginAction.jsp" method="post">
+										
+										<div class="form-group">
+											<label><strong>ID</strong></label>
+											<input name="memberId" type="text" class="form-control" placeholder="Insert Your ID">
+										</div>
+										<div class="form-group">
+											<label><strong>Password</strong></label>
+											<input type="password" name="memberPw" class="form-control" placeholder="Password">
+										</div>
+										<div class="text-center">
+											<button type="submit" class="btn btn-primary btn-block">Sign In!</button>
+										</div>
+									</form>
+									<div class="new-account mt-3">
+										<p>Don't have an account?<a class="text-primary" href="<%=request.getContextPath()%>/insertMemberForm.jsp">Sign Up!</a></p>
+									</div>
+									<div>
+										<%
+											if(request.getParameter("msg") != null)
+											{
+										%>
+												<span style="color:red"><%=request.getParameter("msg") %></span>
+										<%	
+											}
+										
+										%>
+	                         		</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 </html>

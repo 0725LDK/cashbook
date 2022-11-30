@@ -72,112 +72,289 @@
 	
 	System.out.println(loginMember.getMemberLevel()+"<== 캐쉬리스트 멤버 레벨");
 %>
+
+
 <!DOCTYPE html>
 <html>
+
 <head>
-<meta charset="UTF-8">
-<title>cashList</title>
-	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet">
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"></script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>cashList </title>
+    <!-- Favicon icon -->
+    <link rel="icon" type="image/png" sizes="16x16" href="<%=request.getContextPath() %>/resource/images/favicon.png">
+    <link rel="stylesheet" href="<%=request.getContextPath() %>/resource/vendor/owl-carousel/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="<%=request.getContextPath() %>/resource/vendor/owl-carousel/css/owl.theme.default.min.css">
+    <link href="<%=request.getContextPath() %>/resource/vendor/jqvmap/css/jqvmap.min.css" rel="stylesheet">
+    <link href="<%=request.getContextPath() %>/resource/css/style.css" rel="stylesheet">
+    <link href="<%=request.getContextPath() %>/resource/vendor/fullcalendar/css/fullcalendar.min.css" rel="stylesheet">
+
+
+
 </head>
+
 <body>
-	<div>
-		<!-- 로그인 정보(세션 loginMember 변수) 출력 -->
-		사용자 ID: <%=loginMember.getMemberId() %><br>
-		사용자 이름: <%=loginMember.getMemberName() %><br>
-		
-		<%
-			if(loginMember.getMemberLevel()>0)
-			{
-		%>
-				<a href="<%=request.getContextPath()%>/admin/adminMain.jsp?loginMember=<%=loginMember%>">관리자 페이지</a>
-		<%
-			}
+
+    <!--**********************************
+        Main wrapper start
+    ***********************************-->
+    <div id="main-wrapper">
+
+        <!--**********************************
+            Nav header start
+        ***********************************-->
+        <div class="nav-header">
+           	<div class="brand-logo">
+				<!-- 로그인 정보(세션 loginMember 변수) 출력 -->
+				Hello! <%=loginMember.getMemberName() %>&nbsp;&nbsp;&nbsp;
+				<a href="<%=request.getContextPath()%>/logOut.jsp">LogOut</a>
 				
-		
-		%>
-		<a href="<%=request.getContextPath()%>/updateMemberForm.jsp?memberId=<%=loginMember.getMemberId()%>&memberName=<%=loginMember.getMemberName() %>">회원정보 수정</a>
-		<a href="<%=request.getContextPath()%>/deleteMemberForm.jsp?memberId=<%=loginMember.getMemberId()%>%>">회원정보 삭제</a>
-		<%
-			if(request.getParameter("msg") != null)
-			{
-		%>
-				<span><%=request.getParameter("msg") %></span>
-		<%	
-			}
-		
-		%>
-	</div>
-	<br>
-	
-	<div>
-		<a href="<%=request.getContextPath()%>/cash/cashList.jsp?year=<%=year%>&month=<%=month-1%>">&#8701;이전달</a>
-		<%=year%>년 <%=month+1%> 월
-		<a href="<%=request.getContextPath()%>/cash/cashList.jsp?year=<%=year%>&month=<%=month+1%>">다음달&#8702;</a>
-	</div>
-	<br>
-	
-	<!-- 달력 -->
-	<div>
-		<table border="1">
-			<tr>
-				<th>일</th><th>월</th><th>화</th><th>수</th><th>목</th><th>금</th><th>토</th>
-			</tr>
+			</div>
 			
-			<tr>
-				<%
-					for(int i=1; i<=totalTd; i++) {
-				%>
-						<td>
-				<%
-							int date = i-beginBlank;
-							if(date > 0 && date <= lastDate) {
-				%>
-								<div>
-									<a href="<%=request.getContextPath()%>/cash/cashDateList.jsp?year=<%=year%>&month=<%=month+1%>&date=<%=date%>">
-										<%=date%>
-									</a>
-								</div>
-								<div>
-									<%
-										for(HashMap<String, Object> m : list) {
-											String cashDate = (String)(m.get("cashDate"));
-											if(Integer.parseInt(cashDate.substring(8)) == date) {
-									%>
-												[<%=(String)(m.get("categoryKind"))%>]
-												<%=(String)(m.get("categoryName"))%>
-												&nbsp;
-												<%=(Long)(m.get("cashPrice"))%>원
-												<br>
-									<%
-											
+        </div>
+        <!--**********************************
+            Nav header end
+        ***********************************-->
+
+        <!--**********************************
+            Header start
+        ***********************************-->
+        <div class="header">
+            <div class="header-content">
+                <nav class="navbar navbar-expand">
+                    <div class="collapse navbar-collapse justify-content-between">
+                      
+                    </div>
+                </nav>
+            </div>
+        </div>
+        <!--**********************************
+            Header end ti-comment-alt
+        ***********************************-->
+
+        <!--**********************************
+            Sidebar start
+        ***********************************-->
+        <div class="quixnav">
+            <div class="quixnav-scroll">
+                <ul class="metismenu" id="menu">
+                    <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i
+                                class="icon icon-single-04"></i><span class="nav-text">My Page</span></a>
+                        <ul aria-expanded="false">
+                            <li><a href="<%=request.getContextPath()%>/updateMemberForm.jsp?memberId=<%=loginMember.getMemberId()%>&memberName=<%=loginMember.getMemberName() %>">회원 정보 수정</a></li>
+                            <li><a href="<%=request.getContextPath()%>/help/helpList.jsp">고객센터</a></li>
+                            <li><a href="<%=request.getContextPath()%>/deleteMemberForm.jsp?memberId=<%=loginMember.getMemberId()%>">회원 탈퇴</a></li>
+                            <li>
+                            		<!-- 관리자 로그인시 관리자 페이지 생성 -->
+									<div>
+										<%
+											if(loginMember.getMemberLevel()>0)
+											{
+										%>
+												<a href="<%=request.getContextPath()%>/admin/adminMain.jsp?loginMember=<%=loginMember%>">관리자 페이지</a>
+										<%
 											}
-										}
-									%>
+												
+											if(request.getParameter("msg") != null)
+											{
+										%>
+												<span><%=request.getParameter("msg") %></span>
+										<%	
+											}
+										
+										%>
+									</div>
+                            </li>
+                        </ul>
+                    </li>
+                    
+                </ul>
+            </div>
+        </div>
+        <!--**********************************
+            Sidebar end
+        ***********************************-->
+
+        <!--**********************************
+            Content body start
+        ***********************************-->
+        <div class="content-body">
+            <!-- row -->
+            <div class="container-fluid">
+               <div class="row">
+                    <div class="col-xl-12 col-lg-8 col-md-8">
+                        <div class="card">
+								<div class="table-responsive">
+									<table class="table mb-0">
+										<tr>
+											<td><a class="fontMoveDate" href="<%=request.getContextPath()%>/cash/cashList.jsp?year=<%=year%>&month=<%=month-1%>">&#8701;이전달</a></td>
+											<td><span class="fontThisDate"><%=year%>년 <%=month+1%> 월</span></td>
+											<td><a class="fontMoveDate" href="<%=request.getContextPath()%>/cash/cashList.jsp?year=<%=year%>&month=<%=month+1%>">다음달&#8702;</a></td>
+										</tr>
+									</table>
 								</div>
-				<%				
-							}
-				%>
-						</td>
-				<%
-						
-						if(i%7 == 0 && i != totalTd) {
-				%>
-							</tr><tr> <!-- td7개 만들고 테이블 줄바꿈 -->
-				<%			
-						}
-					}
-				%>
-			</tr>
-		</table>
-	</div>
-	
-	<div>
-		<a href="<%=request.getContextPath()%>/logOut.jsp">로그아웃</a>
-	</div>
-	
-	<div>
-		<jsp:include page="/inc/foot.jsp"></jsp:include>
-	</div>
+								<br>
+								
+								<!-- 달력 -->
+								<div class="table-responsive">
+									<table class="table mb-0">
+										<tr>
+											<th>
+												<span style="color:#FF5A5A">일</span>
+											</th>
+											<th>월</th>
+											<th>화</th>
+											<th>수</th>
+											<th>목</th>
+											<th>금</th>
+											<th>
+												<span style="color:#5AAEFF">토</span>
+											</th>
+										</tr>
+										
+										<tr>
+											<%
+												for(int i=1; i<=totalTd; i++) 
+												{
+											%>
+													<td>
+											<%
+														int date = i-beginBlank;
+														if(date > 0 && date <= lastDate) 
+														{
+											%>
+															<div>
+																<a href="<%=request.getContextPath()%>/cash/cashDateList.jsp?year=<%=year%>&month=<%=month+1%>&date=<%=date%>">
+																	
+																	<%
+																		if(i%7==1)
+																		{
+																	%>
+																			<span style="color:#FF5A5A"><%=date%></span>
+																	<%
+																		}
+																		else if(i%7==0)
+																		{
+																	%>
+																			<span style="color:#5AAEFF"><%=date%></span>
+																	<%		
+																		}
+																		else
+																		{
+																	%>
+																			<%=date%>
+																	<%
+																		}
+																	%>
+																</a>
+															</div>
+															<div>
+																<%
+																	for(HashMap<String, Object> m : list) 
+																	{
+																		String cashDate = (String)(m.get("cashDate"));
+																		if(Integer.parseInt(cashDate.substring(8)) == date) 
+																		{
+																%>
+																			[<%=(String)(m.get("categoryKind"))%>]
+																			<%=(String)(m.get("categoryName"))%>
+																			&nbsp;
+																			<%=(Long)(m.get("cashPrice"))%>원
+																			<br>
+																<%
+																		}
+																	}
+																%>
+															</div>
+											<%				
+														}
+											%>
+													</td>
+											<%
+													
+													if(i%7 == 0 && i != totalTd) 
+													{
+											%>
+														</tr><tr> <!-- td7개 만들고 테이블 줄바꿈 -->
+											<%			
+													}
+												}
+											%>
+										</tr>
+									</table>
+								</div>
+                            </div>
+                        </div>
+                    </div>
+            	</div>
+        	</div>
+        <!--**********************************
+            Content body end
+        ***********************************-->
+
+
+        <!--**********************************
+            Footer start
+        ***********************************-->
+        <div class="footer">
+            <div class="copyright">
+                <p>Copyright © Designed &amp; Developed by <a href="#" target="_blank">Quixkit</a> 2019</p>
+                <p>Distributed by <a href="https://themewagon.com/" target="_blank">Themewagon</a></p> 
+            </div>
+        </div>
+        <!--**********************************
+            Footer end
+        ***********************************-->
+
+        <!--**********************************
+           Support ticket button start
+        ***********************************-->
+
+        <!--**********************************
+           Support ticket button end
+        ***********************************-->
+
+
+    </div>
+    <!--**********************************
+        Main wrapper end
+    ***********************************-->
+
+    <!--**********************************
+        Scripts
+    ***********************************-->
+    <!-- Required vendors -->
+    <script src="<%=request.getContextPath() %>/resource/vendor/global/global.min.js"></script>
+    <script src="<%=request.getContextPath() %>/resource/js/quixnav-init.js"></script>
+    <script src="<%=request.getContextPath() %>/resource/js/custom.min.js"></script>
+
+
+    <!-- Vectormap -->
+    <script src="<%=request.getContextPath() %>/resource/vendor/raphael/raphael.min.js"></script>
+    <script src="<%=request.getContextPath() %>/resource/vendor/morris/morris.min.js"></script>
+
+
+    <script src="<%=request.getContextPath() %>/resource/vendor/circle-progress/circle-progress.min.js"></script>
+    <script src="<%=request.getContextPath() %>/resource/vendor/chart.js/Chart.bundle.min.js"></script>
+
+    <script src="<%=request.getContextPath() %>/resource/vendor/gaugeJS/dist/gauge.min.js"></script>
+
+    <!--  flot-chart js -->
+    <script src="<%=request.getContextPath() %>/resource/vendor/flot/jquery.flot.js"></script>
+    <script src="<%=request.getContextPath() %>/resource/vendor/flot/jquery.flot.resize.js"></script>
+
+    <!-- Owl Carousel -->
+    <script src="<%=request.getContextPath() %>/resource/vendor/owl-carousel/js/owl.carousel.min.js"></script>
+
+    <!-- Counter Up -->
+    <script src="<%=request.getContextPath() %>/resource/vendor/jqvmap/js/jquery.vmap.min.js"></script>
+    <script src="<%=request.getContextPath() %>/resource/vendor/jqvmap/js/jquery.vmap.usa.js"></script>
+    <script src="<%=request.getContextPath() %>/resource/vendor/jquery.counterup/jquery.counterup.min.js"></script>
+
+
+    <script src="<%=request.getContextPath() %>/resource/js/dashboard/dashboard-1.js"></script>
+
 </body>
+
 </html>

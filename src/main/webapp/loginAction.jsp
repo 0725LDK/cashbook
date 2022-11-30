@@ -10,6 +10,7 @@
 	if(request.getParameter("memberId")==null || request.getParameter("memberId").equals("")
 		|| request.getParameter("memberPw")==null || request.getParameter("memberPw").equals(""))
 	{
+	
 		msg = URLEncoder.encode("항목을 입력하세요.","utf-8");
 		response.sendRedirect(request.getContextPath()+"/loginForm.jsp?msg="+msg);
 		return;
@@ -23,6 +24,13 @@
 	
 	MemberDao memberDao = new MemberDao();
 	Member resultMember = memberDao.login(paramMember);
+	if(resultMember == null)
+	{	
+		//ID와 PW 매칭 실패
+		msg = URLEncoder.encode("ID와 PW가 맞지 않습니다.","utf-8");
+		response.sendRedirect(request.getContextPath()+"/loginForm.jsp?msg="+msg);
+		return;
+	}
 	
 	String redirectUrl = "/loginForm.jsp";
 	
