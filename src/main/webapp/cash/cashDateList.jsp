@@ -28,120 +28,273 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet">
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"></script>
+	<meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>cashList </title>
+    <!-- Favicon icon -->
+    <link rel="icon" type="image/png" sizes="16x16" href="<%=request.getContextPath() %>/resource/images/favicon.png">
+    <link rel="stylesheet" href="<%=request.getContextPath() %>/resource/vendor/owl-carousel/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="<%=request.getContextPath() %>/resource/vendor/owl-carousel/css/owl.theme.default.min.css">
+    <link href="<%=request.getContextPath() %>/resource/vendor/jqvmap/css/jqvmap.min.css" rel="stylesheet">
+    <link href="<%=request.getContextPath() %>/resource/css/style.css" rel="stylesheet">
+    <link href="<%=request.getContextPath() %>/resource/vendor/fullcalendar/css/fullcalendar.min.css" rel="stylesheet">
 </head>
+
 <body>
-	<!-- cash 목록 출력 -->
-	<h1><%=year %>년 <%=month %>월 <%=date %>일 상세내역</h1>
 	
-	<table>
-		<tr>
-			<td>수입/지출</td>
-			<td>내용</td>
-			<td>금액</td>
-			<td>메모</td>
-			<td>수정일자</td>
-			<td>생성일자</td>
-			<td>편집</td>
-		</tr>
+	
+    <!--**********************************
+        Main wrapper start
+    ***********************************-->
+    <div id="main-wrapper">
+    	<!--**********************************
+            Nav header start
+        ***********************************-->
+        <div class="nav-header">
+           	<div class="brand-logo">
+				<!-- 로그인 정보(세션 loginMember 변수) 출력 -->
+				<a href="<%=request.getContextPath()%>/cash/cashList.jsp">Hello!</a>&nbsp;&nbsp; <%=loginMember.getMemberName() %>&nbsp;&nbsp;&nbsp;
+				<a href="<%=request.getContextPath()%>/logOut.jsp">LogOut</a>
+				
+			</div>
+			
+        </div>
+        <!--**********************************
+            Nav header end
+        ***********************************-->
+
+        <!--**********************************
+            Header start
+        ***********************************-->
+        <div class="header">
+            <div class="header-content">
+                <nav class="navbar navbar-expand">
+                    <div class="collapse navbar-collapse justify-content-between">
+                      
+                    </div>
+                </nav>
+            </div>
+        </div>
+        <!--**********************************
+            Header end ti-comment-alt
+        ***********************************-->
+
+        <!--**********************************
+            Sidebar start
+        ***********************************-->
+        <div class="quixnav">
+            <div class="quixnav-scroll">
+                <ul class="metismenu" id="menu">
+                    <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i
+                                class="icon icon-single-04"></i><span class="nav-text">My Page</span></a>
+                        <ul aria-expanded="false">
+                            <li><a href="<%=request.getContextPath()%>/updateMemberForm.jsp?memberId=<%=loginMember.getMemberId()%>&memberName=<%=loginMember.getMemberName() %>">회원 정보 수정</a></li>
+                            <li><a href="<%=request.getContextPath()%>/help/helpList.jsp">고객센터</a></li>
+                            <li><a href="<%=request.getContextPath()%>/deleteMemberForm.jsp?memberId=<%=loginMember.getMemberId()%>">회원 탈퇴</a></li>
+                            <li>
+                            		<!-- 관리자 로그인시 관리자 페이지 생성 -->
+									<div>
+										<%
+											if(loginMember.getMemberLevel()>0)
+											{
+										%>
+												<a href="<%=request.getContextPath()%>/admin/adminMain.jsp?loginMember=<%=loginMember%>">관리자 페이지</a>
+										<%
+											}
+										%>
+									</div>
+                            </li>
+                        </ul>
+                    </li>
+                    
+                </ul>
+            </div>
+        </div>
+        <!--**********************************
+            Sidebar end
+        ***********************************-->
+        
+    	<!--**********************************
+            Content body start
+        ***********************************-->
+        <div class="content-body">
+            <!-- row -->
+            <div class="container-fluid">
+               <div class="row">
+                    <div class="col-xl-12 col-lg-8 col-md-8">
+                        <div class="card">
+                        	<div class="table-responsive">
+								<table class="table mb-0">
+	 				                <tr>
+				                       	<td colspan="7">
+				                       		<span class="fontThisDate"><%=year %>년 <%=month %>월 <%=date %>일 상세내역</span><br>
+			                       				<%
+													if(request.getParameter("msg1") != null)
+													{
+												%>
+														<span style="color:red"><%=request.getParameter("msg1") %></span>
+														<span><%=request.getParameter("msg") %></span>
+												<%	
+													}
+													else if(request.getParameter("msg1") == null && request.getParameter("msg") != null )
+													{
+												%>
+														<span><%=request.getParameter("msg") %></span>
+												<%		
+													}
+												%>
+				                       	</td>
+	 				                
+	 				                </tr>
 		
-		<%
-			//해당일의 가계부 목록 출력
-			for(HashMap<String, Object> m : list)
-			{
-				String cashDate = (String)(m.get("cashDate"));
-				if(Integer.parseInt(cashDate.substring(0, 4)) == year && Integer.parseInt(cashDate.substring(5, 7)) == month && Integer.parseInt(cashDate.substring(8)) == date)
-				{
-					System.out.println((Integer)(m.get("cashNo")));
-		%>
-					
-					<tr>
-						<td><%=(String)m.get("categoryKind")%>&nbsp;</td>
-						<td><%=(String)m.get("categoryName")%>&nbsp;</td>
-						<td><%=(Long)m.get("cashPrice")%>원&nbsp;</td>
-						<td><%=(String)m.get("cashMemo")%>&nbsp;</td>
-						<td><%=(String)m.get("updateDate")%>&nbsp;</td>
-						<td><%=(String)m.get("createDate")%>&nbsp;</td>
-						<td>
-							<a href="<%=request.getContextPath()%>/cash/updateCashForm.jsp?year=<%=year%>&month=<%=month%>&date=<%=date%>&cashNo=<%=m.get("cashNo")%>">수정&nbsp;</a>
-							<a href="<%=request.getContextPath()%>/cash/deleteCashAction.jsp?year=<%=year%>&month=<%=month%>&date=<%=date%>&cashNo=<%=m.get("cashNo")%>&memberId=<%=loginMemberId%>">삭제</a></td>
-						</td>
-					<tr>
-		<%
-				}
-			}
-		%>
-	</table>
+									<tr>
+										<th>수입/지출</th>
+										<th>내용</th>
+										<th>금액</th>
+										<th>메모</th>
+										<th>수정일자</th>
+										<th>생성일자</th>
+										<th>편집</th>
+									</tr>
+									
+									<%
+										//해당일의 가계부 목록 출력
+										for(HashMap<String, Object> m : list)
+										{
+											String cashDate = (String)(m.get("cashDate"));
+											if(Integer.parseInt(cashDate.substring(0, 4)) == year && Integer.parseInt(cashDate.substring(5, 7)) == month && Integer.parseInt(cashDate.substring(8)) == date)
+											{
+												System.out.println((Integer)(m.get("cashNo")));
+									%>
+												
+												<tr>
+													<td><%=(String)m.get("categoryKind")%>&nbsp;</td>
+													<td><%=(String)m.get("categoryName")%>&nbsp;</td>
+													<td><%=(Long)m.get("cashPrice")%>원&nbsp;</td>
+													<td><%=(String)m.get("cashMemo")%>&nbsp;</td>
+													<td><%=(String)m.get("updateDate")%>&nbsp;</td>
+													<td><%=(String)m.get("createDate")%>&nbsp;</td>
+													<td>
+														<a href="<%=request.getContextPath()%>/cash/updateCashForm.jsp?year=<%=year%>&month=<%=month%>&date=<%=date%>&cashNo=<%=m.get("cashNo")%>">수정&nbsp;</a>
+														<a href="<%=request.getContextPath()%>/cash/deleteCashAction.jsp?year=<%=year%>&month=<%=month%>&date=<%=date%>&cashNo=<%=m.get("cashNo")%>&memberId=<%=loginMemberId%>">삭제</a>
+													</td>
+												</tr>
+									<%
+											}
+										}
+									%>
+									
+									<tr>
+										<td colspan="7" style="text-align: right;">
+				                       		<span class="fontThisDateBack"><a href="<%=request.getContextPath()%>/cash/cashList.jsp">Go To Calendar...</a></span>
+				                       	</td>
+									</tr>
+								</table>
+                        	</div>
+    					</div>
+    				</div>
+    			</div>
+    		</div>
+    		<div class="container-fluid">
+               <div class="row">
+                    <div class="col-xl-12 col-lg-8 col-md-8">
+                        <div class="card">
+                        	<div class="table-responsive">
+									<!-- cash 입력폼 -->
+									<form action="<%=request.getContextPath()%>/cash/insertCashAction.jsp" method="post">
+										<input type="hidden" name="memberId" value="<%=loginMember.getMemberId()%>">
+										<input type="hidden" name="year" value="<%=year%>">
+										<input type="hidden" name="month" value="<%=month%>">
+										<input type="hidden" name="date" value="<%=date%>">
+										<table class="table mb-0">
+											<tr>
+					                       		<td colspan="2">
+					                       			<span class="fontThisDate">가계부 입력</span>
+					                       			
+					                      	 	</td>
+					                      	 
+	 				                
+	 				              			</tr>
+											<tr>
+												<td>지출 항목</td>
+												<td><!-- 카테고리 넘버 출력 -->
+													<select class="form-control" name="categoryNo">
+														<%
+															for(Category c : categoryList)
+															{
+														%>		
+																<option value="<%=c.getCategoryNo()%>"><%=c.getCategoryKind() %> - <%=c.getCategoryName() %></option>
+														<%		
+																System.out.println(c.getCategoryNo() + "<==카테고리 넘버");
+															}
+														%>
+													</select>
+												</td>
+											</tr>
+								
+											<tr>
+												<td>날짜</td>
+												<td style=" text-align: center;">
+													<input class="form-control" class="form-control" type="text" name="cashDate" value="<%=year %>-<%=month %>-<%=date %>" readonly="readonly">
+												</td>
+											</tr>
+											
+											<tr>
+												<td>금액</td>
+												<td>
+													<input class="form-control" type="text" name="cashPrice">
+												</td>
+											</tr>
+								
+											<tr>
+												<td>내용</td>
+												<td>
+													<textarea class="form-control" rows="3" cols="50" name="cashMemo"></textarea>
+												</td>
+											</tr>
+											<tr>
+					                       		<td colspan="7">
+					                       			<div class="tableButton">
+														<button type="submit" class="btn btn-primary btn-block">입력하기!</button>
+													</div>
+					                      	 	</td>
+	 				                
+	 				              			</tr>
+											
+										</table>
+									<div>	
+										
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>	
+			</div>	
+    	</div>
+    </div>
+	<!--**********************************
+        Main wrapper end
+    ***********************************-->
+	<!-- cash 목록 출력 -->
 	
-	<a href="<%=request.getContextPath()%>/cash/cashList.jsp">돌아가기</a>
+	<!--**********************************
+            Footer start
+	***********************************-->
+	<div class="footer">
+		<jsp:include page="/inc/cashFoot.jsp"></jsp:include>
+	</div>
+	<!--**********************************
+			Footer end
+	***********************************-->
 	
-	<!-- cash 입력폼 -->
-	<form action="<%=request.getContextPath()%>/cash/insertCashAction.jsp" method="post">
-		<input type="hidden" name="memberId" value="<%=loginMember.getMemberId()%>">
-		<input type="hidden" name="year" value="<%=year%>">
-		<input type="hidden" name="month" value="<%=month%>">
-		<input type="hidden" name="date" value="<%=date%>">
-		<table>
-			<tr>
-				<td>categoryNo</td>
-				<td><!-- 카테고리 넘버 출력 -->
-					<select name="categoryNo">
-						<%
-							for(Category c : categoryList)
-							{
-						%>		
-								<option value="<%=c.getCategoryNo()%>"><%=c.getCategoryKind() %> - <%=c.getCategoryName() %></option>
-						<%		
-								System.out.println(c.getCategoryNo() + "<==카테고리 넘버");
-							}
-						%>
-					</select>
-				</td>
-			</tr>
-
-			<tr>
-				<td>cashDate</td>
-				<td>
-					<input type="text" name="cashDate" value="<%=year %>-<%=month %>-<%=date %>" readonly="readonly">
-				</td>
-			</tr>
-			
-			<tr>
-				<td>cashPrice</td>
-				<td>
-					<input type="text" name="cashPrice">
-				</td>
-			</tr>
-
-			<tr>
-				<td>cashMemo</td>
-				<td>
-					<textarea rows="3" cols="50" name="cashMemo"></textarea>
-				</td>
-			</tr>
-			
-		</table>
-	<button type="submit">입력</button>
-	</form>
-	
-	<%
-		if(request.getParameter("msg1") != null)
-		{
-	%>
-			<span style="color:red"><%=request.getParameter("msg1") %></span>
-			<span><%=request.getParameter("msg") %></span>
-	<%	
-		}
-		else if(request.getParameter("msg1") == null && request.getParameter("msg") != null )
-		{
-	%>
-			<span><%=request.getParameter("msg") %></span>
-	<%		
-		}
-	%>
+	<!--**********************************
+        Scripts
+    ***********************************-->
+	<div>
+		<jsp:include page="/inc/scripts.jsp"></jsp:include>
+	</div>
 	
 </body>
 </html>

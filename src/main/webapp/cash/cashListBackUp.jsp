@@ -177,7 +177,7 @@
 	</div>
 	
 	<div>
-		<jsp:include page="/inc/foot.jsp"></jsp:include>
+		<jsp:include page="/inc/cashFoot.jsp"></jsp:include>
 	</div>
 </body>
 </html>

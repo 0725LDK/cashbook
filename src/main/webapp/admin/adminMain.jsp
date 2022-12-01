@@ -136,7 +136,7 @@
             Header end ti-comment-alt
         ***********************************-->
         
-                <!--**********************************
+        <!--**********************************
             Sidebar start
         ***********************************-->
         <div class="quixnav">
@@ -148,27 +148,14 @@
                             <li><a href="<%=request.getContextPath()%>/updateMemberForm.jsp?memberId=<%=loginMember.getMemberId()%>&memberName=<%=loginMember.getMemberName() %>">회원 정보 수정</a></li>
                             <li><a href="<%=request.getContextPath()%>/help/helpList.jsp">고객센터</a></li>
                             <li><a href="<%=request.getContextPath()%>/deleteMemberForm.jsp?memberId=<%=loginMember.getMemberId()%>">회원 탈퇴</a></li>
-                            <li>
-                            		<!-- 관리자 로그인시 관리자 페이지 생성 -->
-									<div>
-										<%
-											if(loginMember.getMemberLevel()>0)
-											{
-										%>
-												<a href="<%=request.getContextPath()%>/admin/adminMain.jsp?loginMember=<%=loginMember%>">관리자 페이지</a>
-										<%
-											}
-												
-											if(request.getParameter("msg") != null)
-											{
-										%>
-												<span><%=request.getParameter("msg") %></span>
-										<%	
-											}
-										
-										%>
-									</div>
-                            </li>
+                        </ul>
+                    </li>
+                
+                    <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i
+                                class="icon icon-single-04"></i><span class="nav-text">Admin Page</span></a>
+                        <ul aria-expanded="false">
+							
+							<jsp:include page="/inc/head.jsp"></jsp:include>
                             
                         </ul>
                     </li>
@@ -177,6 +164,10 @@
         </div>
         <!--**********************************
             Sidebar end
+        ***********************************-->
+        
+        <!--**********************************
+            Content body start
         ***********************************-->
         <div class="content-body">
             <!-- row -->
@@ -294,14 +285,45 @@
         
 	</div>
 	
+	<!--**********************************
+        Scripts
+    ***********************************-->
+    <!-- Required vendors -->
+    <script src="<%=request.getContextPath() %>/resource/vendor/global/global.min.js"></script>
+    <script src="<%=request.getContextPath() %>/resource/js/quixnav-init.js"></script>
+    <script src="<%=request.getContextPath() %>/resource/js/custom.min.js"></script>
+
+
+    <!-- Vectormap -->
+    <script src="<%=request.getContextPath() %>/resource/vendor/raphael/raphael.min.js"></script>
+    <script src="<%=request.getContextPath() %>/resource/vendor/morris/morris.min.js"></script>
+
+
+    <script src="<%=request.getContextPath() %>/resource/vendor/circle-progress/circle-progress.min.js"></script>
+    <script src="<%=request.getContextPath() %>/resource/vendor/chart.js/Chart.bundle.min.js"></script>
+
+    <script src="<%=request.getContextPath() %>/resource/vendor/gaugeJS/dist/gauge.min.js"></script>
+
+    <!--  flot-chart js -->
+    <script src="<%=request.getContextPath() %>/resource/vendor/flot/jquery.flot.js"></script>
+    <script src="<%=request.getContextPath() %>/resource/vendor/flot/jquery.flot.resize.js"></script>
+
+    <!-- Owl Carousel -->
+    <script src="<%=request.getContextPath() %>/resource/vendor/owl-carousel/js/owl.carousel.min.js"></script>
+
+    <!-- Counter Up -->
+    <script src="<%=request.getContextPath() %>/resource/vendor/jqvmap/js/jquery.vmap.min.js"></script>
+    <script src="<%=request.getContextPath() %>/resource/vendor/jqvmap/js/jquery.vmap.usa.js"></script>
+    <script src="<%=request.getContextPath() %>/resource/vendor/jquery.counterup/jquery.counterup.min.js"></script>
+
+
+    <script src="<%=request.getContextPath() %>/resource/js/dashboard/dashboard-1.js"></script>
+	
 	
 	
 	<div>
 		<jsp:include page="/inc/head.jsp"></jsp:include>
 	</div>
-	<div>
-		<!-- adminMain contents-->
 	
-	</div>
 </body>
 </html>

@@ -3536,15 +3536,27 @@ input[type="button"].btn-block {
 	font-size: 25px;
 	color: #191919;
 	font-weight: bold ;
+	text-align:center;
+	
+}
+
+.fontThisDateTitle{
+	font-size: 20px;
+	color: #3530C9;
+	font-weight: bold ;
+	text-align:center;
 	
 }
 .fontMoveDate{
 	font-size: 20px;
 	color: #A566FF;
-	font-weight: bold ;
+	font-weight: bold;
 	
 }
-
+.tableButton{
+	width:200px;
+	text-align:center;
+}
 
 
 .card {

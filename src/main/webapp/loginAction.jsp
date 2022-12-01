@@ -24,6 +24,7 @@
 	
 	MemberDao memberDao = new MemberDao();
 	Member resultMember = memberDao.login(paramMember);
+	
 	if(resultMember == null)
 	{	
 		//ID와 PW 매칭 실패
@@ -33,11 +34,16 @@
 	}
 	
 	String redirectUrl = "/loginForm.jsp";
-	
-	if(resultMember != null)
+	int MemberLevel = resultMember.getMemberLevel();
+	if(resultMember != null && MemberLevel==0)
 	{
 		session.setAttribute("loginMember", resultMember); //세션안에 로그인  아이디 & 이름을 저장
 		redirectUrl = "/cash/cashList.jsp";
+	}
+	else if(resultMember != null && MemberLevel > 0)
+	{
+		session.setAttribute("loginMember", resultMember); //세션안에 로그인  아이디 & 이름을 저장
+		redirectUrl = "/admin/adminMain.jsp";
 	}
 	
 	//redirect
