@@ -170,7 +170,7 @@
 										</div>
 									</form>
 									<div class="new-account mt-3">
-										<p>Don't have an account?<a class="text-primary" href="<%=request.getContextPath()%>/insertMemberForm.jsp">Sign Up!</a></p>
+										<p>Don't have an account?&nbsp;<a class="text-primary" href="<%=request.getContextPath()%>/insertMemberForm.jsp">Sign Up!</a></p>
 									</div>
 									<div>
 										<%
