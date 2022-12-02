@@ -30,7 +30,7 @@
 		response.sendRedirect(request.getContextPath()+"/deleteMemberForm.jsp?msg="+msg+"&memberId="+member.getMemberId());
 		return;
 	}
-	msg = URLEncoder.encode("삭제 성공","utf-8");
+	msg = URLEncoder.encode("탈퇴 성공","utf-8");
 	System.out.println(row+"<===deleteMemberAction 성공");
 	session.invalidate();
 	response.sendRedirect(request.getContextPath()+"/loginForm.jsp?msg="+msg);

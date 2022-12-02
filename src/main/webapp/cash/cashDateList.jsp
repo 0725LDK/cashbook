@@ -201,71 +201,66 @@
                     <div class="col-xl-12 col-lg-8 col-md-8">
                         <div class="card">
                         	<div class="table-responsive">
-									<!-- cash 입력폼 -->
-									<form action="<%=request.getContextPath()%>/cash/insertCashAction.jsp" method="post">
-										<input type="hidden" name="memberId" value="<%=loginMember.getMemberId()%>">
-										<input type="hidden" name="year" value="<%=year%>">
-										<input type="hidden" name="month" value="<%=month%>">
-										<input type="hidden" name="date" value="<%=date%>">
-										<table class="table mb-0">
-											<tr>
-					                       		<td colspan="2">
-					                       			<span class="fontThisDate">가계부 입력</span>
-					                       			
-					                      	 	</td>
-					                      	 
-	 				                
-	 				              			</tr>
-											<tr>
-												<td>지출 항목</td>
-												<td><!-- 카테고리 넘버 출력 -->
-													<select class="form-control" name="categoryNo">
-														<%
-															for(Category c : categoryList)
-															{
-														%>		
-																<option value="<%=c.getCategoryNo()%>"><%=c.getCategoryKind() %> - <%=c.getCategoryName() %></option>
-														<%		
-																System.out.println(c.getCategoryNo() + "<==카테고리 넘버");
-															}
-														%>
-													</select>
-												</td>
-											</tr>
-								
-											<tr>
-												<td>날짜</td>
-												<td style=" text-align: center;">
-													<input class="form-control" class="form-control" type="text" name="cashDate" value="<%=year %>-<%=month %>-<%=date %>" readonly="readonly">
-												</td>
-											</tr>
-											
-											<tr>
-												<td>금액</td>
-												<td>
-													<input class="form-control" type="text" name="cashPrice">
-												</td>
-											</tr>
-								
-											<tr>
-												<td>내용</td>
-												<td>
-													<textarea class="form-control" rows="3" cols="50" name="cashMemo"></textarea>
-												</td>
-											</tr>
-											<tr>
-					                       		<td colspan="7">
-					                       			<div class="tableButton">
-														<button type="submit" class="btn btn-primary btn-block">입력하기!</button>
-													</div>
-					                      	 	</td>
-	 				                
-	 				              			</tr>
-											
-										</table>
-									<div>	
+								<!-- cash 입력폼 -->
+								<form action="<%=request.getContextPath()%>/cash/insertCashAction.jsp" method="post">
+									<input type="hidden" name="memberId" value="<%=loginMember.getMemberId()%>">
+									<input type="hidden" name="year" value="<%=year%>">
+									<input type="hidden" name="month" value="<%=month%>">
+									<input type="hidden" name="date" value="<%=date%>">
+									<table class="table mb-0">
+										<tr>
+				                       		<td colspan="2">
+				                       			<span class="fontThisDate">가계부 입력</span>
+				                       			
+				                      	 	</td>
+ 				              			</tr>
+										<tr>
+											<td>지출 항목</td>
+											<td><!-- 카테고리 넘버 출력 -->
+												<select class="form-control" name="categoryNo">
+													<%
+														for(Category c : categoryList)
+														{
+													%>		
+															<option value="<%=c.getCategoryNo()%>"><%=c.getCategoryKind() %> - <%=c.getCategoryName() %></option>
+													<%		
+															System.out.println(c.getCategoryNo() + "<==카테고리 넘버");
+														}
+													%>
+												</select>
+											</td>
+										</tr>
+							
+										<tr>
+											<td>날짜</td>
+											<td style=" text-align: center;">
+												<input class="form-control" class="form-control" type="text" name="cashDate" value="<%=year %>-<%=month %>-<%=date %>" readonly="readonly">
+											</td>
+										</tr>
 										
-									</div>
+										<tr>
+											<td>금액</td>
+											<td>
+												<input class="form-control" type="text" name="cashPrice">
+											</td>
+										</tr>
+							
+										<tr>
+											<td>내용</td>
+											<td>
+												<textarea class="form-control" rows="3" cols="50" name="cashMemo"></textarea>
+											</td>
+										</tr>
+										<tr>
+				                       		<td colspan="7">
+				                       			<div class="tableButton">
+													<button type="submit" class="btn btn-primary btn-block">입력하기!</button>
+												</div>
+				                      	 	</td>
+ 				                
+ 				              			</tr>
+										
+									</table>
 								</form>
 							</div>
 						</div>
@@ -275,9 +270,12 @@
     	</div>
     </div>
 	<!--**********************************
+            Content body end
+	***********************************-->
+	<!--**********************************
         Main wrapper end
     ***********************************-->
-	<!-- cash 목록 출력 -->
+
 	
 	<!--**********************************
             Footer start

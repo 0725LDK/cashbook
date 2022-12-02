@@ -89,9 +89,6 @@
     <link href="<%=request.getContextPath() %>/resource/vendor/jqvmap/css/jqvmap.min.css" rel="stylesheet">
     <link href="<%=request.getContextPath() %>/resource/css/style.css" rel="stylesheet">
     <link href="<%=request.getContextPath() %>/resource/vendor/fullcalendar/css/fullcalendar.min.css" rel="stylesheet">
-
-
-
 </head>
 
 <body>
@@ -109,9 +106,7 @@
 				<!-- 로그인 정보(세션 loginMember 변수) 출력 -->
 				<a href="<%=request.getContextPath()%>/cash/cashList.jsp">Hello!</a>&nbsp;&nbsp; <%=loginMember.getMemberName() %>&nbsp;&nbsp;&nbsp;
 				<a href="<%=request.getContextPath()%>/logOut.jsp">LogOut</a>
-				
 			</div>
-			
         </div>
         <!--**********************************
             Nav header end
@@ -124,7 +119,17 @@
             <div class="header-content">
                 <nav class="navbar navbar-expand">
                     <div class="collapse navbar-collapse justify-content-between">
-                      
+                      <span>
+					<%
+						if(request.getParameter("msg") != null)
+						{
+					%>
+							<span><%=request.getParameter("msg") %></span>
+					<%	
+						}
+					
+					%>
+				</span>
                     </div>
                 </nav>
             </div>
@@ -155,15 +160,8 @@
 												<a href="<%=request.getContextPath()%>/admin/adminMain.jsp?loginMember=<%=loginMember%>">관리자 페이지</a>
 										<%
 											}
-												
-											if(request.getParameter("msg") != null)
-											{
-										%>
-												<span><%=request.getParameter("msg") %></span>
-										<%	
-											}
+										%>	
 										
-										%>
 									</div>
                             </li>
                         </ul>

@@ -56,6 +56,7 @@
 
 <body class="h-100">
 	<!-- 공지(5개)목록 페이징 -->
+	<br><br><br>
 	<div class="authincation h-100">
         <div class="container-fluid h-100">
             <div class="row justify-content-center h-100 align-items-center">
@@ -64,71 +65,69 @@
                         <div class="row no-gutters">
                             <div class="col-xl-12">
                                 <div class="auth-form">	
-                                	<h4 class="text-center mb-4">공지사항</h4>			
-										<table id="example" class="display text-center mb-4" style="min-width: 845px">
-											<thead class="text-center mb-4">
-												<tr>
-													<th>공지내용</th>
-													<th>날짜</th>
-												</tr>
-											</thead>
-											<tbody class="text-center mb-4">
-												<%
-													for(Notice n : list)
-													{
-												%>		
-														<tr>
-															<td><%=n.getNoticeMemo() %></td>
-															<td><%=n.getCreatedate() %></td>
-														</tr>	
-												<%	
-													}
-												%>
-											</tbody>
-											<tfoot class="text-center mb-4">
-												<!-- 페이지 넘기기 버튼 -->
-												<tr>
-													<td colspan="2"> &nbsp; </td>
-												</tr>
-												<tr>
-													<td colspan="2">
-														<div>
-															<%
-																if(currentPage == 1)
-																{
-															%>
-																	<span>처음으로</span>
-																	<span>이전</span>
-															<%
-																}
-																else 
-																{
-															%>
-																	<a href="<%=request.getContextPath()%>/loginForm.jsp?currentPage=<%= firstPage%>">처음으로</a>
-																	<a href="<%=request.getContextPath()%>/loginForm.jsp?currentPage=<%= currentPage-1%>">이전</a>
-															<%
-																}
-															%>
-															
-															<span>[ <%=currentPage %> ]</span>
-															
-															<%
-																if(currentPage == lastPage)
-																{
-															%>
-																	<span>다음</span>
-																	<span>마지막으로</span>
-															<%		
-																}
-																else
-																{
-															%>
-																	<a href="<%=request.getContextPath()%>/loginForm.jsp?currentPage=<%= currentPage+1%>">다음</a>
-																	<a href="<%=request.getContextPath()%>/loginForm.jsp?currentPage=<%= lastPage%>">마지막으로</a>
-															<%
-																}
-															%>
-															</div>
+                                	<div class="container-fluid">
+                                		<h4 class="text-center mb-4">Notice</h4>			
+											<table id="example" class="table mb-0" style="min-width: 845px">
+												<thead class="text-center mb-4">
+													<tr>
+														<th>공지내용</th>
+														<th>날짜</th>
+													</tr>
+												</thead>
+												<tbody class="text-center mb-4">
+													<%
+														for(Notice n : list)
+														{
+													%>		
+															<tr>
+																<td><%=n.getNoticeMemo() %></td>
+																<td><%=n.getCreatedate() %></td>
+															</tr>	
+													<%	
+														}
+													%>
+												</tbody>
+												<tfoot class="text-center mb-4">
+													<!-- 페이지 넘기기 버튼 -->
+													<tr>
+														<td colspan="2">
+															<div>
+																<%
+																	if(currentPage == 1)
+																	{
+																%>
+																		<span>처음으로</span>
+																		<span>이전</span>
+																<%
+																	}
+																	else 
+																	{
+																%>
+																		<a href="<%=request.getContextPath()%>/loginForm.jsp?currentPage=<%= firstPage%>">처음으로</a>
+																		<a href="<%=request.getContextPath()%>/loginForm.jsp?currentPage=<%= currentPage-1%>">이전</a>
+																<%
+																	}
+																%>
+																
+																<span>[ <%=currentPage %> ]</span>
+																
+																<%
+																	if(currentPage == lastPage)
+																	{
+																%>
+																		<span>다음</span>
+																		<span>마지막으로</span>
+																<%		
+																	}
+																	else
+																	{
+																%>
+																		<a href="<%=request.getContextPath()%>/loginForm.jsp?currentPage=<%= currentPage+1%>">다음</a>
+																		<a href="<%=request.getContextPath()%>/loginForm.jsp?currentPage=<%= lastPage%>">마지막으로</a>
+																<%
+																	}
+																%>
+														</div>
 													</td>
 												</tr>
 											</tfoot>
@@ -141,9 +140,8 @@
 				</div>
 			</div>
 		</div>
-		
-		<br><br><br>
-
+	</div>
+	<br><br><br>
 	
 	<!-- 로그인 폼 -->
 	<div class="authincation h-100">
