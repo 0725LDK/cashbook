@@ -149,21 +149,7 @@
 	 				                <tr>
 				                       	<td colspan="7">
 				                       		<span class="fontThisDate"><%=year %>년 <%=month %>월 <%=date %>일 상세내역</span><br>
-			                       				<%
-													if(request.getParameter("msg1") != null)
-													{
-												%>
-														<span style="color:red"><%=request.getParameter("msg1") %></span>
-														<span><%=request.getParameter("msg") %></span>
-												<%	
-													}
-													else if(request.getParameter("msg1") == null && request.getParameter("msg") != null )
-													{
-												%>
-														<span><%=request.getParameter("msg") %></span>
-												<%		
-													}
-												%>
+			                       				
 				                       	</td>
 	 				                
 	 				                </tr>
@@ -230,8 +216,22 @@
 									<table class="table mb-0">
 										<tr>
 				                       		<td colspan="2">
-				                       			<span class="fontThisDate">가계부 입력</span>
-				                       			
+				                       			<span class="fontThisDate">가계부 입력</span><br>
+				                       			<%
+													if(request.getParameter("msg1") != null)
+													{
+												%>
+														<span style="color:red"><%=request.getParameter("msg1") %></span>
+														<span><%=request.getParameter("msg") %></span>
+												<%	
+													}
+													else if(request.getParameter("msg1") == null && request.getParameter("msg") != null )
+													{
+												%>
+														<span><%=request.getParameter("msg") %></span>
+												<%		
+													}
+												%>
 				                      	 	</td>
  				              			</tr>
 										<tr>

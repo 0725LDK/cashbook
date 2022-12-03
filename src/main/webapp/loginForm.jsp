@@ -67,7 +67,7 @@
                                 <div class="auth-form">	
                                 	<div class="container-fluid">
                                 		<h4 class="text-center mb-4">Notice</h4>			
-											<table id="example" class="table mb-0" style="min-width: 845px">
+											<table id="example" class="table mb-0" style="min-width: 600px">
 												<thead class="text-center mb-4">
 													<tr>
 														<th>공지내용</th>

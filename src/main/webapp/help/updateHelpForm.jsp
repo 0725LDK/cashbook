@@ -21,7 +21,7 @@
 	<meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Delete Member </title>
+    <title>updateHelp</title>
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="<%=request.getContextPath() %>/resource/images/favicon.png">
     <link rel="stylesheet" href="<%=request.getContextPath() %>/resource/vendor/owl-carousel/css/owl.carousel.min.css">
@@ -115,7 +115,6 @@
 	<!--**********************************
 	       Content body start
 	***********************************-->
-		<!-- 로그인 폼 -->
 		<div class="content-body">
 			<!-- row -->
 			<div class="container-fluid">
@@ -174,7 +173,7 @@
        Main wrapper end
     ***********************************-->
     
-    <!--**********************************
+	<!--**********************************
 	     Footer start
 	 ***********************************-->
 	 <div class="footer">
@@ -190,33 +189,6 @@
 	<div>
 		<jsp:include page="/inc/scripts.jsp"></jsp:include>
 	</div>
-
-
-
-
-<%-- <!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
-	<h1>문의 수정 페이지</h1>
-	<form action="<%=request.getContextPath()%>/help/updateHelpAction.jsp" method="post">
-		<input type="hidden" name="helpNo" value="<%=helpNo%>">
-		<table>
-			<tr>
-				<td>게시글 수정 전 내용</td>
-				<td><input type="text" value="<%=helpMemo%>" readonly="readonly"></td>
-			</tr>
-			<tr>
-				<td>게시글 수정 후 내용</td>
-				<td><input type="text" name="helpMemo"></td>
-			</tr>
-		</table>
-		<button type="submit">수정하기</button>
-	</form>
+	
 </body>
 </html>
-
- --%>
