@@ -141,35 +141,50 @@
         <!--**********************************
             Sidebar start
         ***********************************-->
-        <div class="quixnav">
-            <div class="quixnav-scroll">
-                <ul class="metismenu" id="menu">
-                    <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i
-                                class="icon icon-single-04"></i><span class="nav-text">My Page</span></a>
-                        <ul aria-expanded="false">
-                            <li><a href="<%=request.getContextPath()%>/updateMemberForm.jsp?memberId=<%=loginMember.getMemberId()%>&memberName=<%=loginMember.getMemberName() %>">회원 정보 수정</a></li>
-                            <li><a href="<%=request.getContextPath()%>/help/helpList.jsp">고객센터</a></li>
-                            <li><a href="<%=request.getContextPath()%>/deleteMemberForm.jsp?memberId=<%=loginMember.getMemberId()%>">회원 탈퇴</a></li>
-                            <li>
-                            		<!-- 관리자 로그인시 관리자 페이지 생성 -->
-									<div>
-										<%
-											if(loginMember.getMemberLevel()>0)
-											{
-										%>
-												<a href="<%=request.getContextPath()%>/admin/adminMain.jsp?loginMember=<%=loginMember%>">관리자 페이지</a>
-										<%
-											}
-										%>	
-										
-									</div>
-                            </li>
-                        </ul>
-                    </li>
-                    
-                </ul>
-            </div>
-        </div>
+          <div>
+				<%
+					if(loginMember.getMemberLevel()==0)
+					{
+						
+				%>	
+						<div class="quixnav">
+				            <div class="quixnav-scroll">
+				                <ul class="metismenu" id="menu">
+				                    <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i
+				                                class="icon icon-single-04"></i><span class="nav-text">My Page</span></a>
+				                        <ul aria-expanded="false">
+				                            <li><a href="<%=request.getContextPath()%>/updateMemberForm.jsp?memberId=<%=loginMember.getMemberId()%>&memberName=<%=loginMember.getMemberName() %>">회원 정보 수정</a></li>
+				                            <li><a href="<%=request.getContextPath()%>/help/helpList.jsp">고객센터</a></li>
+				                            <li><a href="<%=request.getContextPath()%>/deleteMemberForm.jsp?memberId=<%=loginMember.getMemberId()%>">회원 탈퇴</a></li>
+				                        </ul>
+				                    </li>
+				                </ul>
+				            </div>
+				        </div>
+				<%
+					}
+					else if(loginMember.getMemberLevel()>0)
+					{
+				%>
+						<div class="quixnav">
+				            <div class="quixnav-scroll">
+				                <ul class="metismenu" id="menu">
+									<li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i
+				                                class="icon icon-single-04"></i><span class="nav-text">Admin Page</span></a>
+				                        <ul aria-expanded="false">
+											
+											<jsp:include page="/inc/head.jsp"></jsp:include>
+				                            
+				                        </ul>
+				                    </li>
+				                </ul>
+				            </div>
+				        </div>
+				<% 
+			        }
+				%>
+	       
+	       </div>
         <!--**********************************
             Sidebar end
         ***********************************-->
