@@ -246,7 +246,7 @@
 									%>
 								</tbody>
 								<tfoot class="text-center mb-4">
-										<!-- 페이지 넘기기 버튼 -->
+									<!-- 페이지 넘기기 버튼 -->
 									<tr>
 										<td colspan="6">
 											<div>
