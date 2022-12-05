@@ -48,7 +48,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Sign In </title>
+    <title>Notice & Sign In</title>
     <!-- Favicon icon -->
     <link rel="icon" type="<%=request.getContextPath()%>/resource/image/png" sizes="16x16" href="<%=request.getContextPath()%>/resource/images/favicon.png">
     <link href="<%=request.getContextPath() %>/resource/css/style.css" rel="stylesheet">
@@ -70,10 +70,11 @@
 											<table id="example" class="table mb-0" style="min-width: 600px">
 												<thead class="text-center mb-4">
 													<tr>
-														<th>공지내용</th>
-														<th>날짜</th>
+														<th><span style="font-size:15px">공지내용</span></th>
+														<th><span style="font-size:15px">날짜</span></th>
 													</tr>
 												</thead>
+												
 												<tbody class="text-center mb-4">
 													<%
 														for(Notice n : list)
@@ -87,6 +88,7 @@
 														}
 													%>
 												</tbody>
+												
 												<tfoot class="text-center mb-4">
 													<!-- 페이지 넘기기 버튼 -->
 													<tr>
@@ -152,9 +154,8 @@
                         <div class="row no-gutters">
                             <div class="col-xl-12">
                                 <div class="auth-form">
-                                    <h4 class="text-center mb-4">Sign in</h4>
+                                    <h4 class="text-center mb-4">Sign In</h4>
 									<form action="<%=request.getContextPath()%>/loginAction.jsp" method="post">
-										
 										<div class="form-group">
 											<label><strong>ID</strong></label>
 											<input name="memberId" type="text" class="form-control" placeholder="Insert Your ID">

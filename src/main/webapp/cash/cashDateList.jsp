@@ -43,7 +43,6 @@
 
 <body>
 	
-	
     <!--**********************************
         Main wrapper start
     ***********************************-->
@@ -56,9 +55,7 @@
 				<!-- 로그인 정보(세션 loginMember 변수) 출력 -->
 				<a href="<%=request.getContextPath()%>/cash/cashList.jsp">Hello!</a>&nbsp;&nbsp; <%=loginMember.getMemberName() %>&nbsp;&nbsp;&nbsp;
 				<a href="<%=request.getContextPath()%>/logOut.jsp">LogOut</a>
-				
 			</div>
-			
         </div>
         <!--**********************************
             Nav header end
@@ -87,7 +84,6 @@
 				<%
 					if(loginMember.getMemberLevel()==0)
 					{
-						
 				%>	
 						<div class="quixnav">
 				            <div class="quixnav-scroll">
@@ -103,7 +99,6 @@
 				                </ul>
 				            </div>
 				        </div>
-					
 				<%
 					}
 					else if(loginMember.getMemberLevel()>0)
@@ -115,9 +110,7 @@
 									<li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i
 				                                class="icon icon-single-04"></i><span class="nav-text">Admin Page</span></a>
 				                        <ul aria-expanded="false">
-											
 											<jsp:include page="/inc/head.jsp"></jsp:include>
-				                            
 				                        </ul>
 				                    </li>
 				                </ul>
@@ -126,11 +119,7 @@
 				<% 
 			        }
 				%>
-	       
 	       </div>
-       
-       
-        
         <!--**********************************
             Sidebar end
         ***********************************-->
@@ -149,9 +138,7 @@
 	 				                <tr>
 				                       	<td colspan="7">
 				                       		<span class="fontThisDate"><%=year %>년 <%=month %>월 <%=date %>일 상세내역</span><br>
-			                       				
 				                       	</td>
-	 				                
 	 				                </tr>
 		
 									<tr>
@@ -161,7 +148,7 @@
 										<th>메모</th>
 										<th>수정일자</th>
 										<th>생성일자</th>
-										<th>편집</th>
+										<th>수정[&#9997;] / 삭제[&#10060;]</th>
 									</tr>
 									
 									<%
@@ -173,7 +160,6 @@
 											{
 												System.out.println((Integer)(m.get("cashNo")));
 									%>
-												
 												<tr>
 													<td><%=(String)m.get("categoryKind")%>&nbsp;</td>
 													<td><%=(String)m.get("categoryName")%>&nbsp;</td>
@@ -182,8 +168,8 @@
 													<td><%=(String)m.get("updateDate")%>&nbsp;</td>
 													<td><%=(String)m.get("createDate")%>&nbsp;</td>
 													<td>
-														<a href="<%=request.getContextPath()%>/cash/updateCashForm.jsp?year=<%=year%>&month=<%=month%>&date=<%=date%>&cashNo=<%=m.get("cashNo")%>">수정&nbsp;</a>
-														<a href="<%=request.getContextPath()%>/cash/deleteCashAction.jsp?year=<%=year%>&month=<%=month%>&date=<%=date%>&cashNo=<%=m.get("cashNo")%>&memberId=<%=loginMemberId%>">삭제</a>
+														<a href="<%=request.getContextPath()%>/cash/updateCashForm.jsp?year=<%=year%>&month=<%=month%>&date=<%=date%>&cashNo=<%=m.get("cashNo")%>">&#9997;&nbsp;&nbsp;&nbsp;</a>
+														<a href="<%=request.getContextPath()%>/cash/deleteCashAction.jsp?year=<%=year%>&month=<%=month%>&date=<%=date%>&cashNo=<%=m.get("cashNo")%>&memberId=<%=loginMemberId%>">&#10060;</a>
 													</td>
 												</tr>
 									<%
@@ -271,6 +257,7 @@
 												<textarea class="form-control" rows="3" cols="50" name="cashMemo"></textarea>
 											</td>
 										</tr>
+										
 										<tr class="text-center">
 				                       		<td colspan="7" >
 				                       			<span class="fontThisDate">
@@ -286,10 +273,11 @@
 				</div>	
 			</div>	
     	</div>
-    </div>
+ 
 	<!--**********************************
             Content body end
 	***********************************-->
+	</div>
 	<!--**********************************
         Main wrapper end
     ***********************************-->

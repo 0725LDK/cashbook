@@ -43,9 +43,7 @@
 				<!-- 로그인 정보(세션 loginMember 변수) 출력 -->
 				<a href="<%=request.getContextPath()%>/cash/cashList.jsp">Hello!</a>&nbsp;&nbsp; <%=loginMember.getMemberName() %>&nbsp;&nbsp;&nbsp;
 				<a href="<%=request.getContextPath()%>/logOut.jsp">LogOut</a>
-				
 			</div>
-			
         </div>
 	<!--**********************************
 	    	Nav header end
@@ -73,36 +71,34 @@
         <div class="quixnav">
             <div class="quixnav-scroll">
                 <ul class="metismenu" id="menu">
-                    <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i
-                                class="icon icon-single-04"></i><span class="nav-text">My Page</span></a>
+                    <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i class="icon icon-single-04"></i><span class="nav-text">My Page</span></a>
                         <ul aria-expanded="false">
                             <li><a href="<%=request.getContextPath()%>/updateMemberForm.jsp?memberId=<%=loginMember.getMemberId()%>&memberName=<%=loginMember.getMemberName() %>">회원 정보 수정</a></li>
                             <li><a href="<%=request.getContextPath()%>/help/helpList.jsp">고객센터</a></li>
                             <li><a href="<%=request.getContextPath()%>/deleteMemberForm.jsp?memberId=<%=loginMember.getMemberId()%>">회원 탈퇴</a></li>
                             <li>
-                            		<!-- 관리자 로그인시 관리자 페이지 생성 -->
-									<div>
-										<%
-											if(loginMember.getMemberLevel()>0)
-											{
-										%>
-												<a href="<%=request.getContextPath()%>/admin/adminMain.jsp?loginMember=<%=loginMember%>">관리자 페이지</a>
-										<%
-											}
-												
-											if(request.getParameter("msg") != null)
-											{
-										%>
-												<span><%=request.getParameter("msg") %></span>
-										<%	
-											}
-										
-										%>
-									</div>
+                           		<!-- 관리자 로그인시 관리자 페이지 생성 -->
+								<div>
+									<%
+										if(loginMember.getMemberLevel()>0)
+										{
+									%>
+											<a href="<%=request.getContextPath()%>/admin/adminMain.jsp?loginMember=<%=loginMember%>">관리자 페이지</a>
+									<%
+										}
+											
+										if(request.getParameter("msg") != null)
+										{
+									%>
+											<span><%=request.getParameter("msg") %></span>
+									<%	
+										}
+									
+									%>
+								</div>
                             </li>
                         </ul>
                     </li>
-                    
                 </ul>
             </div>
         </div>
@@ -162,9 +158,13 @@
 			    </div>
 			</div>
 		</div>
-	 <!--**********************************
-	     Content body end
-	 ***********************************-->
+		 <!--**********************************
+		     Content body end
+		 ***********************************-->
+    </div>
+    <!--**********************************
+        Main wrapper end
+    ***********************************-->
 	 
     <!--**********************************
 	     Footer start
@@ -176,10 +176,6 @@
 	    Footer end
 	***********************************-->
     
-    </div>
-    <!--**********************************
-        Main wrapper end
-    ***********************************-->
 
 	<!--**********************************
 	       Scripts
@@ -188,30 +184,5 @@
 		<jsp:include page="/inc/scripts.jsp"></jsp:include>
 	</div>
 
-	<%-- <h1>회원 탈퇴 페이지</h1>	
-	<form	action="<%=request.getContextPath()%>/deleteMemberAction.jsp" method="post">
-		<table>
-			<tr>
-				<td>ID : </td>
-				<td><input type="text" name="memberId" value="<%=loginMember.getMemberId()%>" readonly="readonly"></td>
-			</tr>
-			<tr>
-				<td>PW : </td>
-				<td><input type="password" name="memberPw"></td>
-			</tr>
-			
-		</table>
-	<button type="submit">삭제하기</button>
-	</form>
-	
-	<%
-		if(request.getParameter("msg") != null)
-		{
-	%>
-			<span style="color:red">경고!</span>
-			<span><%=request.getParameter("msg") %></span>
-	<%
-		}
-	%> --%>
 </body>
 </html>

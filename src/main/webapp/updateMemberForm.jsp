@@ -41,9 +41,7 @@
 				<!-- 로그인 정보(세션 loginMember 변수) 출력 -->
 				<a href="<%=request.getContextPath()%>/cash/cashList.jsp">Hello!</a>&nbsp;&nbsp; <%=loginMember.getMemberName() %>&nbsp;&nbsp;&nbsp;
 				<a href="<%=request.getContextPath()%>/logOut.jsp">LogOut</a>
-				
 			</div>
-			
         </div>
 	<!--**********************************
 	    	Nav header end
@@ -71,8 +69,7 @@
         <div class="quixnav">
             <div class="quixnav-scroll">
                 <ul class="metismenu" id="menu">
-                    <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i
-                                class="icon icon-single-04"></i><span class="nav-text">My Page</span></a>
+                    <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i class="icon icon-single-04"></i><span class="nav-text">My Page</span></a>
                         <ul aria-expanded="false">
                             <li><a href="<%=request.getContextPath()%>/updateMemberForm.jsp?memberId=<%=loginMember.getMemberId()%>&memberName=<%=loginMember.getMemberName() %>">회원 정보 수정</a></li>
                             <li><a href="<%=request.getContextPath()%>/help/helpList.jsp">고객센터</a></li>
@@ -102,68 +99,69 @@
 	<!--**********************************
 	       Content body start
 	***********************************-->
-	<!-- 로그인 폼 -->
-	<div class="content-body">
-		<!-- row -->
-		<div class="container-fluid">
-			<div class="authincation h-100">
-		        <div class="container-fluid h-100">
-		            <div class="row justify-content-center h-100 align-items-center">
-		                <div class="col-md-6">
-		                    <div class="authincation-content">
-		                        <div class="row no-gutters">
-		                            <div class="col-xl-12">
-		                                <div class="auth-form">
-		                                    <h4 class="text-center mb-4">회원 정보 수정</h4>
-											<form action="<%=request.getContextPath()%>/updateMemberAction.jsp" method="post">
-												
-												<div class="form-group">
-													<label><strong>ID</strong></label>
-													<input name="memberId" type="text" class="form-control"  value="<%=request.getParameter("memberId")%>" readonly="readonly">
-												</div>
-												<div class="form-group">
-													<label><strong>기존 이름 </strong></label>
-													<input type="text" name="memberName" class="form-control" value="<%=request.getParameter("memberName")%>" readonly="readonly">
-												</div>
-												<div class="form-group">
-													<label><strong>변경 할 이름 </strong></label>
-													<input type="text" name="newName" class="form-control">
-												</div>
-												<div class="form-group">
-													<label><strong>비밀번호 확인 </strong></label>
-													<input type="password" name="memberPw" class="form-control" >
-												</div>
-												<div class="text-center">
-													<button type="submit" class="btn btn-primary btn-block">변경하기</button>
-												</div>
-											</form>
-											<br>
-											<div>
-												<%
-													if(request.getParameter("msg") != null)
-													{
-												%>
-														<span style="color:red"><%=request.getParameter("msg") %></span>
-												<%	
-													}
-												
-												%>
-			                         		</div>
-		                                </div>
-		                            </div>
-		                        </div>
-		                    </div>
-		                </div>
-		            </div>
-		        </div>
-		    </div>
+		<!-- 로그인 폼 -->
+		<div class="content-body">
+			<!-- row -->
+			<div class="container-fluid">
+				<div class="authincation h-100">
+			        <div class="container-fluid h-100">
+			            <div class="row justify-content-center h-100 align-items-center">
+			                <div class="col-md-6">
+			                    <div class="authincation-content">
+			                        <div class="row no-gutters">
+			                            <div class="col-xl-12">
+			                                <div class="auth-form">
+			                                    <h4 class="text-center mb-4">회원 정보 수정</h4>
+												<form action="<%=request.getContextPath()%>/updateMemberAction.jsp" method="post">
+													<div class="form-group">
+														<label><strong>ID</strong></label>
+														<input name="memberId" type="text" class="form-control"  value="<%=request.getParameter("memberId")%>" readonly="readonly">
+													</div>
+													<div class="form-group">
+														<label><strong>기존 이름 </strong></label>
+														<input type="text" name="memberName" class="form-control" value="<%=request.getParameter("memberName")%>" readonly="readonly">
+													</div>
+													<div class="form-group">
+														<label><strong>변경 할 이름 </strong></label>
+														<input type="text" name="newName" class="form-control">
+													</div>
+													<div class="form-group">
+														<label><strong>비밀번호 확인 </strong></label>
+														<input type="password" name="memberPw" class="form-control" >
+													</div>
+													<div class="text-center">
+														<button type="submit" class="btn btn-primary btn-block">변경하기</button>
+													</div>
+												</form>
+												<br>
+												<div>
+													<%
+														if(request.getParameter("msg") != null)
+														{
+													%>
+															<span style="color:red"><%=request.getParameter("msg") %></span>
+													<%	
+														}
+													
+													%>
+				                         		</div>
+			                                </div>
+			                            </div>
+			                        </div>
+			                    </div>
+			                </div>
+			            </div>
+			        </div>
+			    </div>
+			</div>
 		</div>
-	</div>
-        
-        
-	 <!--**********************************
+	<!--**********************************
 	     Content body end
-	 ***********************************-->
+	***********************************-->
+	</div>
+	<!--**********************************
+	    Main wrapper end
+	***********************************-->
 	
 	
 	<!--**********************************
@@ -176,10 +174,6 @@
 	    Footer end
 	***********************************-->
 	    
-	</div>
-	<!--**********************************
-	    Main wrapper end
-	***********************************-->
 	
 	<!--**********************************
 	       Scripts
