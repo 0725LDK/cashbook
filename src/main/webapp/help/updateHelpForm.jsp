@@ -21,7 +21,7 @@
 	<meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>updateHelp</title>
+    <title>Update Help</title>
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="<%=request.getContextPath() %>/resource/images/favicon.png">
     <link rel="stylesheet" href="<%=request.getContextPath() %>/resource/vendor/owl-carousel/css/owl.carousel.min.css">
@@ -45,9 +45,7 @@
 				<!-- 로그인 정보(세션 loginMember 변수) 출력 -->
 				<a href="<%=request.getContextPath()%>/cash/cashList.jsp">Hello!</a>&nbsp;&nbsp; <%=loginMember.getMemberName() %>&nbsp;&nbsp;&nbsp;
 				<a href="<%=request.getContextPath()%>/logOut.jsp">LogOut</a>
-				
 			</div>
-			
         </div>
 	<!--**********************************
 	    	Nav header end
@@ -75,36 +73,34 @@
         <div class="quixnav">
             <div class="quixnav-scroll">
                 <ul class="metismenu" id="menu">
-                    <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i
-                                class="icon icon-single-04"></i><span class="nav-text">My Page</span></a>
+                    <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i class="icon icon-single-04"></i><span class="nav-text">My Page</span></a>
                         <ul aria-expanded="false">
                             <li><a href="<%=request.getContextPath()%>/updateMemberForm.jsp?memberId=<%=loginMember.getMemberId()%>&memberName=<%=loginMember.getMemberName() %>">회원 정보 수정</a></li>
                             <li><a href="<%=request.getContextPath()%>/help/helpList.jsp">고객센터</a></li>
                             <li><a href="<%=request.getContextPath()%>/deleteMemberForm.jsp?memberId=<%=loginMember.getMemberId()%>">회원 탈퇴</a></li>
                             <li>
-                            		<!-- 관리자 로그인시 관리자 페이지 생성 -->
-									<div>
-										<%
-											if(loginMember.getMemberLevel()>0)
-											{
-										%>
-												<a href="<%=request.getContextPath()%>/admin/adminMain.jsp?loginMember=<%=loginMember%>">관리자 페이지</a>
-										<%
-											}
-												
-											if(request.getParameter("msg") != null)
-											{
-										%>
-												<span><%=request.getParameter("msg") %></span>
-										<%	
-											}
-										
-										%>
-									</div>
+                           		<!-- 관리자 로그인시 관리자 페이지 생성 -->
+								<div>
+									<%
+										if(loginMember.getMemberLevel()>0)
+										{
+									%>
+											<a href="<%=request.getContextPath()%>/admin/adminMain.jsp?loginMember=<%=loginMember%>">관리자 페이지</a>
+									<%
+										}
+											
+										if(request.getParameter("msg") != null)
+										{
+									%>
+											<span><%=request.getParameter("msg") %></span>
+									<%	
+										}
+									
+									%>
+								</div>
                             </li>
                         </ul>
                     </li>
-                    
                 </ul>
             </div>
         </div>
@@ -166,7 +162,6 @@
 	 <!--**********************************
 	     Content body end
 	 ***********************************-->
-    
     
     </div>
    	<!--**********************************
