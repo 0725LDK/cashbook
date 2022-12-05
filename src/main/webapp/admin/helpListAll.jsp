@@ -72,9 +72,7 @@
 				<!-- 로그인 정보(세션 loginMember 변수) 출력 -->
 				<a href="<%=request.getContextPath()%>/cash/cashList.jsp">Hello!</a>&nbsp;&nbsp; <%=loginMember.getMemberName() %>&nbsp;&nbsp;&nbsp;
 				<a href="<%=request.getContextPath()%>/logOut.jsp">LogOut</a>
-				
 			</div>
-			
         </div>
         <!--**********************************
             Nav header end
@@ -87,7 +85,6 @@
             <div class="header-content">
                 <nav class="navbar navbar-expand">
                     <div class="collapse navbar-collapse justify-content-between">
-                      
                     </div>
                 </nav>
             </div>
@@ -108,8 +105,7 @@
 					<div class="quixnav">
 			            <div class="quixnav-scroll">
 			                <ul class="metismenu" id="menu">
-			                    <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i
-			                                class="icon icon-single-04"></i><span class="nav-text">My Page</span></a>
+			                    <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i class="icon icon-single-04"></i><span class="nav-text">My Page</span></a>
 			                        <ul aria-expanded="false">
 			                            <li><a href="<%=request.getContextPath()%>/updateMemberForm.jsp?memberId=<%=loginMember.getMemberId()%>&memberName=<%=loginMember.getMemberName() %>">회원 정보 수정</a></li>
 			                            <li><a href="<%=request.getContextPath()%>/help/helpList.jsp">고객센터</a></li>
@@ -119,7 +115,6 @@
 			                </ul>
 			            </div>
 			        </div>
-				
 			<%
 				}
 				else if(loginMember.getMemberLevel()>0)
@@ -128,12 +123,9 @@
 					<div class="quixnav">
 			            <div class="quixnav-scroll">
 			                <ul class="metismenu" id="menu">
-								<li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i
-			                                class="icon icon-single-04"></i><span class="nav-text">Admin Page</span></a>
+								<li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i class="icon icon-single-04"></i><span class="nav-text">Admin Page</span></a>
 			                        <ul aria-expanded="false">
-										
 										<jsp:include page="/inc/head.jsp"></jsp:include>
-			                            
 			                        </ul>
 			                    </li>
 			                </ul>
@@ -151,158 +143,156 @@
 		<!--**********************************
 		       Content body start
 		***********************************-->
-	<div class="content-body">
-            <!-- row -->
-		<div class="container-fluid">
-			<div class="row">
-				<div class="col-xl-12 col-lg-8 col-md-8">
-					<div class="card">
-                       	<div class="table-responsive">
-							<table class="table mb-0">
-								<thead class="text-center mb-4">
-									<tr>
-										<td colspan="6">
-											<span class="fontThisDate">고객센터 문의 목록</span>
-										</td>
-									</tr>
-									<tr>
-										<th>문의내용</th>
-										<th>회원ID</th>
-										<th>문의날짜</th>
-										<th>답변내용</th>
-										<th>답변날짜</th>
-										<th>답변입력[&#10133;] / 수정[&#9997;] / 삭제[&#10060;]</th>
-									</tr>
-								</thead>
-								<tbody class="text-center mb-4">
-									<%
-										for(HashMap<String, Object> m :list)
-										{
-									%>
-											<tr>
-												<input type="hidden" name="commentNo" value="<%=m.get("commentNo")%>">
-												<td><%=m.get("helpMemo") %></td>
-												<td><%=m.get("memberId") %></td>
-												<td><%=m.get("helpCreatedate") %></td>
-												
-												<td>
+		<div class="content-body">
+			<!-- row -->
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col-xl-12 col-lg-8 col-md-8">
+						<div class="card">
+		                   	<div class="table-responsive">
+								<table class="table mb-0">
+									<thead class="text-center mb-4">
+										<tr>
+											<td colspan="6">
+												<span class="fontThisDate">고객센터 문의 목록</span>
+											</td>
+										</tr>
+										<tr>
+											<th><span style="font-size:15px">문의내용</span></th>
+											<th><span style="font-size:15px">회원ID</span></th>
+											<th><span style="font-size:15px">문의날짜</span></th>
+											<th><span style="font-size:15px">답변내용</span></th>
+											<th><span style="font-size:15px">답변날짜</span></th>
+											<th>
+												<span style="font-size:15px">답변입력[&#10133;] / 수정[&#9997;] / 삭제[&#10060;]</span>
+											</th>
+										</tr>
+									</thead>
+									<tbody class="text-center mb-4">
+										<%
+											for(HashMap<String, Object> m :list)
+											{
+										%>
+												<tr>
+													<input type="hidden" name="commentNo" value="<%=m.get("commentNo")%>">
+													<td><%=m.get("helpMemo") %></td>
+													<td><%=m.get("memberId") %></td>
+													<td><%=m.get("helpCreatedate") %></td>
+													
+													<td>
+														<%
+															if(m.get("commentMemo") == null)
+															{
+														%>
+																<span>.....답변 대기중.....</span>
+														<%
+															}
+															else
+															{
+														%>
+																<%=m.get("commentMemo")%>
+														<%
+															}
+														%>
+													</td>
+													<td>
+														<%
+															if(m.get("commentCreatedate") == null)
+															{
+														%>
+																<span>.....답변 대기중.....</span>
+														<%
+															}
+															else
+															{
+														%>
+																<%=m.get("commentCreatedate") %>
+														<%
+															}
+														%>
+													</td>
+													
+													<td>
+														<%
+															if(m.get("commentMemo") == null)
+															{
+														%>
+																<a href="<%=request.getContextPath() %>/admin/insertCommentForm.jsp?helpNo=<%=m.get("helpNo")%>"> 
+																	&#10133;<!-- 답변입력 이모지 -->
+																</a>
+														<% 
+															}
+															else
+															{
+														%>		
+																<a href="<%=request.getContextPath() %>/admin/updateCommentForm.jsp?commentNo=<%=m.get("commentNo")%>&commentMemo=<%=m.get("commentMemo")%>">&#9997;&nbsp;&nbsp;</a><!-- 수정 이모지 -->	
+																<a href="<%=request.getContextPath() %>/admin/deleteCommentAction.jsp?commentNo=<%=m.get("commentNo")%>">&nbsp;&nbsp;&#10060;</a><!-- 삭제이모지 -->
+														<%	
+															}
+														
+														%>
+													
+													</td>
+													
+												</tr>
+										<%
+											}
+										%>
+									</tbody>
+									<tfoot class="text-center mb-4">
+										<!-- 페이지 넘기기 버튼 -->
+										<tr>
+											<td colspan="6">
+												<div>
 													<%
-														if(m.get("commentMemo") == null)
+														if(currentPage == 1)
 														{
 													%>
-															<span>.....답변 대기중.....</span>
-													<%
+															<span>처음으로</span>		
+															<span>이전</span>		
+													<%		
 														}
 														else
 														{
 													%>
-															<%=m.get("commentMemo")%>
+															<a href="<%=request.getContextPath()%>/admin/helpListAll.jsp?currentPage=<%=firstPage%>">처음으로</a>
+															<a href="<%=request.getContextPath()%>/admin/helpListAll.jsp?currentPage=<%=currentPage-1%>">이전</a>
 													<%
 														}
 													%>
-												</td>
-												<td>
+													
+													<span> [<%=currentPage %>  ] </span>
+													
 													<%
-														if(m.get("commentCreatedate") == null)
-														{
-													%>
-															<span>.....답변 대기중.....</span>
-													<%
-														}
-														else
-														{
-													%>
-															<%=m.get("commentCreatedate") %>
-													<%
-														}
-													%>
-												</td>
-												
-												<td>
-													<%
-														if(m.get("commentMemo") == null)
-														{
-													%>
-															<a href="<%=request.getContextPath() %>/admin/insertCommentForm.jsp?helpNo=<%=m.get("helpNo")%>"> 
-																&#10133;<!-- 답변입력 이모지 -->
-															</a>
-													<% 
-														}
-														else
+														if(currentPage == lastPage)
 														{
 													%>		
-															<a href="<%=request.getContextPath() %>/admin/updateCommentForm.jsp?commentNo=<%=m.get("commentNo")%>&commentMemo=<%=m.get("commentMemo")%>">&#9997;&nbsp;&nbsp;</a><!-- 수정 이모지 -->	
-															<a href="<%=request.getContextPath() %>/admin/deleteCommentAction.jsp?commentNo=<%=m.get("commentNo")%>">&nbsp;&nbsp;&#10060;</a><!-- 삭제이모지 -->
-													<%	
+															<span>다음</span>		
+															<span>마지막으로</span>		
+													<%		
 														}
-													
+														else
+														{
 													%>
-												
-												</td>
-												
-											</tr>
-									<%
-										}
-									%>
-								</tbody>
-								<tfoot class="text-center mb-4">
-									<!-- 페이지 넘기기 버튼 -->
-									<tr>
-										<td colspan="6">
-											<div>
-												<%
-													if(currentPage == 1)
-													{
-												%>
-														<span>처음으로</span>		
-														<span>이전</span>		
-												<%		
-													}
-													else
-													{
-												%>
-														<a href="<%=request.getContextPath()%>/admin/helpListAll.jsp?currentPage=<%=firstPage%>">처음으로</a>
-														<a href="<%=request.getContextPath()%>/admin/helpListAll.jsp?currentPage=<%=currentPage-1%>">이전</a>
-												<%
-													}
-												%>
-												
-												<span> [<%=currentPage %>  ] </span>
-												
-												<%
-													if(currentPage == lastPage)
-													{
-												%>		
-														<span>다음</span>		
-														<span>마지막으로</span>		
-												<%		
-													}
-													else
-													{
-												%>
-														<a href="<%=request.getContextPath()%>/admin/helpListAll.jsp?currentPage=<%=currentPage+1%>">다음</a>
-														<a href="<%=request.getContextPath()%>/admin/helpListAll.jsp?currentPage=<%=lastPage%>">마지막으로</a>
-												<%		
-													}
-												%>
-											</div>
-										</td>
-									</tr>
-								</tfoot>
-							</table>	
+															<a href="<%=request.getContextPath()%>/admin/helpListAll.jsp?currentPage=<%=currentPage+1%>">다음</a>
+															<a href="<%=request.getContextPath()%>/admin/helpListAll.jsp?currentPage=<%=lastPage%>">마지막으로</a>
+													<%		
+														}
+													%>
+												</div>
+											</td>
+										</tr>
+									</tfoot>
+								</table>	
+							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-	</div>
-			
-		
-		
 		<!--**********************************
 		       Content body end
 		***********************************-->
-	
 	</div>
 	<!--**********************************
         Main wrapper end
@@ -325,148 +315,5 @@
 		<jsp:include page="/inc/scripts.jsp"></jsp:include>
 	</div>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-	<!-- head include -->
-	<div>
-		<jsp:include page="/inc/head.jsp"></jsp:include>
-	</div>
-
-	<!-- 고객센터 문의 목록 -->
-	<table>
-		<tr>
-			<th>문의내용</th>
-			<th>회원ID</th>
-			<th>문의날짜</th>
-			<th>답변내용</th>
-			<th>답변날짜</th>
-			<th>답변입력 / 수정 / 삭제</th>
-		</tr>
-		
-		<%
-			for(HashMap<String, Object> m :list)
-			{
-		%>
-				<tr>
-					<input type="hidden" name="commentNo" value="<%=m.get("commentNo")%>">
-					<td><%=m.get("helpMemo") %></td>
-					<td><%=m.get("memberId") %></td>
-					<td><%=m.get("helpCreatedate") %></td>
-					
-					<td>
-						<%
-							if(m.get("commentMemo") == null)
-							{
-						%>
-								<span>@답변 대기중@</span>
-						<%
-							}
-							else
-							{
-						%>
-								<%=m.get("commentMemo")%>
-						<%
-							}
-						%>
-					</td>
-					<td>
-						<%
-							if(m.get("commentCreatedate") == null)
-							{
-						%>
-								<span> ...........시간 미정...........</span>
-						<%
-							}
-							else
-							{
-						%>
-								<%=m.get("commentCreatedate") %>
-						<%
-							}
-						%>
-					</td>
-					
-					<td>
-						<%
-							if(m.get("commentMemo") == null)
-							{
-						%>
-								<a href="<%=request.getContextPath() %>/admin/insertCommentForm.jsp?helpNo=<%=m.get("helpNo")%>"> 
-									답변입력
-								</a>
-						<% 
-							}
-							else
-							{
-						%>		
-								<a href="<%=request.getContextPath() %>/admin/updateCommentForm.jsp?commentNo=<%=m.get("commentNo")%>&commentMemo=<%=m.get("commentMemo")%>">답변수정</a>	
-								<a href="<%=request.getContextPath() %>/admin/deleteCommentAction.jsp?commentNo=<%=m.get("commentNo")%>">답변삭제</a>	
-						<%	
-							}
-						
-						%>
-					
-					</td>
-					
-				</tr>
-		<%
-			}
-		%>
-	</table>
-	
-	<div>
-			<%
-				if(currentPage == 1)
-				{
-			%>
-					<span>처음으로</span>		
-					<span>이전</span>		
-			<%		
-				}
-				else
-				{
-			%>
-					<a href="<%=request.getContextPath()%>/admin/helpListAll.jsp?currentPage=<%=firstPage%>">처음으로</a>
-					<a href="<%=request.getContextPath()%>/admin/helpListAll.jsp?currentPage=<%=currentPage-1%>">이전</a>
-			<%
-				}
-			%>
-			
-			<span> [<%=currentPage %>  ] </span>
-			
-			<%
-				if(currentPage == lastPage)
-				{
-			%>		
-					<span>다음</span>		
-					<span>마지막으로</span>		
-			<%		
-				}
-				else
-				{
-			%>
-					<a href="<%=request.getContextPath()%>/admin/helpListAll.jsp?currentPage=<%=currentPage+1%>">다음</a>
-					<a href="<%=request.getContextPath()%>/admin/helpListAll.jsp?currentPage=<%=lastPage%>">마지막으로</a>
-			<%		
-				}
-			%>
-		</div>
-	<!-- footer include -->
 </body>
 </html>

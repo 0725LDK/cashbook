@@ -139,6 +139,15 @@
 			                            <div class="col-xl-12">
 			                                <div class="auth-form">
 											<h4 class="text-center mb-4">가계부 정보 수정</h4>
+											<%
+												if(request.getParameter("msg") != null)
+												{
+											%>
+													<span style="color:red">경고! </span>
+													<span><%=request.getParameter("msg") %></span>
+											<% 
+												}
+											%>
 											<form action="<%=request.getContextPath()%>/cash/updateCashAction.jsp" method="post">
 												<input type="hidden" name="memberId" value="<%=loginMemberId%>">
 												<input type="hidden" name="year" value="<%=year%>"> 
@@ -197,7 +206,6 @@
 		       </div>
 	       </div>
        </div> 
-
 	</div>
 	<!--**********************************
         Main wrapper end
@@ -220,80 +228,5 @@
 		<jsp:include page="/inc/scripts.jsp"></jsp:include>
 	</div>
 	
-
-
-
-
-
-
-
-
-
-
-
-	<%-- <h1>가계부 수정 페이지</h1>
-	<form action="<%=request.getContextPath()%>/cash/updateCashAction.jsp" method="post">
-		<input type="hidden" name="memberId" value="<%=loginMemberId%>">
-		<input type="hidden" name="year" value="<%=year%>"> 
-		<input type="hidden" name="month" value="<%=month%>"> 
-		<input type="hidden" name="date" value="<%=date%>"> 
-		<input type="hidden" name="cashNo"  value="<%=cashNo%>">
-		<table>
-			<tr>
-				<td>수입/지출 + 내용</td>
-				<td>
-					<select name="categoryNo">
-						<%
-							for(Category c : categoryList)
-							{
-						%>		
-								<option value="<%=c.getCategoryNo()%>"><%=c.getCategoryKind() %> - <%=c.getCategoryName() %></option>
-						<%		
-								System.out.println(c.getCategoryNo() + "<==카테고리 넘버");
-							}
-						%>
-					</select>
-				</td>
-			</tr>
-			
-			<tr>
-				<td>cash_date</td>
-				<%
-					if(date < 10) {
-				%>
-						<td><input type="text" name="cashDate" value="<%=year%>-<%=month+1%>-<%=date%>" readonly="readonly"></td>
-				<%
-					} else {
-				%>
-						<td><input type="text" name="cashDate" value="<%=year%>-<%=month+1%>-<%=date%>" readonly="readonly"></td>
-				<%
-					}
-				%>
-			</tr>
-			
-			<tr>
-				<td>금액</td>
-				<td> 
-					<input type="text" name="cashPrice"> 원
-				</td>
-			</tr>
-			<tr>
-				<td>메모</td>
-				<td> 
-					<textarea rows="3" cols="50" name="cashMemo"></textarea>
-				</td>
-			</tr>
-		</table>
-		<button type="submit">수정하기</button>
-	</form>
-	<%
-		if(request.getParameter("msg") != null)
-		{
-	%>
-			<span style="color:red">경고! </span>
-			<span><%=request.getParameter("msg") %></span>
-	<% 
-		}
-	%> --%>
 </body>
 </html>
