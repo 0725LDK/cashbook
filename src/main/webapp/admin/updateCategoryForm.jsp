@@ -144,7 +144,10 @@
 			                                		<input type="hidden" name="categoryNo" value="<%=categoryNo%>">
 			                                		<div class="form-group">
 														<label><strong>수입 or 지출 수정</strong></label>
-														<input name="categoryKind" type="text" class="form-control" >
+														<select class="form-control" name="categoryKind">
+															<option value="수입">수입</option>
+															<option value="지출">지출</option>
+														</select>
 													</div>
 													<div class="form-group">
 														<label><strong>내용 수정</strong></label>
