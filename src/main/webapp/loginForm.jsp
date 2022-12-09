@@ -48,7 +48,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Notice & Sign In</title>
+    <title>Sign In</title>
     <!-- Favicon icon -->
     <link rel="icon" type="<%=request.getContextPath()%>/resource/image/png" sizes="16x16" href="<%=request.getContextPath()%>/resource/images/favicon.png">
     <link href="<%=request.getContextPath() %>/resource/css/style.css" rel="stylesheet">
