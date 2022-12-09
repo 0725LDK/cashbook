@@ -220,7 +220,7 @@
 												}
 											%>
 											
-											<span> [<%=currentPage %>  ] </span>
+											<span> [ <%=currentPage %> ] </span>
 											
 											<%
 												if(currentPage == lastPage)

@@ -122,8 +122,8 @@
 										<th>문의날짜</th>
 										<th>답변내용</th>
 										<th>답변날짜</th>
-										<th>수정[&#9997;]</th>
-										<th>삭제[&#10060;]</th>
+										<th>수정</th>
+										<th>삭제</th>
 									</tr>	
 										
 										<%
@@ -213,7 +213,7 @@
 											<span></span>
 										</td>
 										<td>
-											<a  style="color:#4641D9; font-weight:bold" href="<%=request.getContextPath()%>/help/insertHelpForm.jsp"> &#10133;문의하기</a>
+											<a style="color:#4641D9; font-weight:bold" href="<%=request.getContextPath()%>/help/insertHelpForm.jsp"> &#10133;문의하기</a>
 										</td>
 									</tr>
 								</table>

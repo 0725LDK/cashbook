@@ -214,13 +214,14 @@
 				</div>
 			</div>
 		</div>
-				
+		<!--**********************************
+            Content body end
+        ***********************************-->		
     
     </div>
 	<!--**********************************
         Main wrapper end
     ***********************************-->
-    
     
     
     <!--**********************************
@@ -239,91 +240,6 @@
 	<div>
 		<jsp:include page="/inc/scripts.jsp"></jsp:include>
 	</div>
-	
 
-
-
-
-	<%-- <div>
-		<jsp:include page="/inc/head.jsp"></jsp:include>
-	</div>
-	<div>
-		<!-- noticeList contents-->
-		<h1>공지</h1>
-		<form action="<%=request.getContextPath()%>/admin/insertNoticeAction.jsp">
-			<textarea rows="3" cols="30" name="noticeMemo"></textarea>
-			<button type="submit">입력</button>		
-		</form>
-		<%
-			if(request.getParameter("msg") != null)
-			{
-		%>
-				<span><%=request.getParameter("msg") %></span>
-		<%		
-			}
-		%>
-		
-		<table>
-			<tr>
-				<th>공지내용</th>
-				<th>공지날짜</th>
-				<th>수정</th>
-				<th>삭제</th>
-			</tr>
-			
-			<%
-				for(Notice n : list)
-				{
-					String noticeMemo = URLEncoder.encode(n.getNoticeMemo(),"utf-8");//한글로된 noticeMemo 넘기기 위해
-			%>
-					<tr>
-						<td><%=n.getNoticeMemo() %></td>
-						<td><%=n.getCreatedate() %></td>
-						<td><a href="<%=request.getContextPath()%>/admin/updateNoticeForm.jsp?noticeNo=<%=n.getNoticeNo()%>&noticeMemo=<%=noticeMemo%>">수정</a></td>
-						<td><a href="<%=request.getContextPath()%>/admin/deleteNotice.jsp?noticeNo=<%=n.getNoticeNo()%>">삭제</a></td>
-					</tr>
-			<%
-				}
-			
-			%>
-		</table>
-		<div>
-			<%
-				if(currentPage == 1)
-				{
-			%>
-					<span>처음으로</span>		
-					<span>이전</span>		
-			<%		
-				}
-				else
-				{
-			%>
-					<a href="<%=request.getContextPath()%>/admin/noticeList.jsp?currentPage=<%=firstPage%>">처음으로</a>
-					<a href="<%=request.getContextPath()%>/admin/noticeList.jsp?currentPage=<%=currentPage-1%>">이전</a>
-			<%
-				}
-			%>
-			
-			<span> [<%=currentPage %>  ] </span>
-			
-			<%
-				if(currentPage == lastPage)
-				{
-			%>		
-					<span>다음</span>		
-					<span>마지막으로</span>		
-			<%		
-				}
-				else
-				{
-			%>
-					<a href="<%=request.getContextPath()%>/admin/noticeList.jsp?currentPage=<%=currentPage+1%>">다음</a>
-					<a href="<%=request.getContextPath()%>/admin/noticeList.jsp?currentPage=<%=lastPage%>">마지막으로</a>
-			<%		
-				}
-			%>
-		</div>
-	</div> --%>
 </body>
 </html>

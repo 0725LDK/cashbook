@@ -66,7 +66,7 @@
                             <div class="col-xl-12">
                                 <div class="auth-form">	
                                 	<div class="container-fluid">
-                                		<h4 class="text-center mb-4">Notice</h4>			
+                                		<h4 class="text-center mb-4"><span style="font-size:25px;">Notice</span></h4>			
 											<table id="example" class="table mb-0" style="min-width: 600px">
 												<thead class="text-center mb-4">
 													<tr>
@@ -154,7 +154,7 @@
                         <div class="row no-gutters">
                             <div class="col-xl-12">
                                 <div class="auth-form">
-                                    <h4 class="text-center mb-4">Sign In</h4>
+                                    <h4 class="text-center mb-4"><span style="font-size:25px;">Sign In</span></h4>
 									<form action="<%=request.getContextPath()%>/loginAction.jsp" method="post">
 										<div class="form-group">
 											<label><strong>ID</strong></label>

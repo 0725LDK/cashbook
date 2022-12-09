@@ -134,7 +134,7 @@
 								<table class="table mb-0">
 									<tr>
 										<td colspan="7">
-											<h4 class="text-center mb-4 fontThisDate">가계부 지출수입 카테고리 목록</h4>
+											<h4 class="text-center mb-4 fontThisDate">가계부 수입/지출 카테고리 목록</h4>
 										</td>
 									</tr>
 									<tr>
@@ -170,7 +170,11 @@
 									%>
 									<tr>
 										<td colspan="7" style="text-align: right;">
-											<span class="fontThisDateBack"><a href="<%=request.getContextPath()%>/admin/insertCategoryForm.jsp">카테고리 추가</a></span>
+											<span class="fontThisDateBack">
+												<a href="<%=request.getContextPath()%>/admin/insertCategoryForm.jsp">
+													<span style="color:#4641D9;">&#10133; 카테고리 추가</span>
+												</a>
+											</span>
 										</td>
 									</tr>
 								</table>

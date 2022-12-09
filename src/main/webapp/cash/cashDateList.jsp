@@ -136,7 +136,7 @@
                         	<div class="table-responsive">
 								<table class="table mb-0">
 	 				                <tr>
-				                       	<td colspan="7">
+				                       	<td colspan="8">
 				                       		<span class="fontThisDate"><%=year %>년 <%=month %>월 <%=date %>일 상세내역</span><br>
 				                       	</td>
 	 				                </tr>
@@ -148,7 +148,8 @@
 										<th>메모</th>
 										<th>수정일자</th>
 										<th>생성일자</th>
-										<th>수정[&#9997;] / 삭제[&#10060;]</th>
+										<th>수정</th>
+										<th>삭제</th>
 									</tr>
 									
 									<%
@@ -169,6 +170,8 @@
 													<td><%=(String)m.get("createDate")%>&nbsp;</td>
 													<td>
 														<a href="<%=request.getContextPath()%>/cash/updateCashForm.jsp?year=<%=year%>&month=<%=month%>&date=<%=date%>&cashNo=<%=m.get("cashNo")%>">&#9997;&nbsp;&nbsp;&nbsp;</a>
+													</td>
+													<td>
 														<a href="<%=request.getContextPath()%>/cash/deleteCashAction.jsp?year=<%=year%>&month=<%=month%>&date=<%=date%>&cashNo=<%=m.get("cashNo")%>&memberId=<%=loginMemberId%>">&#10060;</a>
 													</td>
 												</tr>
@@ -178,8 +181,12 @@
 									%>
 									
 									<tr>
-										<td colspan="7" style="text-align: right;">
-				                       		<span class="fontThisDateBack"><a href="<%=request.getContextPath()%>/cash/cashList.jsp">Go To Calendar...</a></span>
+										<td colspan="8" style="text-align: right;">
+				                       		<span class="fontThisDateBack">
+				                       			<a href="<%=request.getContextPath()%>/cash/cashList.jsp">
+				                       				<span style="color:#4641D9;">Go To Calendar...</span>
+				                       			</a>
+				                       		</span>
 				                       	</td>
 									</tr>
 								</table>

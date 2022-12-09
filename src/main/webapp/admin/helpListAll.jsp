@@ -155,7 +155,7 @@
 									<thead class="text-center mb-4">
 										<tr>
 											<td colspan="6">
-												<span class="fontThisDate">고객센터 문의 목록</span>
+												<h4 class="text-center mb-4 fontThisDate">고객센터 문의 목록</h4>
 											</td>
 										</tr>
 										<tr>
@@ -262,7 +262,7 @@
 														}
 													%>
 													
-													<span> [<%=currentPage %>  ] </span>
+													<span> [ <%=currentPage %> ] </span>
 													
 													<%
 														if(currentPage == lastPage)
