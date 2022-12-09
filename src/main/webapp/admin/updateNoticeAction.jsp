@@ -5,6 +5,17 @@
 <%@ page import="java.net.*" %>
 
 <%
+	
+	//Controller
+	//로그인이 안되어 있을때 or 일반 사용자는 접근불가
+	Member loginMember = (Member)session.getAttribute("loginMember");
+	if(loginMember == null || loginMember.getMemberLevel()<1)
+	{
+		response.sendRedirect(request.getContextPath()+"/loginForm.jsp");
+		return;
+	}
+
+
 	request.setCharacterEncoding("utf-8");
 	String msg = null;
 	if(request.getParameter("noticeMemo") == null || request.getParameter("noticeMemo").equals(""))

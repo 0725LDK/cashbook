@@ -6,6 +6,7 @@
 
 <%
 	//Controller
+	//로그인이 안되어 있을때 or 일반 사용자는 접근불가
 	Member loginMember = (Member)session.getAttribute("loginMember");
 	System.out.println(loginMember +"<=== adminMain loginMember 넘어오는 값");
 	if(loginMember == null || loginMember.getMemberLevel()<1)

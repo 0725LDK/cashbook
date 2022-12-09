@@ -6,6 +6,8 @@
 	//Controller
 	Member loginMember = (Member)session.getAttribute("loginMember");
 	System.out.println(loginMember +"<=== adminMain loginMember 넘어오는 값");
+	
+	//로그인이 안되어 있을때 or 일반 사용자는 접근불가
 	if(loginMember == null || loginMember.getMemberLevel()<1)
 	{
 		response.sendRedirect(request.getContextPath()+"/loginForm.jsp");

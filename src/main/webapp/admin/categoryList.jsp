@@ -4,6 +4,7 @@
 <%@ page import="java.util.*" %>
 <%
 	//Controller
+	//로그인이 안되어 있을때 or 일반 사용자는 접근불가
 	Member loginMember = (Member)session.getAttribute("loginMember");
 	if(loginMember == null || loginMember.getMemberLevel()<1)
 	{

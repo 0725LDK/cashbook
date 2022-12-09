@@ -4,6 +4,15 @@
 <%@ page import="java.util.*" %>
 
 <%
+	
+	//로그인이 안되어 있을때 or 일반 사용자는 접근불가
+	Member loginMember = (Member)session.getAttribute("loginMember");
+	if(loginMember == null || loginMember.getMemberLevel()<1)
+	{
+		response.sendRedirect(request.getContextPath()+"/loginForm.jsp");
+		return;
+	}
+	
 	int categoryNo = Integer.parseInt(request.getParameter("categoryNo"));
 
 	CategoryDao categoryDao = new CategoryDao();

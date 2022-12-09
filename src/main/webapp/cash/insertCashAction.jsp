@@ -6,6 +6,14 @@
 <%@ page import="vo.*" %>
 
 <%
+	//로그인이 안되어 있을때는 접근불가
+	if(session.getAttribute("loginMember") == null)
+	{
+		response.sendRedirect(request.getContextPath()+"/loginForm.jsp");
+		return;
+	}
+	
+
 	request.setCharacterEncoding("utf-8");
 	String msg = null;
 	

@@ -6,7 +6,7 @@
 	request.setCharacterEncoding("utf-8");
 	// session에 저장된 멤버(현재 로그인)
 	Member loginMember = (Member)session.getAttribute("loginMember");
-	if(session.getAttribute("loginMember")==null)
+	if(session.getAttribute("loginMember") == null)
 	{
 		response.sendRedirect(request.getContextPath()+"/loginForm.jsp");
 		return;

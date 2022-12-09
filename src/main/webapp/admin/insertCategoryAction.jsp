@@ -5,6 +5,16 @@
 <%@ page import="vo.*" %>
 
 <%
+
+	//로그인이 안되어 있을때 or 일반 사용자는 접근불가
+	Member loginMember = (Member)session.getAttribute("loginMember");
+	System.out.println(loginMember +"<=== adminMain loginMember 넘어오는 값");
+	if(loginMember == null || loginMember.getMemberLevel()<1)
+	{
+		response.sendRedirect(request.getContextPath()+"/loginForm.jsp");
+		return;
+	} 
+	
 	request.setCharacterEncoding("utf-8");
 	String msg = null;
 	if(request.getParameter("categoryKind")==null || request.getParameter("categoryKind").equals("")
