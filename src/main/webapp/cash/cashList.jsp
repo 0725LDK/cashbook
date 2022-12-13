@@ -136,25 +136,9 @@
         <!--**********************************
             Header start
         ***********************************-->
-        <div class="header">
-            <div class="header-content">
-                <nav class="navbar navbar-expand">
-                    <div class="collapse navbar-collapse justify-content-between">
-                      <span>
-							<%
-								if(request.getParameter("msg") != null)
-								{
-							%>
-									<span><%=request.getParameter("msg") %></span>
-							<%	
-								}
-							
-							%>
-						</span>
-                    </div>
-                </nav>
-            </div>
-        </div>
+	
+		<jsp:include page="/inc/cashHeader.jsp"></jsp:include>
+	
         <!--**********************************
             Header end ti-comment-alt
         ***********************************-->

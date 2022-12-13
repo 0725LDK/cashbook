@@ -21,6 +21,7 @@
 	}
 	int rowPerPage = 5;
 	int beginRow = (currentPage-1)*rowPerPage;
+	
 	MemberDao memberDao = new MemberDao();
 	ArrayList<Member> list = memberDao.selecetMemberListByPage(beginRow, rowPerPage);
 	int count = memberDao.selectMemberCount();
@@ -61,7 +62,7 @@
         <div class="nav-header">
            	<div class="brand-logo">
 				<!-- 로그인 정보(세션 loginMember 변수) 출력 -->
-				<a href="<%=request.getContextPath()%>/cash/cashList.jsp">Hello!</a>&nbsp;&nbsp; <%=loginMember.getMemberName() %>&nbsp;&nbsp;&nbsp;
+				<a href="<%=request.getContextPath()%>/admin/adminMain.jsp">Hello!</a>&nbsp;&nbsp; <%=loginMember.getMemberName() %>&nbsp;&nbsp;&nbsp;
 				<a href="<%=request.getContextPath()%>/logOut.jsp">LogOut</a>
 				
 			</div>
@@ -70,18 +71,10 @@
         <!--**********************************
             Nav header end
         ***********************************-->
-            <!--**********************************
+        <!--**********************************
             Header start
         ***********************************-->
-        <div class="header">
-            <div class="header-content">
-                <nav class="navbar navbar-expand">
-                    <div class="collapse navbar-collapse justify-content-between">
-                      
-                    </div>
-                </nav>
-            </div>
-        </div>
+        <jsp:include page="/inc/adminHeader.jsp"></jsp:include>
         <!--**********************************
             Header end ti-comment-alt
         ***********************************-->

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import = "java.util.*"%>
+<%@ page import = "java.net.*"%>
 <%@ page import = "dao.*" %>
 <%@ page import = "vo.*" %>
 <%
@@ -78,6 +79,24 @@
 	// View : 달력출력 + 일별 cash 목록 출력
 	
 	System.out.println(loginMember.getMemberLevel()+"<== 캐쉬리스트 멤버 레벨");
+	
+	//카테고리 요약
+	CategoryDao categoryDao = new CategoryDao();
+	ArrayList<Category> categoryList = categoryDao.selectCategoryListByAdmin();
+	
+	//고객센터 요약
+	int beginRow = 0;
+	int rowPerPage = 10;
+	HelpDao helpDao  = new HelpDao();
+	ArrayList<HashMap<String, Object>> helpList = helpDao.selectHelpList(beginRow, rowPerPage); //리스트출력
+	
+	//멤버 요약
+	MemberDao memberDao = new MemberDao();
+	ArrayList<Member> MemberList = memberDao.selecetMemberListByPage(beginRow, rowPerPage);
+	
+	//공지사항 요약
+	NoticeDao noticeDao = new NoticeDao();
+	ArrayList<Notice> noticeList = noticeDao.selectNoticeListByPage(beginRow, rowPerPage);
 %>
 
 
@@ -123,15 +142,7 @@
 		<!--**********************************
             Header start
         ***********************************-->
-        <div class="header">
-            <div class="header-content">
-                <nav class="navbar navbar-expand">
-                    <div class="collapse navbar-collapse justify-content-between">
-                      
-                    </div>
-                </nav>
-            </div>
-        </div>
+        <jsp:include page="/inc/adminHeader.jsp"></jsp:include>
         <!--**********************************
             Header end ti-comment-alt
         ***********************************-->
@@ -163,113 +174,178 @@
         <div class="content-body">
             <!-- row -->
             <div class="container-fluid">
-               <div class="row">
-                    <div class="col-xl-12 col-lg-8 col-md-8">
+                <div class="row">
+                
+                	<!-- 카테고리 요약 -->
+                    <div class="col-lg-3 col-sm-6">
                         <div class="card">
-								<div class="table-responsive">
+                            <div class="stat-widget-two card-body">
+                                <div class="stat-content">
 									<table class="table mb-0">
 										<tr>
-											<td><a class="fontMoveDate" href="<%=request.getContextPath()%>/cash/cashList.jsp?year=<%=year%>&month=<%=month-1%>">&#8701;이전달</a></td>
-											<td><span class="fontThisDate"><%=year%>년 <%=month+1%> 월</span></td>
-											<td><a class="fontMoveDate" href="<%=request.getContextPath()%>/cash/cashList.jsp?year=<%=year%>&month=<%=month+1%>">다음달&#8702;</a></td>
+											<td colspan="5">
+												<h4 class="text-center mb-4 fontThisDate">
+													<a href="<%=request.getContextPath()%>/admin/categoryList.jsp">
+														<span style="color:#2924BD;">가계부 카테고리 목록</span>
+													</a>
+												</h4>
+											</td>
 										</tr>
-									</table>
-								</div>
-								<br>
-								
-								<!-- 달력 -->
-								<div class="table-responsive">
-									<table class="table mb-0">
 										<tr>
-											<th>
-												<span style="color:#FF5A5A">일</span>
-											</th>
-											<th>월</th>
-											<th>화</th>
-											<th>수</th>
-											<th>목</th>
-											<th>금</th>
-											<th>
-												<span style="color:#5AAEFF">토</span>
-											</th>
+											<th>번호</th>
+											<th>수입/지출</th>
+											<th>이름</th>
+											<th>마지막 수정 날짜</th>
+											<th>생성 날짜</th>
 										</tr>
+										<!-- 모델데이터 categoryList -->
+										<%
+											for(Category c : categoryList)
+											{
+										%>
+												<tr>
+													<td><%=c.getCategoryNo() %></td>
+													<td><%=c.getCategoryKind() %></td>
+													<td><%=c.getCategoryName() %></td>
+													<td><%=c.getUpdatedate() %></td>
+													<td><%=c.getCreatedate() %></td>
+												</tr>
+										<%
+											}
 										
-										<tr>
-											<%
-												for(int i=1; i<=totalTd; i++) 
-												{
-											%>
-													<td>
-											<%
-														int date = i-beginBlank;
-														if(date > 0 && date <= lastDate) 
-														{
-											%>
-															<div>
-																<a href="<%=request.getContextPath()%>/cash/cashDateList.jsp?year=<%=year%>&month=<%=month+1%>&date=<%=date%>">
-																	
-																	<%
-																		if(i%7==1)
-																		{
-																	%>
-																			<span style="color:#FF5A5A"><%=date%></span>
-																	<%
-																		}
-																		else if(i%7==0)
-																		{
-																	%>
-																			<span style="color:#5AAEFF"><%=date%></span>
-																	<%		
-																		}
-																		else
-																		{
-																	%>
-																			<%=date%>
-																	<%
-																		}
-																	%>
-																</a>
-															</div>
-															<div>
-																<%
-																	for(HashMap<String, Object> m : list) 
-																	{
-																		String cashDate = (String)(m.get("cashDate"));
-																		if(Integer.parseInt(cashDate.substring(8)) == date) 
-																		{
-																%>
-																			[<%=(String)(m.get("categoryKind"))%>]
-																			<%=(String)(m.get("categoryName"))%>
-																			&nbsp;
-																			<%=(Long)(m.get("cashPrice"))%>원
-																			<br>
-																<%
-																		}
-																	}
-																%>
-															</div>
-											<%				
-														}
-											%>
-													</td>
-											<%
-													
-													if(i%7 == 0 && i != totalTd) 
-													{
-											%>
-														</tr><tr> <!-- td7개 만들고 테이블 줄바꿈 -->
-											<%			
-													}
-												}
-											%>
-										</tr>
+										%>
 									</table>
-								</div>
+                                </div>
+							</div>
+						</div>
+					</div>
+					
+					<!-- 고객센터 요약 -->
+					<div class="col-lg-3 col-sm-6">
+                        <div class="card">
+                            <div class="stat-widget-two card-body">
+                                <div class="stat-content">
+                                   <table class="table mb-0">
+									
+										<tr>
+											<td colspan="3">
+												<h4 class="text-center mb-4 fontThisDate">
+													<a href="<%=request.getContextPath()%>/admin/helpListAll.jsp">
+														<span style="color:#2924BD;">고객센터 문의 목록</span>
+													</a>
+												</h4>
+											</td>
+										</tr>
+										<tr>
+											<th><span style="font-size:15px">문의내용</span></th>
+											<th><span style="font-size:15px">회원ID</span></th>
+											<th><span style="font-size:15px">문의날짜</span></th>
+										</tr>
+									
+								
+										<%
+											for(HashMap<String, Object> m : helpList)
+											{
+										%>
+												<tr>
+													<td><%=m.get("helpMemo") %></td>
+													<td><%=m.get("memberId") %></td>
+													<td><%=m.get("helpCreatedate") %></td>
+												</tr>
+										<%
+											}
+										%>
+									
+									</table>
+                                </div>
                             </div>
                         </div>
                     </div>
-            	</div>
-        	</div>
+                    
+                    <!-- 멤버 요약 -->
+					<div class="col-lg-3 col-sm-6">
+                        <div class="card">
+                            <div class="stat-widget-two card-body">
+                                <div class="stat-content">
+                                   <table class="table mb-0">
+										<tr>
+											<td colspan="4">
+												<h5 class="text-center fontThisDate">
+													<a href="<%=request.getContextPath()%>/admin/memberList.jsp">
+														<span style="color:#2924BD;">멤버 목록</span>
+													</a>
+												</h5><br>
+											</td>
+										</tr>
+										
+										<tr>
+											<th>멤버 번호</th>
+											<th>아이디</th>
+											<th>레벨</th>
+											<th>이름</th>
+											
+										</tr>
+										
+										<% 		
+											for(Member m : MemberList)
+											{
+										%>
+												<tr>
+													<td><%=m.getMemberNo() %></td>
+													<td><%=m.getMemberId() %></td>
+													<td><%=m.getMemberLevel() %></td>
+													<td><%=m.getMemberName() %></td>
+										<%
+											}
+										%>
+										
+									</table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 공지사항 요약 -->
+					<div class="col-lg-3 col-sm-6">
+                        <div class="card">
+                            <div class="stat-widget-two card-body">
+                                <div class="stat-content">
+                                   <table class="table mb-0">
+										<tr>
+	                       					<td colspan="2">
+	                       						<h4 class="text-center mb-4 fontThisDate">
+	                       							<a href="<%=request.getContextPath()%>/admin/noticeList.jsp">
+	                       								<span style="color:#2924BD;">공지 목록</span>
+	                       							</a>
+	                       						</h4>
+	                       					</td>
+	                       				</tr>
+										<tr>
+											<th>공지내용</th>
+											<th>공지날짜</th>
+											
+										</tr>
+										
+										<%
+											for(Notice n : noticeList)
+											{
+												String noticeMemo = URLEncoder.encode(n.getNoticeMemo(),"utf-8");//한글로된 noticeMemo 넘기기 위해
+										%>
+												<tr>
+													<td><%=n.getNoticeMemo() %></td>
+													<td><%=n.getCreatedate() %></td>
+												</tr>
+										<%
+											}
+										%>
+									</table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+				</div>
+			</div>
+		</div>
         <!--**********************************
             Content body end
         ***********************************-->
