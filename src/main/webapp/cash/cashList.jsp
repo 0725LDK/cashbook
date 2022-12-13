@@ -15,12 +15,21 @@
 	
 	// request 년 + 월
 	int year = 0;
+	int summaryYear = 0;
 	int month = 0;
-	
+	Calendar today = Calendar.getInstance(); // 오늘날짜
+	//연도&월별 요약용 변수 및 설정
+	if(request.getParameter("summaryYear") == null)
+	{
+		summaryYear = today.get(Calendar.YEAR);
+	}
+	else
+	{
+		summaryYear = Integer.parseInt(request.getParameter("summaryYear"));
+	}
 	//날짜 없이 넘어 올 경우
 	if((request.getParameter("year") == null) || request.getParameter("month") == null) 
 	{
-		Calendar today = Calendar.getInstance(); // 오늘날짜
 		year = today.get(Calendar.YEAR);
 		month = today.get(Calendar.MONTH);
 	} 
@@ -66,11 +75,23 @@
 	
 	// Model 호출 : 일별 cash 목록
 	CashDao cashDao = new CashDao();
-	ArrayList<HashMap<String, Object>> list = cashDao.selectCashListByMonth(loginMember.getMemberId(), year, month+1);
+	ArrayList<HashMap<String, Object>> list = cashDao.selectCashListByMonth(loginMember.getMemberId(),year ,month+1);
 	
 	// View : 달력출력 + 일별 cash 목록 출력
 	
 	System.out.println(loginMember.getMemberLevel()+"<== 캐쉬리스트 멤버 레벨");
+	
+	//연도별 요약 출력
+	ArrayList<HashMap<String, Object>> yearSummary = cashDao.selectYearCashSummary(loginMember.getMemberId(),summaryYear ,month+1);
+	//연도에 따른 월별 요약 출력
+	ArrayList<HashMap<String, Object>> monthSummary = cashDao.selectMonthCashSummary(loginMember.getMemberId(),summaryYear);
+
+	HashMap<String,Object> mapYear = cashDao.cashSummaryYearCount();
+	int minYear = (Integer)(mapYear.get("minYear"));
+	int maxYear = (Integer)(mapYear.get("maxYear"));
+	
+	System.out.println(minYear+"<==최소연도");
+	System.out.println(maxYear+"<==최고연도");
 %>
 
 
@@ -266,7 +287,22 @@
 																	if(Integer.parseInt(cashDate.substring(8)) == date) 
 																	{
 															%>
-																		[<%=(String)(m.get("categoryKind"))%>]
+																		<%
+																			if(m.get("categoryKind").equals("수입"))
+																			{
+																		%>
+																				<span style="color:blue"><%=(String)(m.get("categoryKind"))%></span>
+																		
+																		<%
+																			}
+																			else if(m.get("categoryKind").equals("지출"))
+																			{
+																		%>		
+																			
+																				<span style="color:red"><%=(String)(m.get("categoryKind"))%></span>
+																		<%	
+																			}
+																		%>
 																		<%=(String)(m.get("categoryName"))%>
 																		&nbsp;
 																		<%=(Long)(m.get("cashPrice"))%>원
@@ -297,6 +333,138 @@
 				    </div>
 				</div>
            	</div>
+           	
+           	<!-- 연도별 내용 -->
+           	<div class="container-fluid">
+				<div class="row">
+                    <div class="col-xl-12 col-lg-8 col-md-8">
+                        <div class="card">
+							<div class="table-responsive">
+								<table class="table mb-0">
+								 	<tr>
+				                       	<td colspan="8">
+				                       		<span class="fontThisDate" style="font-size:23px">연도별 수입/지출 요약</span><br>
+				                       	</td>
+	 				                </tr>
+									<tr>
+										<th>연도</th>
+										<th>수입횟수</th>
+										<th>수입합계</th>
+										<th>수입평균</th>
+										<th>지출횟수</th>
+										<th>지출합계</th>
+										<th>지출평균</th>
+									</tr>
+									<%
+										for(HashMap<String,Object> map : yearSummary)
+										{
+									%>
+											<tr>
+												<td><%=(String)(map.get("year")) %> 년</td>
+												<td><%=(String)(map.get("countImportCash")) %> 회</td>
+												<td><%=(String)(map.get("sumImportCash")) %> 원</td>
+												<td><%=(String)(map.get("avgImportCash")) %> 원</td>
+												<td><%=(String)(map.get("countExportCash")) %> 회</td>
+												<td><%=(String)(map.get("sumExportCash")) %> 원</td>
+												<td><%=(String)(map.get("avgExportCash")) %> 원</td>
+											</tr>
+									<%
+										}
+									
+									%>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			<!-- 월별내용 -->
+			<div class="container-fluid">
+				<div class="row">
+                    <div class="col-xl-12 col-lg-8 col-md-8">
+                        <div class="card">
+							<div class="table-responsive">
+								<table class="table mb-0">
+									<tr>
+										<td>
+											<%
+												if(summaryYear>minYear)
+												{
+											%>
+													<a class="fontMoveDate" href="<%=request.getContextPath()%>/cash/cashList.jsp?summaryYear=<%=summaryYear-1%>&month=<%=month-1%>">&#8701;이전연도</a>
+											
+											<%
+												}
+												else if(summaryYear == minYear)
+												{
+											%>
+													<span>&#8701;이전연도</span>
+											<%
+												}
+											%>
+										</td>
+										<td><span class="fontThisDate"><%=summaryYear %>년 월별 수입/지출 요약</span></td>
+										<td>
+											<%
+												if(summaryYear<maxYear)
+												{
+											%>
+													<a class="fontMoveDate" href="<%=request.getContextPath()%>/cash/cashList.jsp?summaryYear=<%=summaryYear+1%>&month=<%=month+1%>">다음연도&#8702;</a>
+											<%		
+												}
+												else if(summaryYear==maxYear)
+												{
+											%>
+													<span>다음연도&#8702;</span>
+											<%		
+												}
+											%>
+										</td>
+									</tr>
+								</table>
+							</div>
+							
+							
+							<div class="table-responsive">
+								<table class="table mb-0">
+								 	<%-- <tr>
+				                       	<td colspan="8">
+				                       		<span class="fontThisDate" style="font-size:23px"><%=summaryYear %>년 월별 수입/지출 요약</span><br>
+				                       	</td>
+	 				                </tr> --%>
+									<tr>
+										<th>월</th>
+										<th>수입횟수</th>
+										<th>수입합계</th>
+										<th>수입평균</th>
+										<th>지출횟수</th>
+										<th>지출합계</th>
+										<th>지출평균</th>
+									</tr>
+									<%
+										for(HashMap<String,Object> map2 : monthSummary)
+										{	
+									%>
+											<tr>
+												<td><%=(String)(map2.get("month")) %> 월</td>
+												<td><%=(String)(map2.get("countImportCash")) %> 회</td>
+												<td><%=(String)(map2.get("sumImportCash")) %> 원</td>
+												<td><%=(String)(map2.get("avgImportCash")) %> 원</td>
+												<td><%=(String)(map2.get("countExportCash")) %> 회</td>
+												<td><%=(String)(map2.get("sumExportCash")) %> 원</td>
+												<td><%=(String)(map2.get("avgExportCash")) %> 원</td>
+											</tr>
+									<%
+										}
+									
+									%>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
        	</div>
         <!--**********************************
             Content body end
