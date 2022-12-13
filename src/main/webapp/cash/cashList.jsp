@@ -86,6 +86,7 @@
 	//연도에 따른 월별 요약 출력
 	ArrayList<HashMap<String, Object>> monthSummary = cashDao.selectMonthCashSummary(loginMember.getMemberId(),summaryYear);
 
+	//페이징
 	HashMap<String,Object> mapYear = cashDao.cashSummaryYearCount();
 	int minYear = (Integer)(mapYear.get("minYear"));
 	int maxYear = (Integer)(mapYear.get("maxYear"));
@@ -150,7 +151,6 @@
 				<%
 					if(loginMember.getMemberLevel()==0)
 					{
-						
 				%>	
 						<div class="quixnav">
 				            <div class="quixnav-scroll">
@@ -388,7 +388,9 @@
 												}
 											%>
 										</td>
-										<td><span class="fontThisDate"><%=summaryYear %>년 월별 수입/지출 요약</span></td>
+										<td>
+											<span class="fontThisDate"><%=summaryYear %>년 월별 수입/지출 요약</span>
+										</td>
 										<td>
 											<%
 												if(summaryYear<maxYear)
@@ -408,7 +410,6 @@
 									</tr>
 								</table>
 							</div>
-							
 							
 							<div class="table-responsive">
 								<table class="table mb-0">
