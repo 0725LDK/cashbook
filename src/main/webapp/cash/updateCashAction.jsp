@@ -14,11 +14,13 @@
 	}
 
 	request.setCharacterEncoding("utf-8");
+	
 	String msg = null;
 	//값 설정
 	int year = Integer.parseInt(request.getParameter("year"));
 	int month = Integer.parseInt(request.getParameter("month"));
 	int date = Integer.parseInt(request.getParameter("date"));
+	//int cashNo = Integer.parseInt(request.getParameter("cashNo"));
 	
 	//빈칸방지
 	if(request.getParameter("categoryNo")==null || request.getParameter("categoryNo").equals("")
@@ -46,9 +48,11 @@
 		response.sendRedirect(request.getContextPath()+"/cash/cashDateList.jsp?year="+year+"&month="+month+"&date="+date+"&msg="+msg);
 		return;
 	}
-	else
+	else if((cashDao.updateCash(cash)!=1))
 	{
 		System.out.println("수정 실패");
+		response.sendRedirect(request.getContextPath()+"/cash/updateCashForm.jsp?year="+year+"&month="+month+"&date="+date+"&msg="+msg);
+		return;
 	}
 %>
 

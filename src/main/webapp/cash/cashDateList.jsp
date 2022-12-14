@@ -64,15 +64,7 @@
         <!--**********************************
             Header start
         ***********************************-->
-        <div class="header">
-            <div class="header-content">
-                <nav class="navbar navbar-expand">
-                    <div class="collapse navbar-collapse justify-content-between">
-                      
-                    </div>
-                </nav>
-            </div>
-        </div>
+        <jsp:include page="/inc/cashHeader.jsp"></jsp:include>
         <!--**********************************
             Header end ti-comment-alt
         ***********************************-->
@@ -201,7 +193,7 @@
                         <div class="card">
                         	<div class="table-responsive">
 								<!-- cash 입력폼 -->
-								<form action="<%=request.getContextPath()%>/cash/insertCashAction.jsp" method="post">
+								<form id="insertCashForm" action="<%=request.getContextPath()%>/cash/insertCashAction.jsp" method="post">
 									<input type="hidden" name="memberId" value="<%=loginMember.getMemberId()%>">
 									<input type="hidden" name="year" value="<%=year%>">
 									<input type="hidden" name="month" value="<%=month%>">
@@ -230,7 +222,7 @@
 										<tr>
 											<td>지출 항목</td>
 											<td><!-- 카테고리 넘버 출력 -->
-												<select class="form-control" name="categoryNo">
+												<select class="form-control" name="categoryNo" id="categoryNo">
 													<%
 														for(Category c : categoryList)
 														{
@@ -254,21 +246,21 @@
 										<tr>
 											<td>금액</td>
 											<td>
-												<input class="form-control" type="text" name="cashPrice">
+												<input id="cashPrice" class="form-control" type="text" name="cashPrice">
 											</td>
 										</tr>
 							
 										<tr>
 											<td>내용</td>
 											<td>
-												<textarea class="form-control" rows="3" cols="50" name="cashMemo"></textarea>
+												<textarea id="cashMemo" class="form-control" rows="3" cols="50" name="cashMemo"></textarea>
 											</td>
 										</tr>
 										
 										<tr class="text-center">
 				                       		<td colspan="7" >
 				                       			<span class="fontThisDate">
-													<button type="submit" class="btn btn-primary btn-block">입력하기!</button>
+													<button id="insertCashBtn" type="button" class="btn btn-primary btn-block">입력하기!</button>
 												</span>
 				                      	 	</td>
  				              			</tr>
@@ -304,6 +296,38 @@
 	<div>
 		<jsp:include page="/inc/scripts.jsp"></jsp:include>
 	</div>
+	
+	<!-- 스크립트 추가 -->
+	
+	<script>
+		let insertCashBnt = document.querySelector('#insertCashBtn');
+		insertCashBtn.addEventListener('click', function()
+											{
+												//가격 유효성 검사
+												let cashPrice = document.querySelector('#cashPrice');
+												if(cashPrice.value == '')
+												{
+													alert('가격을 입력하세요')	;
+													cashPrice.focus();
+													return;
+												}
+												
+			
+												//내용 유효성 검사
+												let cashMemo = document.querySelector('#cashMemo');
+												if(cashMemo.value == '')
+												{
+													alert('내용을 입력하세요')	;
+													cashMemo.focus();
+													return;
+												}
+												
+												let insertCashForm = document.querySelector('#insertCashForm');
+												insertCashForm.submit();
+												
+											});
+	
+	</script>
 	
 </body>
 </html>

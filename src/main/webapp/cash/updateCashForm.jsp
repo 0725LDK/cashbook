@@ -22,7 +22,7 @@
 	int year = Integer.parseInt(request.getParameter("year"));
 	int month = Integer.parseInt(request.getParameter("month"));
 	int date = Integer.parseInt(request.getParameter("date"));
-	int cashNo = Integer.parseInt(request.getParameter("cashNo"));
+	//int cashNo = Integer.parseInt(request.getParameter("cashNo"));
 	
 	System.out.println(request.getParameter("cashNo"));
 %>
@@ -64,15 +64,7 @@
         <!--**********************************
             Header start
         ***********************************-->
-        <div class="header">
-            <div class="header-content">
-                <nav class="navbar navbar-expand">
-                    <div class="collapse navbar-collapse justify-content-between">
-                      
-                    </div>
-                </nav>
-            </div>
-        </div>
+        <jsp:include page="/inc/cashHeader.jsp"></jsp:include>
         <!--**********************************
             Header end ti-comment-alt
         ***********************************-->
@@ -124,7 +116,7 @@
             Sidebar end
         ***********************************-->
         
-        		<!--**********************************
+        <!--**********************************
             Content body start
         ***********************************-->
         <div class="content-body">
@@ -148,12 +140,11 @@
 											<% 
 												}
 											%>
-											<form action="<%=request.getContextPath()%>/cash/updateCashAction.jsp" method="post">
+											<form id="updateCashForm" action="<%=request.getContextPath()%>/cash/updateCashAction.jsp" method="post">
 												<input type="hidden" name="memberId" value="<%=loginMemberId%>">
 												<input type="hidden" name="year" value="<%=year%>"> 
 												<input type="hidden" name="month" value="<%=month%>"> 
 												<input type="hidden" name="date" value="<%=date%>"> 
-												<input type="hidden" name="cashNo"  value="<%=cashNo%>">
 												<div class="form-group">
 													<label><strong>수입/지출 + 내용</strong></label>
 													<select name="categoryNo" class="form-control">
@@ -171,30 +162,20 @@
 												
 												<div class="form-group">
 													<label><strong>날짜</strong></label>
-													<%
-														if(date < 10) {
-													%>
-															<input type="text" name="cashDate" class="form-control" value="<%=year%>-<%=month+1%>-<%=date%>" readonly="readonly">
-													<%
-														} else {
-													%>
-															<input type="text" name="cashDate" class="form-control" value="<%=year%>-<%=month+1%>-<%=date%>" readonly="readonly">
-													<%
-														}
-													%>
+													<input type="text" name="cashDate" class="form-control" value="<%=year%>-<%=month%>-<%=date%>" readonly="readonly">
 												</div>
 														
 												<div class="form-group">
 													<label><strong>금액</strong></label>
-													<input type="text" name="cashPrice" class="form-control">
+													<input id="cashPrice" type="text" name="cashPrice" class="form-control">
 												</div>
 													
 												<div class="form-group">
 													<label><strong>메모</strong></label>
-													<textarea rows="3" cols="50" name="cashMemo" class="form-control"></textarea>
+													<textarea id="cashMemo" rows="3" cols="50" name="cashMemo" class="form-control"></textarea>
 												</div>
 												<div class="text-center">
-													<button type="submit" class="btn btn-primary btn-block">수정하기</button>
+													<button id="updateCashBtn" type="button" class="btn btn-primary btn-block">수정하기</button>
 												</div>
 											</form>
 										</div>
@@ -210,7 +191,7 @@
 	<!--**********************************
         Main wrapper end
     ***********************************-->
-	
+	</div>
 	<!--**********************************
             Footer start
 	***********************************-->
@@ -227,6 +208,37 @@
 	<div>
 		<jsp:include page="/inc/scripts.jsp"></jsp:include>
 	</div>
+	<!-- 스크립트 추가 -->
+	
+	<script>
+		let updateCashBtn = document.querySelector('#updateCashBtn');
+		updateCashBtn.addEventListener('click', function()
+											{
+												//가격 유효성 검사
+												let cashPrice = document.querySelector('#cashPrice');
+												if(cashPrice.value == '')
+												{
+													alert('가격을 입력하세요')	;
+													cashPrice.focus();
+													return;
+												}
+												
+			
+												//내용 유효성 검사
+												let cashMemo = document.querySelector('#cashMemo');
+												if(cashMemo.value == '')
+												{
+													alert('내용을 입력하세요')	;
+													cashMemo.focus();
+													return;
+												}
+												
+												let updateCashForm = document.querySelector('#updateCashForm');
+												updateCashForm.submit();
+												
+											});
+	
+	</script>
 	
 </body>
 </html>
