@@ -155,17 +155,17 @@
                             <div class="col-xl-12">
                                 <div class="auth-form">
                                     <h4 class="text-center mb-4"><span style="font-size:25px;">Sign In</span></h4>
-									<form action="<%=request.getContextPath()%>/loginAction.jsp" method="post">
+									<form id="signinForm" action="<%=request.getContextPath()%>/loginAction.jsp" method="post">
 										<div class="form-group">
 											<label><strong>ID</strong></label>
-											<input name="memberId" type="text" class="form-control" placeholder="Insert Your ID">
+											<input id="memberId" name="memberId" type="text" class="form-control" placeholder="Insert Your ID">
 										</div>
 										<div class="form-group">
 											<label><strong>Password</strong></label>
-											<input type="password" name="memberPw" class="form-control" placeholder="Password">
+											<input id="memberPw" type="password" name="memberPw" class="form-control" placeholder="Password">
 										</div>
 										<div class="text-center">
-											<button type="submit" class="btn btn-primary btn-block">Sign In!</button>
+											<button type="button" id="signinBtn" class="btn btn-primary btn-block">Sign In!</button>
 										</div>
 									</form>
 									<div class="new-account mt-3">
@@ -190,5 +190,36 @@
             </div>
         </div>
     </div>
+    <script>
+    	let signinBtn = document.querySelector('#signinBtn');
+    	signinBtn.addEventListener('click',function()
+    										{
+    											//id 폼 유효성 검사
+    											let memberId = document.querySelector('#memberId');
+    											console.log(memberId);
+    											if(memberId.value == '')
+    											{
+    												alert('ID를 입력하세요');
+    												memberId.focus();
+    												return;
+    											}
+    											
+    											//pw 폼 유효성 검사
+    											let memberPw = document.querySelector('#memberPw');
+    											console.log(memberPw);
+    											if(memberPw.value == '')
+    											{
+    												alert('PW를 입력하세요');
+    												memberPw.focus();
+    												return;
+    											}
+    											
+    											
+									    		let signinForm = document.querySelector('#signinForm');
+												signinForm.submit();
+    										});
+    </script>
+    
+    
 </body>
 </html>

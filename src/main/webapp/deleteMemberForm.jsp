@@ -116,7 +116,7 @@
 			                            <div class="col-xl-12">
 			                                <div class="auth-form">
 			                                    <h4 class="text-center mb-4">회원 탈퇴</h4>
-												<form action="<%=request.getContextPath()%>/deleteMemberAction.jsp" method="post">
+												<form id="deleteMemberForm" action="<%=request.getContextPath()%>/deleteMemberAction.jsp" method="post">
 													
 													<div class="form-group">
 														<label><strong>ID</strong></label>
@@ -124,10 +124,10 @@
 													</div>
 													<div class="form-group">
 														<label><strong>비밀번호 확인 </strong></label>
-														<input type="password" name="memberPw" class="form-control" >
+														<input id="memberPw" type="password" name="memberPw" class="form-control" >
 													</div>
 													<div class="text-center">
-														<button type="submit" class="btn btn-primary btn-block">탈퇴하기</button>
+														<button id="deleteMemberBtn" type="button" class="btn btn-primary btn-block">탈퇴하기</button>
 													</div>
 												</form>
 												<br>
@@ -177,6 +177,26 @@
 	<div>
 		<jsp:include page="/inc/scripts.jsp"></jsp:include>
 	</div>
-
+	
+	<!-- 스크립트 추가 -->
+	<script>
+		let deleteMemberBtn = document.querySelector('#deleteMemberBtn');
+		deleteMemberBtn.addEventListener('click',function()
+													{
+														//PW 유효성 검사
+														let memberPw = document.querySelector('#memberPw');
+														console.log(memberPw);
+														if(memberPw.value == '')
+														{
+															alert('비밀번호를 확인하세요');
+															memberPw.focus();
+															return;
+														}
+														
+														let deleteMemberForm = document.querySelector('#deleteMemberForm');
+														deleteMemberForm.submit();
+													});
+	
+	</script>
 </body>
 </html>

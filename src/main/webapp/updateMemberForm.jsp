@@ -106,7 +106,7 @@
 			                            <div class="col-xl-12">
 			                                <div class="auth-form">
 			                                    <h4 class="text-center mb-4">회원 정보 수정</h4>
-												<form action="<%=request.getContextPath()%>/updateMemberAction.jsp" method="post">
+												<form id="updateMemberForm" action="<%=request.getContextPath()%>/updateMemberAction.jsp" method="post">
 													<div class="form-group">
 														<label><strong>ID</strong></label>
 														<input name="memberId" type="text" class="form-control"  value="<%=request.getParameter("memberId")%>" readonly="readonly">
@@ -117,14 +117,14 @@
 													</div>
 													<div class="form-group">
 														<label><strong>변경 할 이름 </strong></label>
-														<input type="text" name="newName" class="form-control">
+														<input id="newName" type="text" name="newName" class="form-control">
 													</div>
 													<div class="form-group">
 														<label><strong>비밀번호 확인 </strong></label>
-														<input type="password" name="memberPw" class="form-control" >
+														<input id="memberPw" type="password" name="memberPw" class="form-control" >
 													</div>
 													<div class="text-center">
-														<button type="submit" class="btn btn-primary btn-block">변경하기</button>
+														<button id="updateBtn" type="button" class="btn btn-primary btn-block">변경하기</button>
 													</div>
 												</form>
 												<br>
@@ -173,6 +173,33 @@
 	<div>
 		<jsp:include page="/inc/scripts.jsp"></jsp:include>
 	</div>
-
+	<!-- 스크립트 추가 -->
+	<script>
+		let updateBtn = document.querySelector('#updateBtn');
+		updateBtn.addEventListener('click',function()
+											{
+												//변경할 이름 유효성 검사
+												let newName = document.querySelector('#newName');
+												if(newName.value == '')
+												{
+													alert('변경할 이름을 입력하세요');
+													newName.focus(); //브라우저의 커서를 옮겨줌
+													return;
+												}
+												
+												//비밀번호 유효성 검사
+												let memberPw = document.querySelector('#memberPw');
+												if(memberPw.value == '')
+												{
+													alert('비밀번호를 입력하세요');
+													memberPw.focus();
+													return;
+												}
+												
+												let updateMemberForm = document.querySelector('#updateMemberForm');
+												updateMemberForm.submit();
+											});
+	</script>
+	
 </body>
 </html>
