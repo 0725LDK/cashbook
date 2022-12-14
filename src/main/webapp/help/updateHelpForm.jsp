@@ -123,18 +123,18 @@
 			                            <div class="col-xl-12">
 			                                <div class="auth-form">
 			                                    <h4 class="text-center mb-4">문의 수정</h4>
-												<form action="<%=request.getContextPath()%>/help/updateHelpAction.jsp" method="post">
+												<form id="updateHelpForm" action="<%=request.getContextPath()%>/help/updateHelpAction.jsp" method="post">
 													<input type="hidden" name="helpNo" value="<%=helpNo%>">
 													<div class="form-group">
 														<label><strong>수정 전 내용</strong></label>
-														<input name="memberId" type="text" class="form-control"  value="<%=helpMemo%>" readonly="readonly">
+														<input type="text" class="form-control"  value="<%=helpMemo%>" readonly="readonly">
 													</div>
 													<div class="form-group">
 														<label><strong>수정 할 내용</strong></label>
-														<input type="text" name="helpMemo" class="form-control" >
+														<input id="helpMemo" type="text" name="helpMemo" class="form-control" >
 													</div>
 													<div class="text-center">
-														<button type="submit" class="btn btn-primary btn-block">수정 하기</button>
+														<button id="updateHelpBtn" type="button" class="btn btn-primary btn-block">수정 하기</button>
 													</div>
 												</form>
 												<br>
@@ -185,5 +185,22 @@
 		<jsp:include page="/inc/scripts.jsp"></jsp:include>
 	</div>
 	
+	<!-- 스크립트 추가 -->
+	<script>
+		let updateHelpBtn = document.querySelector('#updateHelpBtn');
+		updateHelpBtn.addEventListener('click',function()
+												{
+													let helpMemo = document.querySelector('#helpMemo');
+													if(helpMemo.value == '')
+													{
+														alert('수정 내용을 입력하세요');
+														helpMemo.focus();
+														return;
+													}
+													
+													let updateHelpForm = document.querySelector('#updateHelpForm');
+													updateHelpForm.submit();
+												});
+	</script>
 </body>
 </html>

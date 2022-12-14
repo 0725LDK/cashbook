@@ -128,17 +128,17 @@
 			                            <div class="col-xl-12">
 			                                <div class="auth-form">
 			                                    <h4 class="text-center mb-4">문의 작성</h4>
-												<form action="<%=request.getContextPath()%>/help/insertHelpAction.jsp" method="post">
+												<form id="insertHelpForm" action="<%=request.getContextPath()%>/help/insertHelpAction.jsp" method="post">
 													<div class="form-group">
 														<label><strong>작성자</strong></label>
 														<input name="memberId" type="text" class="form-control"  value="<%=memberId%>" readonly="readonly">
 													</div>
 													<div class="form-group">
 														<label><strong>문의 내용</strong></label>
-														<input type="text" name="helpMemo" class="form-control" >
+														<input id="helpMemo" type="text" name="helpMemo" class="form-control" >
 													</div>
 													<div class="text-center">
-														<button type="submit" class="btn btn-primary btn-block">문의 하기</button>
+														<button id="insertHelpBtn" type="button" class="btn btn-primary btn-block">문의 하기</button>
 													</div>
 												</form>
 												<br>
@@ -187,5 +187,26 @@
 	<div>
 		<jsp:include page="/inc/scripts.jsp"></jsp:include>
 	</div>
+	
+	<!-- 스크립트 추가 -->
+	<script>
+		let insertHelpBtn = document.querySelector('#insertHelpBtn');
+		insertHelpBtn.addEventListener('click',function()
+												{
+													//문의내용 유효성 확인
+													let helpMemo = document.querySelector('#helpMemo');
+													if(helpMemo.value == "")
+													{
+														alert('문의내용을 입력하세요');
+														helpMemo.focus();
+														return;
+													}
+													
+													let insertHelpForm = document.querySelector('#insertHelpForm');
+													insertHelpForm.submit();
+												});
+	
+	</script>
+	
 </body>
 </html>
