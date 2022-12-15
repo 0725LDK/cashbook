@@ -135,7 +135,7 @@
 			                            <div class="col-xl-12">
 			                                <div class="auth-form">
 			                                	<h4 class="text-center mb-4">카테고리 추가</h4>
-			                                	<form action="<%=request.getContextPath()%>/admin/insertCategoryAction.jsp" method="post">
+			                                	<form id="insertCategoryForm" action="<%=request.getContextPath()%>/admin/insertCategoryAction.jsp" method="post">
 			                                		<div class="form-group">
 														<label><strong>수입 or 지출 입력</strong></label>
 														<select class="form-control" name="categoryKind">
@@ -145,10 +145,10 @@
 													</div>
 													<div class="form-group">
 														<label><strong>내용</strong></label>
-														<input type="text" name="categoryName" class="form-control" >
+														<input id="categoryName" type="text" name="categoryName" class="form-control" >
 													</div>
 													<div class="text-center">
-														<button type="submit" class="btn btn-primary btn-block">추가 하기</button>
+														<button id="insertCategoryBtn" type="button" class="btn btn-primary btn-block">추가 하기</button>
 													</div>
 												</form>
 			                                </div>
@@ -189,6 +189,28 @@
 	<div>
 		<jsp:include page="/inc/scripts.jsp"></jsp:include>
 	</div>
+	
+	<!-- 스크립트 추가 -->
+	<script>
+		let insertCategoryBtn = document.querySelector('#insertCategoryBtn');
+		insertCategoryBtn.addEventListener('click', function()
+													{
+														let categoryName = document.querySelector('#categoryName');
+														if(categoryName.value == '')
+														{
+															alert('내용을 입력하세요');
+															categoryName.focus();
+															return;
+														}
+														
+														let insertCategoryForm = document.querySelector('#insertCategoryForm');
+														insertCategoryForm.submit();
+			
+													});
+	
+	</script>
+
+
 
 </body>
 </html>

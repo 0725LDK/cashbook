@@ -183,7 +183,7 @@
                     <div class="col-xl-12 col-lg-8 col-md-8">
                         <div class="card">
                         	<div class="table-responsive">
-                        		<form action="<%=request.getContextPath()%>/admin/insertNoticeAction.jsp">
+                        		<form id="insertNoticeForm" action="<%=request.getContextPath()%>/admin/insertNoticeAction.jsp">
                         			<table class="table mb-0">
                         				<tr>
                         					<td colspan="2">
@@ -193,10 +193,10 @@
                         				
                         				<tr>
                         					<td>공지 내용</td>
-                        					<td><input type="text" class="form-control" name="noticeMemo"></td>
+                        					<td><input id="noticeMemo" type="text" class="form-control" name="noticeMemo"></td>
                         				</tr>
                         				<tr>
-                        					<td colspan="2"><button type="submit" class="btn btn-primary btn-block">공지 입력</button></td>
+                        					<td colspan="2"><button id="insertNoticeBtn" type="button" class="btn btn-primary btn-block">공지 입력</button></td>
                         				</tr>
                         			</table>
                         		</form>
@@ -232,6 +232,24 @@
 	<div>
 		<jsp:include page="/inc/scripts.jsp"></jsp:include>
 	</div>
+
+	<!-- 스크립트 추가 -->
+	<script>
+		let insertNoticeBtn = document.querySelector('#insertNoticeBtn');
+		insertNoticeBtn.addEventListener('click',function()
+											{
+												let noticeMemo = document.querySelector('#noticeMemo');
+												if(noticeMemo.value == '')
+												{
+													alert('공지사항을 입력하세요');
+													noticeMemo.focus();
+													return;
+												}
+												
+												let insertNoticeForm = document.querySelector('#insertNoticeForm');
+												insertNoticeForm.submit();
+											});
+	</script>
 
 </body>
 </html>

@@ -10,8 +10,13 @@
 		response.sendRedirect(request.getContextPath()+"/loginForm.jsp");
 		return;
 	} 
-	// session에 저장된 멤버(현재 로그인)
+	 // session에 저장된 멤버(현재 로그인)
 	Member loginMember = (Member)session.getAttribute("loginMember");
+	if(loginMember != null || loginMember.getMemberLevel()==1)
+	{
+		response.sendRedirect(request.getContextPath()+"/admin/adminMain.jsp");
+		return;
+	} 
 	
 	// request 년 + 월
 	int year = 0;

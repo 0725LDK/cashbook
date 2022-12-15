@@ -141,17 +141,17 @@
 			                            <div class="col-xl-12">
 			                                <div class="auth-form">
 			                                    <h4 class="text-center mb-4">문의 수정</h4>
-												<form action="<%=request.getContextPath()%>/admin/updateNoticeAction.jsp" method="post">
+												<form id="updateNoticeForm" action="<%=request.getContextPath()%>/admin/updateNoticeAction.jsp" method="post">
 													<div class="form-group">
 														<label><strong>공지번호</strong></label>
 														<input name="noticeNo" type="text" class="form-control"  value="<%=noticeNo%>" readonly="readonly">
 													</div>
 													<div class="form-group">
 														<label><strong>공지 수정 내용</strong></label>
-														<input type="text" name="noticeMemo" class="form-control" >
+														<input id="noticeMemo" type="text" name="noticeMemo" class="form-control" >
 													</div>
 													<div class="text-center">
-														<button type="submit" class="btn btn-primary btn-block">수정 하기</button>
+														<button id="updateNoticeBtn" type="button" class="btn btn-primary btn-block">수정 하기</button>
 													</div>
 												</form>
 												<br>
@@ -204,5 +204,22 @@
 		<jsp:include page="/inc/scripts.jsp"></jsp:include>
 	</div>
 
+	<!-- 스크립트 추가 -->
+	<script>
+		let updateNoticeBtn = document.querySelector('#updateNoticeBtn');
+		updateNoticeBtn.addEventListener('click',function()
+											{
+												let noticeMemo = document.querySelector('#noticeMemo');
+												if(noticeMemo.value == '')
+												{
+													alert('공지사항을 입력하세요');
+													noticeMemo.focus();
+													return;
+												}
+												
+												let updateNoticeForm = document.querySelector('#updateNoticeForm');
+												updateNoticeForm.submit();
+											});
+	</script>
 </body>
 </html>

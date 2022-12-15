@@ -137,16 +137,16 @@
 			                            <div class="col-xl-12">
 			                                <div class="auth-form">
 			                                	<h4 class="text-center mb-4">문의 답변 입력</h4>
-			                                	<form action="<%=request.getContextPath()%>/admin/insertCommentAction.jsp" method="post">
+			                                	<form id="insertCommentForm" action="<%=request.getContextPath()%>/admin/insertCommentAction.jsp" method="post">
 													<input type="hidden" name="helpNo" value="<%=helpNo%>">
 													<input type="hidden" name="memberId" value="<%=loginMember%>">
 			                                		<div class="form-group">
 														<label><strong>문의 답변 작성</strong></label>
-														<input type="text" name="commentMemo" class="form-control" >
+														<input id="commentMemo" type="text" name="commentMemo" class="form-control" >
 													</div>
 													
 													<div class="text-center">
-														<button type="submit" class="btn btn-primary btn-block">답변 하기</button>
+														<button id="insertCommentBtn" type="button" class="btn btn-primary btn-block">답변 하기</button>
 													</div>
 												</form>
 			                                </div>
@@ -185,6 +185,21 @@
 	<div>
 		<jsp:include page="/inc/scripts.jsp"></jsp:include>
 	</div>
-
+	<!-- 스크립트 추가 -->
+	<script>
+		let insertCommentBtn = document.querySelector('#insertCommentBtn');
+		insertCommentBtn.addEventListener('click',function()
+													{
+														let commentMemo = document.querySelector('#commentMemo');
+														if(commentMemo.value=='')
+														{
+															alert('답변을 입력하세요');
+															commentMemo.focus();
+															return;
+														}
+														let insertCommentForm = document.querySelector('#insertCommentForm');
+														insertCommentForm.submit();
+													});
+	</script>
 </body>
 </html>

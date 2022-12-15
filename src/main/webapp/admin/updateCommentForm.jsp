@@ -145,7 +145,7 @@
 			                            <div class="col-xl-12">
 			                                <div class="auth-form">
 			                                	<h4 class="text-center mb-4">문의 답변 수정</h4>
-			                                	<form action="<%=request.getContextPath()%>/admin/updateCommentAction.jsp" method="post">
+			                                	<form id="updateCommentForm" action="<%=request.getContextPath()%>/admin/updateCommentAction.jsp" method="post">
 			                                		<input type="hidden" name="commentNo" value="<%=commentNo%>">
 			                                		<div class="form-group">
 														<label><strong>기존 답변</strong></label>
@@ -153,10 +153,10 @@
 													</div>
 													<div class="form-group">
 														<label><strong>수정 할 답변</strong></label>
-														<input type="text" name="commentMemo" class="form-control" >
+														<input id="commentMemo" type="text" name="commentMemo" class="form-control" >
 													</div>
 													<div class="text-center">
-														<button type="submit" class="btn btn-primary btn-block">수정 하기</button>
+														<button id="updateCommentBtn" type="button" class="btn btn-primary btn-block">수정 하기</button>
 													</div>
 												</form>
 			                                </div>
@@ -197,5 +197,22 @@
 	<div>
 		<jsp:include page="/inc/scripts.jsp"></jsp:include>
 	</div>
+	
+	<!-- 스크립트 추가 -->
+	<script>
+		let updateCommentBtn = document.querySelector('#updateCommentBtn');
+		updateCommentBtn.addEventListener('click',function()
+													{
+														let commentMemo = document.querySelector('#commentMemo');
+														if(commentMemo.value=='')
+														{
+															alert('답변을 입력하세요');
+															commentMemo.focus();
+															return;
+														}
+														let updateCommentForm = document.querySelector('#updateCommentForm');
+														updateCommentForm.submit();
+													});
+	</script>
 </body>
 </html>
