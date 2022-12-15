@@ -151,7 +151,7 @@
 											String cashDate = (String)(m.get("cashDate"));
 											if(Integer.parseInt(cashDate.substring(0, 4)) == year && Integer.parseInt(cashDate.substring(5, 7)) == month && Integer.parseInt(cashDate.substring(8)) == date)
 											{
-												System.out.println((Integer)(m.get("cashNo")));
+												System.out.println((Integer)(m.get("cashNo"))+"<====cashDateList");
 									%>
 												<tr>
 													<td><%=(String)m.get("categoryKind")%>&nbsp;</td>
@@ -161,7 +161,7 @@
 													<td><%=(String)m.get("updateDate")%>&nbsp;</td>
 													<td><%=(String)m.get("createDate")%>&nbsp;</td>
 													<td>
-														<a href="<%=request.getContextPath()%>/cash/updateCashForm.jsp?year=<%=year%>&month=<%=month%>&date=<%=date%>&cashNo=<%=m.get("cashNo")%>">&#9997;&nbsp;&nbsp;&nbsp;</a>
+														<a href="<%=request.getContextPath()%>/cash/updateCashForm.jsp?year=<%=year%>&month=<%=month%>&date=<%=date%>&cashNo=<%=m.get("cashNo")%>&memberId=<%=loginMemberId%>">&#9997;&nbsp;&nbsp;&nbsp;</a>
 													</td>
 													<td>
 														<a href="<%=request.getContextPath()%>/cash/deleteCashAction.jsp?year=<%=year%>&month=<%=month%>&date=<%=date%>&cashNo=<%=m.get("cashNo")%>&memberId=<%=loginMemberId%>">&#10060;</a>

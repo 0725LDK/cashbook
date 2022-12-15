@@ -4,7 +4,6 @@
 <%@ page import = "dao.*" %>
 <%@ page import = "vo.*" %>
 <%
-
 	//세션정보
 	if(session.getAttribute("loginMember") == null){
 		response.sendRedirect(request.getContextPath()+"/loginForm.jsp");
@@ -22,9 +21,9 @@
 	int year = Integer.parseInt(request.getParameter("year"));
 	int month = Integer.parseInt(request.getParameter("month"));
 	int date = Integer.parseInt(request.getParameter("date"));
-	//int cashNo = Integer.parseInt(request.getParameter("cashNo"));
+	int cashNo = Integer.parseInt(request.getParameter("cashNo"));
 	
-	System.out.println(request.getParameter("cashNo"));
+	System.out.println(request.getParameter("cashNo")+"<---updateCashForm");
 %>
 <!DOCTYPE html>
 <html>
@@ -145,6 +144,7 @@
 												<input type="hidden" name="year" value="<%=year%>"> 
 												<input type="hidden" name="month" value="<%=month%>"> 
 												<input type="hidden" name="date" value="<%=date%>"> 
+												<input type="hidden" name="cashNo" value="<%=cashNo%>"> 
 												<div class="form-group">
 													<label><strong>수입/지출 + 내용</strong></label>
 													<select name="categoryNo" class="form-control">

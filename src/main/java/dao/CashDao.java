@@ -347,7 +347,6 @@ public class CashDao
 	//가계부 수정
 		public int updateCash(Cash cash) 
 		{
-			int resultRow = 0;
 			int row = 0;
 			Connection conn = null;
 			PreparedStatement stmt = null;
@@ -362,10 +361,14 @@ public class CashDao
 				stmt.setInt(1, cash.getCategoryNo());
 				stmt.setLong(2, cash.getCashPrice());
 				stmt.setString(3, cash.getCashMemo());
-			
 				stmt.setInt(4, cash.getCashNo());
 			
 				row = stmt.executeUpdate();
+				if(row!=1)
+				{
+					System.out.println(row + "cashDao가계부 수정 실패");
+				}
+				
 			}
 			catch(Exception e)
 			{
@@ -375,16 +378,6 @@ public class CashDao
 			{
 				try 
 				{
-					if(row==1)
-					{
-						System.out.println("가계부 수정 성공");
-						resultRow = 1;
-						return resultRow;
-					}
-					else
-					{
-						System.out.println("가계부 수정 실패");
-					}
 					dbUtil.close(null, stmt, conn);
 				}
 				catch(Exception e)
@@ -392,11 +385,6 @@ public class CashDao
 					e.printStackTrace();
 				}
 			}
-			
-			return resultRow;
-			
+			return row;
 		}
-		
-	
-	
 }
