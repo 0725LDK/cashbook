@@ -3,8 +3,6 @@ import vo.*;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.util.*;
 
 import util.DBUtil;
 public class CommentDao {
@@ -17,7 +15,6 @@ public class CommentDao {
 		DBUtil dbUtil = new DBUtil();
 		Connection conn = null;
 		PreparedStatement stmt = null;
-		ResultSet rs = null;
 
 		try
 		{

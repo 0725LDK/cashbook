@@ -4,7 +4,6 @@ import vo.Member;
 import java.sql.*;
 import java.util.*;
 
-import javax.naming.spi.DirStateFactory.Result;
 
 import util.DBUtil;
 

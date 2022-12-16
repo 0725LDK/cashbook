@@ -3,8 +3,7 @@ package dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.*;
 
 import util.DBUtil;
 import vo.Category;
@@ -19,7 +18,6 @@ public class CategoryDao
 		int row =0;
 		Connection conn = null;
 		PreparedStatement stmt = null;
-		ResultSet rs = null;
 		DBUtil dbUtil = new DBUtil();
 		try
 		{
@@ -107,7 +105,6 @@ public class CategoryDao
 		DBUtil dbUtil = new DBUtil();
 		Connection conn = null;
 		PreparedStatement stmt = null;
-		ResultSet rs = null;
 		
 		try
 		{
@@ -144,7 +141,6 @@ public class CategoryDao
 		DBUtil dbUtil = new DBUtil();
 		Connection conn = null;
 		PreparedStatement stmt = null;
-		ResultSet rs = null;
 		try
 		{
 			String sql = "INSERT INTO category(category_kind, category_name, updatedate, createdate) VALUES (?,?,CURDATE(),CURDATE())";
