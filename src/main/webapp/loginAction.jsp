@@ -40,11 +40,11 @@
 		session.setAttribute("loginMember", resultMember); //세션안에 로그인  아이디 & 이름을 저장
 		redirectUrl = "/cash/cashList.jsp";
 	}
-	else if(resultMember != null && MemberLevel > 0)
+	 else if(resultMember != null && MemberLevel > 0)
 	{
 		session.setAttribute("loginMember", resultMember); //세션안에 로그인  아이디 & 이름을 저장
 		redirectUrl = "/admin/adminMain.jsp";
-	}
+	} 
 	
 	//redirect
 	response.sendRedirect(request.getContextPath()+redirectUrl);
