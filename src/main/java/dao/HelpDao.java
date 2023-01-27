@@ -110,7 +110,8 @@ public class HelpDao
 		try
 		{
 			list = new ArrayList<HashMap<String, Object>>();
-			String sql = "SELECT h.help_no helpNo, h.help_memo helpMemo, h.createdate helpCreatedate, c.comment_memo commentMemo, c.createdate commentCreatedate FROM help h LEFT OUTER JOIN comment c ON h.help_no = c.help_no WHERE h.member_id= ?";
+			String sql = "SELECT h.help_no helpNo, h.help_memo helpMemo, h.createdate helpCreatedate, c.comment_memo commentMemo, c.createdate commentCreatedate "
+					+ " FROM help h LEFT OUTER JOIN comment c ON h.help_no = c.help_no WHERE h.member_id= ?";
 			conn = dbUtil.getConnection();
 			stmt = conn.prepareStatement(sql);
 			stmt.setString(1, memberId);

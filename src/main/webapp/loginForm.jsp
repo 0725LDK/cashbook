@@ -157,12 +157,12 @@
                                     <h4 class="text-center mb-4"><span style="font-size:25px;">Sign In</span></h4>
 									<form id="signinForm" action="<%=request.getContextPath()%>/loginAction.jsp" method="post">
 										<div class="form-group">
-											<label><strong>ID</strong></label>
-											<input id="memberId" name="memberId" type="text" class="form-control" placeholder="Insert Your ID">
+											<label><strong>ID (고객 ID : goodee)</strong></label>
+											<input id="memberId" name="memberId" type="text" class="form-control" placeholder="Insert Your ID" value="admin">
 										</div>
 										<div class="form-group">
-											<label><strong>Password</strong></label>
-											<input id="memberPw" type="password" name="memberPw" class="form-control" placeholder="Password">
+											<label><strong>Password (고객 PW : 1234)</strong></label>
+											<input id="memberPw" type="password" name="memberPw" class="form-control" placeholder="Password" value="1234">
 										</div>
 										<div class="text-center">
 											<button type="button" id="signinBtn" class="btn btn-primary btn-block">Sign In!</button>
